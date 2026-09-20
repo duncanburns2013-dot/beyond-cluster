@@ -1,10 +1,10 @@
 # The Beyond Cluster
 
-**A public-records check on 44 Massachusetts corporate entities and $105.9M in MassHealth payments.**
+**A public-records check on 45 Massachusetts corporate entities and $105.9M in MassHealth payments.**
 
-Everything is on this page. The tables below are the findings; the raw data is in [`data/`](data/).
+📄 **[Read the formatted memo →](https://duncanburns2013-dot.github.io/beyond-cluster/)**
 
-> **Note on the formatted version.** [`index.html`](index.html) is the same memo laid out as a web page, but GitHub shows it as source code, not as a rendered site — and GitHub Pages cannot serve it while this repository is private. To read it formatted, either download `index.html` and open it in a browser, or use the hosted copy the repo owner can share. If this repo is ever made public, enabling Pages publishes it at `duncanburns2013-dot.github.io/beyond-cluster/` with no other changes.
+Everything is also on this page. The tables below are the findings; the raw data is in [`data/`](data/).
 
 ---
 
@@ -21,7 +21,7 @@ This repository is the verification. Every claim was checked against the body th
 | Source | What it gave |
 |---|---|
 | CTHRU Comptroller of the Commonwealth Spending — Socrata `pegc-naaa`, 49,009,712 rows, updated 2026-09-19 | Every state payment, by vendor, date, appropriation and city |
-| MA Secretary of the Commonwealth, Corporations Division | All 44 entity summaries, pulled individually |
+| MA Secretary of the Commonwealth, Corporations Division | All 45 entity summaries, pulled individually |
 | Office of the State Auditor, [audit published 21 Sep 2020](https://www.mass.gov/audit/audit-of-the-office-of-medicaid-masshealth-review-of-claims-paid-for-services-by-beyond-healthcare-agency-llc) | The $887,225 finding, verbatim |
 
 Two stale mirrors of the spending dataset exist under the same schema (`f7y8-q6ex`, `2bxs-ytms`) and were **not** used.
@@ -34,7 +34,7 @@ Two stale mirrors of the spending dataset exist under the same schema (`f7y8-q6e
 |---|---|
 | Total state payments, six vendor identities | **$105,956,006.17** |
 | Payments | **7,380** (2011-05-25 → 2026-09-17) |
-| Entities registered under Naomi Osagiede or Naomi Egah | **44** |
+| Entities registered under Naomi Osagiede or Naomi Egah | **45** |
 | …carrying at least one involuntary dissolution | **27** |
 | Paid to the audited company *while it stood dissolved* | **$643,388.39** |
 | Recoupment visible anywhere in the ledger | **$0.00** |
@@ -49,8 +49,8 @@ Two stale mirrors of the spending dataset exist under the same schema (`f7y8-q6e
 | BIL received >$29M FY2017–early 2026 | ⚠️ Slightly over then, true now | $28,730,379 at the post date. $32,404,181 now. |
 | **$121,728.16 on 16 Jan 2025** | ❌ **Fails** | No payment that day. No row in 49M carries that amount. Nearest: 16 Jan **2026**, $172,708.26. |
 | State audit flagged $887,225 | ✅ Exact | Published 21 Sep 2020, period 2016-01-01→2018-12-31. But the auditor says *"appear to be unallowable"*, not "fraudulent". |
-| 12–15 entities | ✅ Understated | **44**. |
-| Vast majority involuntarily dissolved | ✅ Confirmed | **27 of 44** (61%). |
+| 12–15 entities | ✅ Understated | **45**. |
+| Vast majority involuntarily dissolved | ✅ Confirmed | **27 of 45** (60%). |
 | Charter revoked Feb 2025 | ⚠️ Date differs | Register says **30 June 2025**. February fits the notice. |
 | Registered to 661 Centre St on 22 Jan 2020 | ✅ Exact | Entity `001421873`, organised 22 Jan 2020, 661 Centre St **Brockton**, agent **Naomi Egah**. |
 | "The money keeps flowing" | ✅ Confirmed | **$3,608,847** paid since the post. Latest payment 17 Sep 2026. |
@@ -71,7 +71,7 @@ REAL PROPERTY  →  NAOMI EGAH
 MANAGER        →  BEYOND BUSINESS MANAGEMENT INC   (Suite 301)
 ```
 
-Searching only `OSAGIEDE` returns 20 entities. Searching `EGAH` returns 26. Two overlap. Anyone who searched one name and stopped saw less than half the structure.
+Searching only `OSAGIEDE` returns 20 entities. Searching `EGAH` returns 26. One overlaps — Beyond Faith Consulting, the filing above. Anyone who searched one name and stopped saw less than half the structure.
 
 That last line is a separate finding: an entity in this web is itself the registered manager of another entity in this web. The same nesting appears at Beyond Healthcare Agency LLC, whose managers are "Naomi A Osagiede" and an entity called **Beyond Trust** — which exists in the register as Beyond Trust Int LLC, filed under Egah.
 
@@ -149,8 +149,8 @@ Across all 7,380 payments there is not one negative amount; the smallest line is
 - **The clustered dissolution dates are the state's calendar, not an event.** The Corporations Division dissolves delinquent entities in scheduled batches — late June for corporations, late December for LLCs. Five entities share 28 Jun 2019 and five share 30 Jun 2025. Report the **count**, not the coincidence.
 - **$105.9M is a floor, not a ceiling.** CTHRU records Comptroller disbursements. MassHealth fee-for-service claims appear; care paid through an MCO or ACO generally does not.
 - **Appropriation labels are accounting buckets.** "Managed Care Plan", "MassHealth Senior Care", "Indemnity / Third Party Liability Plan" describe which account the money left, not which service was billed.
-- **38 of the 44 entities have never received a state payment.** That is what the Comptroller's file says, and no more.
-- **Other people share these surnames.** The Osagiede search returns filings by at least a dozen other individuals — an attorney, a shipping company, several churches. Only the 44 entities in [`data/entities.csv`](data/entities.csv) carry Naomi Osagiede or Naomi Egah as an officer, manager, agent or signatory.
+- **41 of the 45 entities show no state payment at all.** The money maps to three businesses across six vendor strings. Two of the 45 are identically named Greater Boston Home Health Care LLCs, and because CTHRU carries no entity ID the $47,203 cannot be attributed between them.
+- **Other people share these surnames.** The Osagiede search returns filings by at least a dozen other individuals — an attorney, a shipping company, several churches. Only the 45 entities in [`data/entities.csv`](data/entities.csv) carry Naomi Osagiede or Naomi Egah as an officer, manager, agent or signatory.
 
 ---
 
@@ -159,7 +159,7 @@ Across all 7,380 payments there is not one negative amount; the smallest line is
 | Path | Contents |
 |---|---|
 | [`index.html`](index.html) | The full memo, formatted |
-| [`data/entities.csv`](data/entities.csv) | All 44 entities — SoC ID, type, organised, dissolved, revived, city, which name it was filed under |
+| [`data/entities.csv`](data/entities.csv) | All 45 entities — SoC ID, type, organised, dissolved, revived, city, which name it was filed under, and a note where attribution is uncertain |
 | [`data/payments-by-fiscal-year.csv`](data/payments-by-fiscal-year.csv) | Every vendor × fiscal year × city, with counts and totals |
 | [`data/payments-by-appropriation.csv`](data/payments-by-appropriation.csv) | Every vendor × appropriation × department |
 | [`data/findings.json`](data/findings.json) | Machine-readable verdicts with evidence per claim |
