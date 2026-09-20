@@ -2,7 +2,9 @@
 
 **A public-records check on 44 Massachusetts corporate entities and $105.9M in MassHealth payments.**
 
-📄 **[Read the full memo →](https://duncanburns2013-dot.github.io/beyond-cluster/)**
+Everything is on this page. The tables below are the findings; the raw data is in [`data/`](data/).
+
+> **Note on the formatted version.** [`index.html`](index.html) is the same memo laid out as a web page, but GitHub shows it as source code, not as a rendered site — and GitHub Pages cannot serve it while this repository is private. To read it formatted, either download `index.html` and open it in a browser, or use the hosted copy the repo owner can share. If this repo is ever made public, enabling Pages publishes it at `duncanburns2013-dot.github.io/beyond-cluster/` with no other changes.
 
 ---
 
