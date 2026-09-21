@@ -28,6 +28,7 @@ This repository is the verification. Every claim was checked against the body th
 | NPPES national provider registry (CMS) | The federal billing numbers, their authorized officials and their status |
 | HHS-OIG List of Excluded Individuals and Entities, 84,001 records | Checked: **no exclusions** |
 | Comptroller's Settlements and Judgments file, 7,999 records | Checked: **no settlement or judgment** |
+| 130 CMR 450.212 and 450.231; MGL c.156D §14.21 and c.156C §70 | What the rules actually require, read rather than assumed |
 
 Two stale mirrors of the spending dataset exist under the same schema (`f7y8-q6ex`, `2bxs-ytms`) and were **not** used.
 
@@ -232,7 +233,18 @@ Beyond Healthcare Agency LLC was involuntarily dissolved on **29 Dec 2023** and 
 **2. Payments continue after the surviving corporate entity was dissolved.**
 Since the Beyond Independent Living nonprofit was dissolved on 30 Jun 2025, a vendor named "Beyond Independent Living LLC" has taken **778 payments worth $5,908,174.45**, through 17 Sep 2026 — booked to West Roxbury 02132, the Osagiede address, not the separately registered Brockton LLC of the same name.
 
-> ⚠️ Keep this caveat attached: a MassHealth provider number and a corporate charter are separate instruments, and a provider can stay enrolled through a filing lapse. The finding is that two of the state's own registers disagree. That is a question for MassHealth, not an answer.
+> ⚠️ **Read this before calling it a violation, because it is the opposite of one.** A MassHealth
+> provider number and a corporate charter are separate instruments.
+> [130 CMR 450.212](https://www.law.cornell.edu/regulations/massachusetts/130-CMR-450-212) sets out ten
+> provider eligibility criteria, and none of them requires the provider to hold active corporate
+> registration, to be a legal entity in good standing, or to tell MassHealth that it has been dissolved.
+> [130 CMR 450.231](https://www.law.cornell.edu/regulations/massachusetts/130-CMR-450-231) conditions
+> payment on the provider being *a participating provider on the date of service*, and says nothing about
+> corporate status.
+>
+> So on the face of those two sections, paying a dissolved company breaks no rule. **That is the
+> finding.** Two of the Commonwealth's own registers disagree with each other, and nothing in the
+> billing regulation requires them to agree. A legislator can close that gap; an auditor cannot.
 
 **3. A new payee opened as the old one closed.**
 **Greater Boston Home Health Care LLC** began drawing state money on **20 June 2025** — ten days before the nonprofit's dissolution. 83 payments, $47,203, still paid as of 17 Sep 2026. Payments start at Boston 02132 (the Osagiede address) and **move to Brockton 02302** — the 661 Centre St / Fire of Life address — during FY2026.
@@ -240,7 +252,9 @@ Since the Beyond Independent Living nonprofit was dissolved on 30 Jun 2025, a ve
 **4. No recoupment is visible anywhere.**
 Across all 7,380 payments there is not one negative amount; the smallest line is $0.21.
 
-> ⚠️ MassHealth ordinarily nets recoveries against future claims rather than posting a negative to the Comptroller's ledger. Absence is **not** proof nothing was repaid — which is exactly why the public records request is the right next step. Ask for the recoupment determination by name.
+> ⚠️ **Absence is not proof that nothing was repaid**, but the reason is narrower than it looks. CTHRU `pegc-naaa` records money paid *out* by the Commonwealth; money returned *to* it is revenue and would sit in a different file, so a repayment would not necessarily appear here as a negative line.
+>
+> What the regulations say is worth quoting to anyone who asks. [130 CMR 450.235](https://www.law.cornell.edu/regulations/massachusetts/130-CMR-450-235) requires a provider to report in writing and return an identified overpayment within 60 days. [130 CMR 450.237](https://www.law.cornell.edu/regulations/massachusetts/130-CMR-450-237) gives MassHealth a notice-and-determination process and says the agency "will take appropriate action to recover the overpayment". Neither section, as written, describes netting an overpayment against a provider's future claims. The public records request is how to find out which of those happened, if either. Ask for the overpayment determination by name.
 
 **5. Fire of Life checks out.** `FIRE OF LIFE. INC`, entity `001150418`, is a Chapter 180 religious corporation filed under Naomi Egah at a Brockton address.
 
@@ -259,8 +273,8 @@ Across all 7,380 payments there is not one negative amount; the smallest line is
 ## Read this before publishing anything
 
 - **None of this establishes fraud.** An involuntary dissolution is a failure to file an annual report. The auditor's phrase is *"appear to be unallowable"* — an upper-bound estimate, not an adjudicated finding. Every sentence should survive being read by a lawyer for the other side.
-- **The clustered dissolution dates are the state's calendar, not an event.** The Corporations Division dissolves delinquent entities in scheduled batches — late June for corporations, late December for LLCs. Five entities share 28 Jun 2019 and five share 30 Jun 2025. Report the **count**, not the coincidence.
-- **$105.9M is a floor, not a ceiling.** CTHRU records Comptroller disbursements. MassHealth fee-for-service claims appear; care paid through an MCO or ACO generally does not.
+- **Do not read the clustered dissolution dates as a single event.** Five entities share 28 Jun 2019 and five share 30 Jun 2025, and the LLC dissolutions fall on 29–31 December. Neither statute prescribes a date: [MGL c.156D §14.21](https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXXII/Chapter156D/Section14.21) (corporations) and [MGL c.156C §70](https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXXII/Chapter156C/Section70) (LLCs) each require written notice and a **90-day cure period**, after which the Secretary *shall* dissolve. The clustering is an observed pattern in the filing data, consistent with batch processing, and I have not found a published schedule. Report the **count**, not the coincidence of dates.
+- **$105.9M is a floor, not a ceiling.** CTHRU records disbursements made by the Comptroller. I have not established which payment routes do and do not land in that file, so treat the total as everything the Comptroller's own ledger shows and not as everything these companies were paid.
 - **Appropriation labels are accounting buckets.** "Managed Care Plan", "MassHealth Senior Care", "Indemnity / Third Party Liability Plan" describe which account the money left, not which service was billed.
 - **41 of the 45 entities show no state payment at all.** The money maps to three businesses across six vendor strings. Two of the 45 are identically named Greater Boston Home Health Care LLCs, and because CTHRU carries no entity ID the $47,203 cannot be attributed between them.
 - **Other people share these surnames.** The Osagiede search returns filings by at least a dozen other individuals — an attorney, a shipping company, several churches. Only the 45 entities in [`data/entities.csv`](data/entities.csv) carry Naomi Osagiede or Naomi Egah as an officer, manager, agent or signatory.
@@ -279,7 +293,7 @@ Across all 7,380 payments there is not one negative amount; the smallest line is
 | [`data/npi-registry.csv`](data/npi-registry.csv) | The seven federal billing numbers, officials, addresses and status |
 | [`data/findings.json`](data/findings.json) | Machine-readable verdicts with evidence per claim |
 | [`scripts/soda.py`](scripts/soda.py) | The Socrata query helper — reproduce any figure here |
-| [`scripts/audit.py`](scripts/audit.py) | **The accuracy audit.** Re-derives all 162 published figures from the live API and the register, and fails if any disagree |
+| [`scripts/audit.py`](scripts/audit.py) | **The accuracy audit.** Re-derives all 180 published figures from the live API and the register, and fails if any disagree |
 
 ### Checking this page
 
@@ -290,7 +304,7 @@ non-zero if anything disagrees.
 
 ```bash
 cd scripts && python audit.py
-# RESULT: 162 checks, 162 passed, 0 FAILED
+# RESULT: 180 checks, 180 passed, 0 FAILED
 ```
 
 Figures move as the Commonwealth pays more money, so a re-run will legitimately diverge on

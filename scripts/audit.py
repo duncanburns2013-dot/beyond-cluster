@@ -250,6 +250,24 @@ for doc, nm in [(README, "README"), (HTML, "index.html")]:
     chk("%s cites the null exclusion search" % nm, True, "84,001" in doc)
     chk("%s keeps the no-enforcement-action line" % nm, True, "no enforcement action" in doc.lower())
 
+print()
+print("=" * 118)
+print("K. SOURCING DISCIPLINE (every rule-shaped claim must carry a citation)")
+print("=" * 118)
+import re as _re
+for doc, nm in [(README, "README"), (HTML, "index.html")]:
+    prose = chr(10).join(l for l in doc.split(chr(10)) if not l.strip().startswith("|"))
+    hedges = _re.findall(r"(ordinarily|generally|typically|usually)", prose, _re.I)
+    chk("%s free of unsourced hedge words" % nm, [], [h.lower() for h in hedges])
+    chk("%s cites 130 CMR 450.212 (provider eligibility)" % nm, True, "450.212" in doc)
+    chk("%s cites 130 CMR 450.231 (conditions of payment)" % nm, True, "450.231" in doc)
+    chk("%s cites 130 CMR 450.235 (duty to return overpayments)" % nm, True, "450.235" in doc)
+    chk("%s cites 130 CMR 450.237 (overpayment determination)" % nm, True, "450.237" in doc)
+    chk("%s cites the dissolution statutes" % nm, True, "156D" in doc and "156C" in doc)
+    chk("%s states the 90-day cure period" % nm, True, "90-day cure" in doc)
+    chk("%s no longer asserts a dissolution schedule" % nm, False, "scheduled batches" in doc)
+    chk("%s no longer asserts an offset mechanism" % nm, False, "nets recoveries" in doc)
+
 print("\n" + "=" * 118)
 fails = [r for r in results if not r[0]]
 print("RESULT: %d checks, %d passed, %d FAILED" % (len(results), len(results) - len(fails), len(fails)))
