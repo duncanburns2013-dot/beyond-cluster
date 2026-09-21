@@ -268,6 +268,19 @@ for doc, nm in [(README, "README"), (HTML, "index.html")]:
     chk("%s no longer asserts a dissolution schedule" % nm, False, "scheduled batches" in doc)
     chk("%s no longer asserts an offset mechanism" % nm, False, "nets recoveries" in doc)
 
+print()
+print("=" * 118)
+print("L. SCOPE STATEMENT (a reader must be able to see where the work stops)")
+print("=" * 118)
+for doc, nm in [(README, "README"), (HTML, "index.html")]:
+    chk("%s carries a scope section" % nm, True, "Scope of this check" in doc)
+    chk("%s bounds the CMR reading to four sections" % nm, True,
+        all(x in doc for x in ("450.212", "450.231", "450.235", "450.237")) and "bounded to those four sections" in doc)
+    chk("%s states nobody was contacted" % nm, True, "was contacted" in doc)
+    chk("%s states no wrongdoing is alleged" % nm, True, "wrongdoing" in doc.lower())
+    chk("%s disclaims legal advice" % nm, True, "nothing here is legal advice" in doc.lower())
+    chk("%s gives the retrieval date" % nm, True, "20 September 2026" in doc)
+
 print("\n" + "=" * 118)
 fails = [r for r in results if not r[0]]
 print("RESULT: %d checks, %d passed, %d FAILED" % (len(results), len(results) - len(fails), len(fails)))

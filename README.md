@@ -281,6 +281,39 @@ Across all 7,380 payments there is not one negative amount; the smallest line is
 
 ---
 
+## Scope of this check
+
+Stated plainly so a reader can see where the work stops.
+
+**Retrieved.** All figures 20 September 2026. Payment data current to 17 September 2026.
+Re-running [`scripts/audit.py`](scripts/audit.py) re-derives every one of them from the live
+sources and fails on any disagreement.
+
+**Read in full.** All 45 entity summaries at the Corporations Division, pulled individually.
+The Office of the State Auditor report of 21 September 2020. Every row these EINs return from
+the IRS Automatic Revocation list. Every NPPES record for the seven billing numbers.
+
+**Searched completely, returning the counts stated.** CTHRU `pegc-naaa` (49,009,712 rows),
+the IRS revocation list (1,247,140), the IRS Massachusetts exempt-organization master file
+(44,035), the HHS-OIG exclusion list (84,001), the Comptroller's Settlements and Judgments
+file (7,999).
+
+**Read in part, and this is the limit that matters.** Of 130 CMR 450, I read only
+**450.212, 450.231, 450.235 and 450.237**. Statements on this page about what MassHealth's
+rules do and do not require are bounded to those four sections and should not be read as a
+survey of the regulation. Of the dissolution statutes I read MGL c.156D §14.21 and
+c.156C §70.
+
+**Not done.** No one named here was contacted. No interviews. No review of MassHealth's
+provider enrolment file, no claims-level data, no court records, no property records. Whether
+services were delivered has not been examined and could not be from these sources.
+
+**Not alleged.** No conclusion of wrongdoing by any named person or entity is drawn or
+intended. Every record cited is a public filing or a public disclosure by the Commonwealth or
+the federal government. Nothing here is legal advice.
+
+---
+
 ## Files
 
 | Path | Contents |
@@ -293,7 +326,7 @@ Across all 7,380 payments there is not one negative amount; the smallest line is
 | [`data/npi-registry.csv`](data/npi-registry.csv) | The seven federal billing numbers, officials, addresses and status |
 | [`data/findings.json`](data/findings.json) | Machine-readable verdicts with evidence per claim |
 | [`scripts/soda.py`](scripts/soda.py) | The Socrata query helper — reproduce any figure here |
-| [`scripts/audit.py`](scripts/audit.py) | **The accuracy audit.** Re-derives all 180 published figures from the live API and the register, and fails if any disagree |
+| [`scripts/audit.py`](scripts/audit.py) | **The accuracy audit.** Re-derives all 192 published figures from the live API and the register, and fails if any disagree |
 
 ### Checking this page
 
@@ -304,7 +337,7 @@ non-zero if anything disagrees.
 
 ```bash
 cd scripts && python audit.py
-# RESULT: 180 checks, 180 passed, 0 FAILED
+# RESULT: 192 checks, 192 passed, 0 FAILED
 ```
 
 Figures move as the Commonwealth pays more money, so a re-run will legitimately diverge on

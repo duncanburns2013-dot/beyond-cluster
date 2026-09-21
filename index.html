@@ -758,6 +758,21 @@ figcaption{margin-top:12px; padding-top:11px; border-top:1px dashed var(--rule);
   </div>
 </section>
 
+<section>
+  <h2>Scope of this check</h2>
+  <p class="lede">Stated plainly so a reader can see where the work stops.</p>
+  <div class="caveats">
+    <ul>
+      <li><b>Retrieved.</b> All figures 20 September 2026; payment data current to 17 September 2026. The audit script re-derives every one of them from the live sources and fails on any disagreement.</li>
+      <li><b>Read in full.</b> All 45 entity summaries at the Corporations Division, pulled individually. The State Auditor report of 21 September 2020. Every row these EINs return from the IRS Automatic Revocation list. Every NPPES record for the seven billing numbers.</li>
+      <li><b>Searched completely, returning the counts stated.</b> CTHRU <code>pegc-naaa</code> (49,009,712 rows), the IRS revocation list (1,247,140), the IRS Massachusetts exempt-organization master file (44,035), the HHS-OIG exclusion list (84,001), the Comptroller&rsquo;s Settlements and Judgments file (7,999).</li>
+      <li><b>Read in part, and this is the limit that matters.</b> Of 130 CMR 450 I read only <b>450.212, 450.231, 450.235 and 450.237</b>. Statements on this page about what MassHealth&rsquo;s rules do and do not require are bounded to those four sections and are not a survey of the regulation. Of the dissolution statutes I read MGL c.156D &sect;14.21 and c.156C &sect;70.</li>
+      <li><b>Not done.</b> No one named here was contacted. No interviews. No review of MassHealth&rsquo;s provider enrolment file, no claims-level data, no court records, no property records. Whether services were delivered has not been examined and could not be from these sources.</li>
+      <li><b>Not alleged.</b> No conclusion of wrongdoing by any named person or entity is drawn or intended. Every record cited is a public filing or a public disclosure by the Commonwealth or the federal government. Nothing here is legal advice.</li>
+    </ul>
+  </div>
+</section>
+
 <footer>
   <p><b>Sources, all primary.</b> Comptroller of the Commonwealth Spending, CTHRU open data, Socrata dataset <code>pegc-naaa</code> &mdash; 49,009,712 rows, last updated 19 September 2026. Massachusetts Secretary of the Commonwealth, Corporations Division entity and individual searches, each of the 45 entity summaries pulled individually. Office of the State Auditor, <i>Audit of the Office of Medicaid (MassHealth) &mdash; Review of Claims Paid for Services by Beyond Healthcare Agency, LLC</i>, published 21 September 2020. IRS Automatic Revocation of Exemption list (1,247,140 records) and Exempt Organization Business Master File for Massachusetts (44,035 records). NPPES national provider registry, CMS. HHS-OIG List of Excluded Individuals and Entities (84,001 records). The Comptroller's Settlements and Judgments file (7,999 records). 130 CMR 450.212 and 450.231; MGL c.156D &sect;14.21 and c.156C &sect;70.</p>
   <p>Two stale mirrors of the spending dataset exist under the same schema and were not used. Every figure on this page was queried on 20 September 2026 against the live table and is reproducible from the vendor strings and entity ID numbers printed above.</p>
