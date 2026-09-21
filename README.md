@@ -164,6 +164,23 @@ Across all 7,380 payments there is not one negative amount; the smallest line is
 | [`data/payments-by-appropriation.csv`](data/payments-by-appropriation.csv) | Every vendor × appropriation × department |
 | [`data/findings.json`](data/findings.json) | Machine-readable verdicts with evidence per claim |
 | [`scripts/soda.py`](scripts/soda.py) | The Socrata query helper — reproduce any figure here |
+| [`scripts/audit.py`](scripts/audit.py) | **The accuracy audit.** Re-derives all 108 published figures from the live API and the register, and fails if any disagree |
+
+### Checking this page
+
+Every figure here is machine-checked. `scripts/audit.py` re-queries the live Comptroller
+dataset and re-reads the entity register, then compares each result against the number as
+published in this README, in `index.html`, and inside the hand-built chart SVGs. It exits
+non-zero if anything disagrees.
+
+```bash
+cd scripts && python audit.py
+# RESULT: 108 checks, 108 passed, 0 FAILED
+```
+
+Figures move as the Commonwealth pays more money, so a re-run will legitimately diverge on
+the running totals. What it must never show is an internal disagreement — a number in the
+prose that the data does not support.
 
 ### Reproducing a figure
 
