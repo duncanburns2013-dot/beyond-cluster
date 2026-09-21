@@ -23,6 +23,11 @@ This repository is the verification. Every claim was checked against the body th
 | CTHRU Comptroller of the Commonwealth Spending — Socrata `pegc-naaa`, 49,009,712 rows, updated 2026-09-19 | Every state payment, by vendor, date, appropriation and city |
 | MA Secretary of the Commonwealth, Corporations Division | All 45 entity summaries, pulled individually |
 | Office of the State Auditor, [audit published 21 Sep 2020](https://www.mass.gov/audit/audit-of-the-office-of-medicaid-masshealth-review-of-claims-paid-for-services-by-beyond-healthcare-agency-llc) | The $887,225 finding, verbatim |
+| IRS Automatic Revocation of Exemption list, 1,247,140 records | Every 501(c)(3) in this web, and the date each lost exemption |
+| IRS Exempt Organization Business Master File, Massachusetts, 44,035 records | Confirmation that none of them holds exemption today |
+| NPPES national provider registry (CMS) | The federal billing numbers, their authorized officials and their status |
+| HHS-OIG List of Excluded Individuals and Entities, 84,001 records | Checked: **no exclusions** |
+| Comptroller's Settlements and Judgments file, 7,999 records | Checked: **no settlement or judgment** |
 
 Two stale mirrors of the spending dataset exist under the same schema (`f7y8-q6ex`, `2bxs-ytms`) and were **not** used.
 
@@ -111,6 +116,114 @@ The largest block — $63.2M — is invisible to a plain search: the vendor stri
 
 ---
 
+## The federal record
+
+The state register shows companies being struck off. The federal register shows the same
+pattern, independently, and it is the harder of the two documents.
+
+### Every 501(c)(3) in this web lost its exemption
+
+The IRS publishes an Automatic Revocation of Exemption list: organisations whose tax-exempt
+status was revoked under IRC 6033(j) for failing to file a return three years running.
+Searching all 1,247,140 records returns eight rows, covering all seven of the nonprofits here.
+
+| EIN | Organisation | Revoked | Posted | Reinstated |
+|---|---|---|---|---|
+| **462941036** | **BEYOND INDEPENDENT LIVING LLC** | **15 May 2021** | 9 Aug 2021 | no |
+| 472476331 | Fire of Life Inc | 15 May 2022 | **17 Jan 2026** | no |
+| 850730708 | Hope and Power Mega Church | 15 May 2023 | 14 Aug 2023 | no |
+| 821341006 | Nkums World Outreach | 15 May 2020 | 11 Aug 2020 | no |
+| 822091333 | Nigerian Nurses Association of Massachusetts | 15 May 2020 | 11 Aug 2020 | no |
+| 822326336 | Embassy of Grace, A Place of Favor | 15 May 2020 | 11 Aug 2020 | no |
+| 465109128 | Beyond Zoe Ministry | 15 May 2017 | 16 Aug 2017 | 15 May 2017 |
+| 472476331 | Fire of Life *(first revocation)* | 15 May 2017 | 16 Aug 2017 | 15 May 2017 |
+
+Two facts in that table carry weight beyond the rest.
+
+**EIN 462941036 is the same number the Secretary of the Commonwealth uses as the
+identification number for Beyond Independent Living LLC** — the vendor the Comptroller has
+paid **$32,404,181**. Its exemption was revoked on 15 May 2021 for three consecutive years of
+not filing. The Commonwealth has paid it every year since: $3.48M in FY2021, climbing to
+$4.78M in FY2026.
+
+**Fire of Life's second revocation was posted on 17 January 2026** — four days before the X
+post that started this.
+
+None of the seven EINs appears in the IRS's current Massachusetts exempt-organization master
+file. I checked all 44,035 records by EIN and by name.
+
+### Seven federal billing numbers, all still live
+
+| NPI | Organisation | Authorized official | Practice address | Status | Last updated |
+|---|---|---|---|---|---|
+| 1003226630 | Beyond Independent Living LLC | **Naomi Osagiede**, Owner | 661 Centre St, Brockton | active | 23 Jun 2026 |
+| 1003116021 | Beyond Healthcare Agency LLC | **Naomi Osagiede**, CEO | 10 New England Business Center Dr, Andover | active | 23 Jun 2026 |
+| 1063691905 | Greater Boston Home Health Care LLC | **Naomi Osagiede**, Owner | 661 Centre St, Brockton | active | 24 Aug 2026 |
+| 1255748281 | Community Psych Healthcare LLC | **Naomi Egah**, Owner | 661 Centre St, Brockton | active | 9 Oct 2024 |
+| 1952723322 | Always Available Healthcare LLC | **Aderonke Osagiede**, CEO | 691 Main St, Waltham | active | 9 Jun 2014 |
+| 1316376999 | Beyond Zoe Hospice LLC | **Aderonke Osagiede**, CEO | 10 Tower Office Park, Woburn | active | 3 Mar 2015 |
+| 1700662186 | Healing Pathways Home Care LLC | Raquel Vargas, Owner/President | 101 Amesbury St, Lawrence | active | 1 Sep 2023 |
+
+Every one carries status **A**. None has a deactivation date. That includes companies the
+Commonwealth has struck off.
+
+This table also settles the identity question a third time, and settles it in a federal
+record rather than a state one. Community Psych Healthcare is filed under **Naomi Egah** with
+a mailing address of **1208B VFW Parkway, West Roxbury** — the Osagiede hub — and shares the
+telephone number **978-930-9410** with Always Available Healthcare, filed under **Aderonke
+Osagiede**. Beyond Healthcare Agency and Beyond Zoe Hospice share **781-932-1166**.
+
+Healing Pathways Home Care is the exception worth naming: Naomi Aderonke Egah is a manager on
+the state filing, but the federal registry names a different authorized official. Treat it as
+adjacent, not as hers.
+
+### What the federal record does *not* show
+
+Two searches came back empty, and both matter.
+
+- **No exclusions.** The HHS-OIG List of Excluded Individuals and Entities, all 84,001
+  records, returns nothing for Osagiede, for Egah, or for any of the business names. Nobody
+  here is barred from federal health programmes.
+- **No settlement, no judgment.** The Comptroller's own Settlements and Judgments file, 7,999
+  records, returns nothing either.
+
+**There is no enforcement action against anyone in this web anywhere on the public record.**
+That is a fact about the file, and it belongs in any honest write-up of it.
+
+---
+
+## What is actually provable
+
+Worth being exact about, because the gap between what the records show and what a reader will
+assume is where this goes wrong.
+
+**Provable from documents today, no inference:**
+
+1. One person operates 45 Massachusetts entities under two filing names. Three independent
+   records tie the names together, one of them federal.
+2. Twenty-seven of those entities carry an involuntary dissolution.
+3. All seven that held federal tax exemption lost it for failure to file.
+4. The entity whose exemption was revoked in May 2021 has been paid $32.4M by the
+   Commonwealth, $4.78M of it in FY2026 alone.
+5. Beyond Healthcare Agency was paid $643,388 across 153 payments while it stood dissolved.
+6. A 2020 state audit put up to $887,225 in apparently unallowable billing, and no recovery
+   appears in any public file.
+7. Every company here still holds an active federal billing number.
+
+**Answerable with one more record, which nobody has yet:** whether MassHealth ever recouped
+the $887,225, and whether provider enrolment lapsed during the dissolution. Both sit in
+MassHealth's provider file. The public records request is the way to get them.
+
+**Not provable by anyone outside government:** whether services were delivered, whether any
+billing was knowingly false, and intent. Those need claims-level data and a subpoena.
+
+The defensible claim is not that someone stole $103 million. It is that a single operator
+with 45 companies, 27 administrative dissolutions, seven revoked exemptions and an unresolved
+audit finding has been paid $105.9 million and is still being paid, and that no public body
+appears to have looked. That is a demand for an audit, and the records carry it.
+
+---
+
 ## What the original post missed
 
 **1. The state paid the audited company while it was legally dissolved.**
@@ -162,9 +275,11 @@ Across all 7,380 payments there is not one negative amount; the smallest line is
 | [`data/entities.csv`](data/entities.csv) | All 45 entities — SoC ID, type, organised, dissolved, revived, city, which name it was filed under, and a note where attribution is uncertain |
 | [`data/payments-by-fiscal-year.csv`](data/payments-by-fiscal-year.csv) | Every vendor × fiscal year × city, with counts and totals |
 | [`data/payments-by-appropriation.csv`](data/payments-by-appropriation.csv) | Every vendor × appropriation × department |
+| [`data/irs-revocations.csv`](data/irs-revocations.csv) | The eight rows these EINs return from the IRS Automatic Revocation list |
+| [`data/npi-registry.csv`](data/npi-registry.csv) | The seven federal billing numbers, officials, addresses and status |
 | [`data/findings.json`](data/findings.json) | Machine-readable verdicts with evidence per claim |
 | [`scripts/soda.py`](scripts/soda.py) | The Socrata query helper — reproduce any figure here |
-| [`scripts/audit.py`](scripts/audit.py) | **The accuracy audit.** Re-derives all 108 published figures from the live API and the register, and fails if any disagree |
+| [`scripts/audit.py`](scripts/audit.py) | **The accuracy audit.** Re-derives all 162 published figures from the live API and the register, and fails if any disagree |
 
 ### Checking this page
 
@@ -175,7 +290,7 @@ non-zero if anything disagrees.
 
 ```bash
 cd scripts && python audit.py
-# RESULT: 108 checks, 108 passed, 0 FAILED
+# RESULT: 162 checks, 162 passed, 0 FAILED
 ```
 
 Figures move as the Commonwealth pays more money, so a re-run will legitimately diverge on

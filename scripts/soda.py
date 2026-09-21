@@ -5,8 +5,9 @@ CTX = ssl.create_default_context()
 CTX.check_hostname = False
 CTX.verify_mode = ssl.CERT_NONE
 
-def q(**params):
-    url = BASE + "?" + urllib.parse.urlencode({("$" + k if k in
+def q(dataset=None, **params):
+    base = BASE if dataset is None else BASE.replace("pegc-naaa", dataset)
+    url = base + "?" + urllib.parse.urlencode({("$" + k if k in
           ("select","where","group","order","limit","offset","q","having") else k): v
           for k, v in params.items()})
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})

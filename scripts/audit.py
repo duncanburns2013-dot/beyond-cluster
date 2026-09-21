@@ -175,6 +175,82 @@ for doc, nm in [(README, "README"), (HTML, "index.html")]:
         ("batch" in doc.lower()) or ("scheduled sweep" in doc.lower()))
 
 print("\n" + "=" * 118)
+print("J. THE FEDERAL RECORD (IRS revocations, NPPES, and the two null searches)")
+print("=" * 118)
+import ssl, urllib.request, io, zipfile
+_CTX = ssl.create_default_context(); _CTX.check_hostname = False; _CTX.verify_mode = ssl.CERT_NONE
+def _get(u, raw=False, timeout=600):
+    rq = urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(rq, timeout=timeout, context=_CTX) as fh:
+        d = fh.read()
+    return d if raw else json.loads(d.decode())
+
+# --- the seven federal billing numbers, re-queried live
+npis = list(csv.DictReader(open(REPO + "data/npi-registry.csv", encoding="utf-8")))
+chk("NPI rows on file", 7, len(npis))
+for row in npis:
+    live = _get("https://npiregistry.cms.hhs.gov/api/?version=2.1&number=%s" % row["npi"], timeout=180)
+    if not live.get("results"):
+        chk("NPI %s resolves" % row["npi"], True, False); continue
+    b = live["results"][0]["basic"]
+    off = (b.get("authorized_official_first_name", "") + " " + b.get("authorized_official_last_name", "")).strip()
+    chk("NPI %s status still active" % row["npi"], "A", b.get("status"))
+    chk("NPI %s not deactivated" % row["npi"], "", b.get("deactivation_date") or "")
+    chk("NPI %s authorized official" % row["npi"], row["authorized_official"], off)
+    chk("NPI %s in the page" % row["npi"], True, row["npi"] in HTML)
+
+# --- IRS automatic revocations, re-downloaded and re-scanned
+rev = list(csv.DictReader(open(REPO + "data/irs-revocations.csv", encoding="utf-8")))
+chk("IRS revocation rows on file", 8, len(rev))
+chk("distinct EINs revoked", 7, len({r["ein"] for r in rev}))
+chk("rows with no reinstatement", 6, sum(1 for r in rev if not r["reinstatement_date"].strip()))
+try:
+    z = zipfile.ZipFile(io.BytesIO(_get("https://apps.irs.gov/pub/epostcard/data-download-revocation.zip", raw=True)))
+    txt = z.read(z.namelist()[0]).decode("latin-1").splitlines()
+    chk("IRS revocation file line count as published", 1247140, len(txt), tol=0)
+    want = {r["ein"] for r in rev}
+    got = {}
+    for line in txt:
+        e = line.split("|", 1)[0].strip()
+        if e in want: got.setdefault(e, []).append(line)
+    chk("all published EINs still on the IRS revocation list", sorted(want), sorted(got))
+    chk("total rows the IRS returns for those EINs", 8, sum(len(v) for v in got.values()))
+    for r in rev:
+        f = [x.strip() for x in next(l for l in got[r["ein"]]
+             if [y.strip() for y in l.split("|")][9] == r["revocation_date"]).split("|")]
+        chk("EIN %s revoked %s" % (r["ein"], r["revocation_date"]), r["posting_date"], f[10])
+except Exception as e:
+    chk("IRS revocation file re-download", "ok", "ERROR: %s" % e)
+
+# --- the two null searches must still be null
+try:
+    leie = _get("https://oig.hhs.gov/exclusions/downloadables/UPDATED.csv", raw=True).decode("latin-1")
+    rdr = list(csv.DictReader(io.StringIO(leie)))
+    chk("LEIE record count as published", 84001, len(rdr), tol=0)
+    hits = [r for r in rdr
+            if "OSAGIEDE" in (r.get("LASTNAME") or "").upper()
+            or (r.get("LASTNAME") or "").upper().strip() == "EGAH"
+            or any(k in (r.get("BUSNAME") or "").upper() for k in
+                   ("BEYOND HEALTHCARE", "BEYOND INDEPENDENT", "GREATER BOSTON HOME HEALTH",
+                    "ALWAYS AVAILABLE HEALTH", "COMMUNITY PSYCH HEALTH", "BEYOND ZOE"))]
+    chk("HHS-OIG exclusions for this web", 0, len(hits))
+except Exception as e:
+    chk("LEIE re-download", "ok", "ERROR: %s" % e)
+
+sj = q(select="count(1) as n", where=("upper(payee_name) like '%25BEYOND%25' OR upper(payee_name) like '%25OSAGIEDE%25' "
+                                      "OR upper(payee_name) like '%25EGAH%25'"), dataset="gpqz-7ppn")
+chk("Comptroller settlements/judgments naming this web", "0", sj[0]["n"])
+
+# --- the claim that ties the two registers together
+ents_by_id = {e["soc_id"]: e for e in ents}
+chk("EIN 462941036 is also a SoC entity id", True, "462941036" in ents_by_id)
+chk("  and that entity is the $32.4M payee", "BEYOND INDEPENDENT LIVING LLC", ents_by_id.get("462941036", {}).get("entity", ""))
+for doc, nm in [(README, "README"), (HTML, "index.html")]:
+    chk("%s cites the IRS revocation" % nm, True, "462941036" in doc and "15 May 2021" in doc)
+    chk("%s cites the null exclusion search" % nm, True, "84,001" in doc)
+    chk("%s keeps the no-enforcement-action line" % nm, True, "no enforcement action" in doc.lower())
+
+print("\n" + "=" * 118)
 fails = [r for r in results if not r[0]]
 print("RESULT: %d checks, %d passed, %d FAILED" % (len(results), len(results) - len(fails), len(fails)))
 for _, lab, e, a in fails:
