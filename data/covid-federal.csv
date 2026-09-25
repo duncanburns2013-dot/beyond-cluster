@@ -26,3 +26,8 @@ HHS PRF,,BEYOND INDEPENDENT LIVING INC (West Roxbury MA),,40541,,probable,data.c
 HHS PRF,,GUARANTEED HOME HEALTH SERVICES INC (Newtown PA),,13715,,probable,data.cdc.gov kh8y-3es6
 HHS PRF,,"GREATER BOSTON HOME HEALTH CARE, LLC (Boston MA)",,1335,,probable,data.cdc.gov kh8y-3es6
 ARP Rural,,ADERONKE NAOMI OSAGIEDE BEYOND HEALTHCARE AGENCY LLC (Woburn MA),,500,,probable,data.cdc.gov 8v6a-z6zq
+PPP,5973777709,GUARANTEED HOME HEALTH SERVICES INC (Newtown PA),2020-05-01,76314,76939.15,probable,public_up_to_150k_10_240930.csv
+PPP,1005848500,GUARANTEED HOME HEALTH SERVICES INC (Newtown PA),2021-02-18,76315,76856.52,probable,public_up_to_150k_10_240930.csv
+EIDL loan,6937108101,Guaranteed Home Health Services Inc (Newtown PA),2020-07-22,61800,,probable,DATAACT_EIDL_LOANS_20200626-20200723.csv
+EIDL advance,EIDLGT:3304767076,Guaranteed Home Health Services Inc DBA Always a Step Beyond (Newtown PA),2020-06-18,10000,,probable,EIDL Advance through 111520
+Medicare AAP,,"GREATER BOSTON HOME HEALTH CARE, LLC (Massachusetts)",2020,463529.01,,probable,data.cdc.gov v2pi-w3up (advances against future claims; recoupment not shown)

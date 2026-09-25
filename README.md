@@ -1,6 +1,6 @@
 # The Beyond Cluster
 
-**A public-records check on 45 Massachusetts corporate entities, $105.9M in MassHealth payments from the state ledger, and the federal record behind them.**
+**A public-records check on 45 Massachusetts corporate entities, $105.9M in state payments from the Comptroller's ledger, and the federal record behind them.**
 
 📄 **[Read the formatted memo →](https://duncanburns2013-dot.github.io/beyond-cluster/)** The memo is split into tabs: Overview, Claims checked, State payments, Medicaid & Medicare, Greater Boston Home Health, COVID money, Identity, Register & IRS, Enforcement, Follow-ups, Corrections & method.
 
@@ -26,7 +26,7 @@ This repository is the verification. Every claim was checked against the body th
 | NPPES national provider registry (CMS) | Sixteen billing numbers, their authorized officials and status |
 | SBA PPP loan-level FOIA data; SBA COVID EIDL loan and advance data | Pandemic loans and grants |
 | HRSA Provider Relief Fund and ARP Rural payments (data.cdc.gov) | Pandemic relief payments |
-| IRS Automatic Revocation of Exemption list, 1,247,140 records; IRS EO master file; 990 indexes | Every revoked exemption in this web |
+| IRS Automatic Revocation of Exemption list, 1,247,137 records; IRS EO master file; 990 indexes | Every revoked exemption in this web |
 | HHS-OIG List of Excluded Individuals and Entities, 84,001 records; SAM exclusions; MassHealth suspended list; CMS revocations | Checked: **no exclusions** |
 | Comptroller's Settlements and Judgments file, 8,297 records | Checked: **no settlement or judgment** |
 | 130 CMR 450.212, 450.231, 450.235 and 450.237; 101 CMR 351; MGL c.156D §14.21 and c.156C §70 | What the rules actually require, read rather than assumed |
@@ -37,11 +37,11 @@ Two stale mirrors of the spending dataset exist under the same schema (`f7y8-q6e
 
 ## What the 25 September update adds
 
-1. **Greater Boston Home Health Care is not a new payee. She bought it in 2015.** A state amendment of 30 July 2015 records "the sale of the agency to Aderonke Naomi Osagiede". The Comptroller paid it as `GR. BOSTON HOME HLTH LLC` from 2009, $453,684.67 of it after the sale. Medicare paid it $13,673,342 for 2016 to 2024, and the SBA forgave two PPP loans totalling $2,369,200.
-2. **One federal owner ID, four home health agencies, three states.** CMS lists associate 1254592256, NAOMI A EGAH, as 100% owner of Beyond Healthcare Agency and Greater Boston Home Health Care in Massachusetts, Guaranteed Home Health Services in Pennsylvania, and (in its 2023 file) Eden Healthcare in Texas. NPPES names Naomi Osagiede for the same agencies.
+1. **Greater Boston Home Health Care is not a new payee. She bought it in 2015.** A state amendment of 30 July 2015 records "the sale of the agency to Aderonke Naomi Osagiede". The Comptroller paid a string the first version had not searched, `GR. BOSTON HOME HLTH LLC`, from 2009 ($453,684.67 after the sale); name, ZIP history and a seven-day handover make it probably the same agency. Medicare paid it $13,673,342 for 2016 to 2024, and the SBA forgave two PPP loans totalling $2,369,200.
+2. **One federal owner ID, four home health agencies, three states.** CMS lists associate 1254592256, NAOMI A EGAH, as 100% owner of Beyond Healthcare Agency and Greater Boston Home Health Care in Massachusetts, Guaranteed Home Health Services in Pennsylvania, and (in its 2023 file) Eden Healthcare in Texas. NPPES names Naomi Osagiede for the first three; Eden's NPI names a different official, so that link rests on CMS's 2023 owner file alone.
 3. **The audited company was dissolved twice and paid through both.** A 2019 window adds $730,589.08, for $1,373,977.47 paid while dissolved.
 4. **HHS Medicaid data show more than the state ledger.** T-MSIS records $29,101,580.81 under Beyond Independent Living's NPI and $13,234,951.02 under Beyond Healthcare Agency's for 2018 to 2024, against $22,130,538.18 and $12,711,139.06 in the ledger.
-5. **COVID money:** two forgiven PPP loans, eleven EIDL loans to cluster entities ($1,328,200), a $74,500 EIDL loan to Naomi Egah personally, $56,000 in EIDL advances and $169,199 in HHS Provider Relief Fund payments.
+5. **COVID money:** four forgiven PPP loans to two cluster companies, twelve EIDL loans to cluster entities ($1,390,000), a $74,500 EIDL loan to Naomi Egah personally, $66,000 in EIDL advances and $169,199 in HHS Provider Relief Fund payments.
 6. **Correction:** Beyond Adult Day Health Center, dropped in the first version as a stranger's company, was organised and managed by Osagiede from 2014 to February 2017.
 
 ---
@@ -67,8 +67,8 @@ These come from different payers. Do not add them together.
 
 | Claim | Verdict | What the records say |
 |---|---|---|
-| $103,000,000 **since 2016** | ⚠️ Right size, wrong frame | $102,287,219 all-time at the post date, within 0.7%. Since 2016 is only **$62,897,039**; about 41% predates 2016. |
-| BIL received >$29M FY2017–early 2026 | ⚠️ Slightly over then, true now | $28,730,379 at the post date. $32,404,181 now. |
+| $103,000,000 **since 2016** | ⚠️ Right size, wrong frame | $102,287,219 all-time at the post date, within 0.7%. Since 2016 it was only **$59,288,191** at the post date ($62,897,039 now); about 42% predates 2016. |
+| BIL received >$29M FY2017–early 2026 | ⚠️ Slightly over then, true now | $28,730,379 at the post date. $32,156,354 for FY2017 onward now. |
 | **$121,728.16 on 16 Jan 2025** | ❌ **Fails** | No payment that day. No row in 49M carries that amount. Nearest: 16 Jan **2026**, $172,708.26. |
 | State audit flagged $887,225 | ✅ Exact | Published 21 Sep 2020, period 2016-01-01→2018-12-31. The auditor says *"appear to be unallowable"*, not "fraudulent". |
 | 12–15 entities | ✅ Understated | **45**, plus a 46th she organised and managed from 2014 to 2017. |
@@ -79,18 +79,18 @@ These come from different payers. Do not add them together.
 
 ---
 
-## Six records join the two names
+## Six records put both names on the same entity
 
 | Entity | Record | Name on it | Second record | Name on it |
 |---|---|---|---|---|
-| Beyond Faith Consulting, LLC | MA register 463474045 | Naomi Egah | same filing | Aderonke Naomi Osagiede |
+| Beyond Faith Consulting, LLC | MA register 463474045 | Naomi Egah | same record | Aderonke Naomi Osagiede |
 | Greater Boston Home Health Care, LLC | MA register 412251357 | Naomi Aderonke Egah, manager | same record | Aderonke Naomi Osagiede, resident agent |
 | Beyond Healthcare Agency LLC | CMS owners O20120322000034 | Naomi A Egah, 100% | NPPES 1003116021 | Naomi A Osagiede, CEO |
 | Greater Boston Home Health Care | CMS owners O20071114000553 | Naomi A Egah, 100% | NPPES 1063691905 | Naomi Osagiede, Owner |
 | Guaranteed Home Health Services (PA) | CMS owners O20191107002080 | Naomi A Egah, 100% | NPPES 1356750228 | Naomi Osagiede, Owner/CEO |
 | Beyond Agency Software Systems, LLC | MA register 001127305 | Naomi Egah, manager | NPPES 1639544471 | Naomi Osagiede, Owner |
 
-Searching only `OSAGIEDE` returns 20 entities. Searching `EGAH` returns 26. One overlaps: Beyond Faith Consulting, the bridge filing. Anyone who searched one name and stopped saw less than half the structure.
+Searching `OSAGIEDE` finds her on 20 entities. Searching `EGAH` finds her on 26. One overlaps: Beyond Faith Consulting, the bridge record. That the two names are one person is an inference from these records; no record states it. Anyone who searched one name and stopped saw less than half the structure.
 
 ---
 
@@ -133,17 +133,17 @@ The largest block, $63.2M, is invisible to a plain search: the vendor string is 
 
 ---
 
-## Paid while it had no legal existence, twice
+## Paid while administratively dissolved, twice
 
 | Window | Register record | Lines | Paid |
 |---|---|---:|---:|
-| mid-2019 → reinstated 10 Oct 2019 | reinstatement filing `201931597250` | 81 | $730,589.08 |
+| 28 Jun 2019 → reinstated 10 Oct 2019 | dissolution `201910333990`, reinstatement `201931597250` | 81 | $730,589.08 |
 | 29 Dec 2023 → revived 20 Sep 2024 | summary page dates | 153 | $643,388.39 |
 | **Both** | | **234** | **$1,373,977.47** |
 
-The 2019 dissolution date does not appear on the summary page. The 2019 figure covers lines dated 1 July to 30 September 2019 and assumes the 28 June 2019 sweep that dissolved three other LLCs in this web. HHS T-MSIS shows Beyond Healthcare Agency billing $653,850.92 for service months January to August 2024 and $744,126.71 for July to September 2019.
+The 2019 dissolution does not appear on the summary page; the filing history records it as filing 201910333990, dated 28 June 2019, the day five other LLCs in this web were dissolved. The 81 lines in the window are dated 1 July to 30 September 2019. HHS T-MSIS records $653,850.92 paid to Beyond Healthcare Agency for service months January to August 2024 and $744,126.71 for July to September 2019.
 
-> ⚠️ **Read this before calling it a violation.** A MassHealth provider number and a corporate charter are separate instruments. [130 CMR 450.212](https://www.law.cornell.edu/regulations/massachusetts/130-CMR-450-212) sets out ten provider eligibility criteria, and none of them requires the provider to hold active corporate registration or to tell MassHealth it has been dissolved. [130 CMR 450.231](https://www.law.cornell.edu/regulations/massachusetts/130-CMR-450-231) conditions payment on the provider being *a participating provider on the date of service*, and says nothing about corporate status. On the face of those two sections, paying a dissolved company breaks no rule. **That is the finding.** Two of the Commonwealth's own registers disagree, and nothing in the billing regulation requires them to agree. A legislator can close that gap; an auditor cannot.
+> ⚠️ **Read this before calling it a violation.** A MassHealth provider number and a corporate charter are separate instruments. [130 CMR 450.212](https://www.law.cornell.edu/regulations/massachusetts/130-CMR-450-212) sets out ten provider eligibility criteria, and none of them requires the provider to hold active corporate registration or to tell MassHealth it has been dissolved. [130 CMR 450.231](https://www.law.cornell.edu/regulations/massachusetts/130-CMR-450-231) conditions payment on the provider being *a participating provider on the date of service*, and says nothing about corporate status. On the face of those two sections, paying a dissolved company breaks no MassHealth rule. [MGL c.156C §70(c)](https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXXII/Chapter156C/Section70) addresses the company: an administratively dissolved LLC continues in existence but shall not carry on any business except winding up. Whether billing during the window fits that limit is for the Secretary or a court to decide, and this page does not decide it. Two of the Commonwealth's own registers disagree, and nothing in the billing regulation requires them to agree. A legislator can close that gap; an auditor cannot.
 
 Since the Beyond Independent Living nonprofit was dissolved on 30 June 2025, a vendor named "Beyond Independent Living LLC" has taken **778 payment lines worth $5,908,174.45**, through 21 Sep 2026, booked to West Roxbury 02132. Its federal NPI sits at the Brockton LLC's address, so which legal entity receives the money is not settled; every candidate is filed under Osagiede or Egah.
 
@@ -157,7 +157,7 @@ Since the Beyond Independent Living nonprofit was dissolved on 30 June 2025, a v
 | 1003116021 | Beyond Healthcare Agency (home health, GAFC) | $13,234,951.02 | $12,711,139.06 | 1.04× |
 | 1063691905 | Greater Boston Home Health Care | $1,143,093.82 | $253,725.31 | 4.51× |
 
-The CTHRU column counts lines dated 2018–2024 plus undated lines whose budget fiscal year falls in FY2019–FY2024 ($59,939.61 for Beyond Healthcare Agency, $52,974.98 for GR. BOSTON). T-MSIS includes claims paid by managed-care plans, which never pass through the Comptroller; that fits the gaps (inference: neither file carries a payer flag). Beyond Independent Living's ratio matches the median of 25 matched Massachusetts adult foster care billers (1.26×). Greater Boston Home Health Care's is far above the median of 30 Massachusetts home health billers (1.15×). Beyond Independent Living's paid per beneficiary-month sat between the 82nd and 95th percentile of Massachusetts S5140 billers every year: high within the peer range, not outside it. HHS suppresses cells under 12 lines or 12 patients, 2024 is preliminary, and the file's whole-dataset total is unusable because of a placeholder stream under code "20"; no cluster row carries it. Per-year figures: [`data/tmsis-by-npi-year.csv`](data/tmsis-by-npi-year.csv).
+The CTHRU column counts lines dated 2018–2024 plus undated lines whose budget fiscal year falls in FY2019–FY2024 ($59,939.61 for Beyond Healthcare Agency, $52,974.98 for GR. BOSTON). T-MSIS includes claims paid by managed-care plans, which never pass through the Comptroller; that fits the gaps (inference: neither file carries a payer flag). Beyond Independent Living's ratio (1.32×) sits near the median of 25 matched Massachusetts adult foster care billers (1.26×; middle half 1.09× to 1.86×). Greater Boston Home Health Care's is far above the median of 30 Massachusetts home health billers (1.15×). Beyond Independent Living's paid per beneficiary-month sat between the 82nd and 95th percentile of Massachusetts S5140 billers every year: at the high end of the peer range. HHS suppresses cells under 12 lines or 12 patients, 2024 is preliminary, and the file's whole-dataset total is unusable because of a placeholder stream under code "20"; no cluster row carries it. Per-year figures: [`data/tmsis-by-npi-year.csv`](data/tmsis-by-npi-year.csv).
 
 ## Medicare
 
@@ -174,7 +174,7 @@ CMS suppresses providers with ten or fewer beneficiaries in a year. Beyond Healt
 
 2007 organised under other managers → 2008 Medicare certification → 30 Jul 2015 amendment records the sale to Aderonke Naomi Osagiede → 26 Jan 2016 merger certificate names "Naomi Osagiede's corporate designee Beyond Business Management Inc." → 12 Sep 2016 CMS ownership start (Naomi A Egah) → 28 Jun 2019 the surviving LLC dissolved; no active LLC of the name until 11 Nov 2022 → PPP loans 15 Apr 2020 and 31 Mar 2021, $1,184,600 each, forgiven → 20 Jun 2025 new vendor string → 2025 move to 661 Centre St, Brockton. Filing numbers: [`data/gbhhc-and-adhc-filings.csv`](data/gbhhc-and-adhc-filings.csv).
 
-The seller became manager of Beyond Adult Day Health Center, the company Osagiede organised, on 22 February 2017, and sued her in 2018 (*Vinokur v. Osagiede*, D. Mass. 1:18-cv-10335, dismissed after two months; complaint unread).
+One of the two sellers became manager of Beyond Adult Day Health Center, the company Osagiede organised, on 22 February 2017, and a Gennady Vinokur, probably the same man, sued her in 2018 (*Vinokur v. Osagiede*, D. Mass. 1:18-cv-10335, dismissed after two months; complaint unread).
 
 ## COVID money
 
@@ -182,20 +182,21 @@ The seller became manager of Beyond Adult Day Health Center, the company Osagied
 |---|---|---:|
 | PPP, Greater Boston Home Health Care LLC, two loans, forgiven | 1 | $2,369,200 |
 | PPP, Beyond Business Consulting LLC (former name of 463474045; probable) | 1 | $155,107 |
-| COVID EIDL loans to cluster entities | 11 | $1,328,200 |
+| PPP, Guaranteed Home Health Services Inc (PA), two loans, forgiven (probable) | 1 | $152,629 |
+| COVID EIDL loans to cluster entities | 12 | $1,390,000 |
 | COVID EIDL loan to Naomi Egah personally | 1 | $74,500 |
-| EIDL advance grants, incl. $10,000 to "Naomi Egah DBA Beyond Faith Clinic" | 7 | $56,000 |
+| EIDL advance grants, incl. $10,000 to "Naomi Egah DBA Beyond Faith Clinic" | 8 | $66,000 |
 | HHS Provider Relief Fund (name and city match) | 4 | $169,199 |
 
-Four borrowers had no active registration under the borrowing name on the day they borrowed, and three LLCs were revived three weeks before theirs. These are sequences in the records, not findings of wrongdoing. File: [`data/covid-federal.csv`](data/covid-federal.csv).
+Four borrowers had no active registration under the borrowing name on the day they borrowed (five counting the probable Beyond Business Consulting loan), and three LLCs were revived three weeks before theirs. HHS also lists $463,529.01 in Medicare accelerated and advance payments to Greater Boston Home Health Care (name and state match; advances against future claims, kept out of every total). These are sequences in the records, not findings of wrongdoing. File: [`data/covid-federal.csv`](data/covid-federal.csv).
 
 ---
 
 ## The federal record
 
-### Every tax-exempt entity in this web lost its exemption
+### Ten EINs in this web are on the IRS revocation list
 
-The IRS Automatic Revocation list returns eleven rows for ten EINs in this web. Nine EINs stand revoked.
+The IRS Automatic Revocation list (1,247,137 records, 1,247,140 lines) returns eleven rows for ten EINs in this web. Nine EINs stand revoked.
 
 | EIN | Organisation | Revoked | Posted | Reinstated |
 |---|---|---|---|---|
@@ -211,7 +212,7 @@ The IRS Automatic Revocation list returns eleven rows for ten EINs in this web. 
 | 465109128 | Beyond Zoe Ministry | 15 May 2017 | 16 Aug 2017 | 15 May 2017 |
 | 472476331 | Fire of Life *(first revocation)* | 15 May 2017 | 16 Aug 2017 | 15 May 2017 |
 
-**EIN 462941036 is the same number the Secretary of the Commonwealth uses as the identification number for Beyond Independent Living LLC**, the vendor the Comptroller has paid **$32,404,181**. Its exemption was revoked on 15 May 2021 for three consecutive years of not filing. The Commonwealth has paid it every year since: $3.48M in FY2021, climbing to $4.78M in FY2026. Only Fire of Life ever filed a return (five paper 990-EZs, 2014–2018).
+**EIN 462941036 is the number the Secretary of the Commonwealth uses as the identification number for Beyond Independent Living LLC**, organised 2013 and converted into a corporation in 2017. The Comptroller has paid **$32,404,181** to a vendor of that exact name. CTHRU carries no entity ID and a second LLC of the name has existed since 2020, so tying those payments to this EIN is probable. The exemption was revoked on 15 May 2021 for three consecutive years of not filing. The vendor has been paid every year since: $3.48M in FY2021, climbing to $4.78M in FY2026. Only Fire of Life ever filed a return (five paper 990-EZs, 2014–2018).
 
 ### Sixteen federal billing numbers, all active
 
@@ -223,45 +224,48 @@ The IRS Automatic Revocation list returns eleven rows for ten EINs in this web. 
 - **No settlement, no judgment.** The Comptroller's Settlements and Judgments file, 8,297 records, returns nothing.
 - **No press release.** DOJ, HHS-OIG and the Massachusetts AG name no one here. The State Auditor's 2021 annual report marks the Beyond audit "MassHealth Recouping Payments: Yes" with no amount and nothing since.
 
-**There is no enforcement action against anyone in this web anywhere on the public record.** That is a fact about the file, and it belongs in any honest write-up of it.
+**The registers searched show no enforcement action against anyone in this web.** State court dockets, Pennsylvania and Texas state records and SAM's inactive exclusions were not searched, and current MassHealth enrollment was not checked.
 
 ---
 
-## What is actually provable
+## What is provable
 
 **Provable from documents today, no inference:**
 
-1. One person operates 45 Massachusetts entities under two filing names. Six records tie the names together, three of them inside CMS's own systems.
+1. 45 Massachusetts entities list Naomi Osagiede or Naomi Egah as organiser, manager, officer, agent or signatory. Six records put both names on the same entity, three of them inside CMS's own systems.
 2. Twenty-seven of those entities carry an involuntary dissolution. The audited company was dissolved twice and paid $1,373,977.47 while dissolved.
-3. Nine of ten cluster EINs on the IRS revocation list stand revoked, including the EIN of the $32.4M payee.
+3. Nine of ten cluster EINs on the IRS revocation list stand revoked.
 4. One CMS owner ID holds or held four Medicare home health agencies in three states.
 5. She bought Greater Boston Home Health Care in 2015; Medicare has paid it $13,673,342 since 2016.
 6. A 2020 state audit found up to $887,225 in apparently unallowable billing; MassHealth was marked "recouping" in 2021 and no amount is public.
-7. Every NPI checked still holds active status.
+7. Every NPI checked still holds active status in the federal registry.
 
-**Answerable with a records request, which nobody has yet:** the recoupment amount, provider enrolment during the dissolutions, which managed-care plans paid these providers, and what the SBA applications certified. The memo's Follow-ups tab lists each request by holder.
+**Answerable with a records request:** the recoupment amount, provider enrolment during the dissolutions, which managed-care plans paid these providers, and what the SBA applications certified. The memo's Follow-ups tab lists each request by holder.
 
 **Not provable by anyone outside government:** whether services were delivered, whether any billing was knowingly false, and intent. Those need claims-level data and a subpoena.
 
-The defensible claim is not that someone stole $103 million. It is that a single operator with 45 companies, 27 administrative dissolutions, nine revoked exemptions, agencies in three states and an unresolved audit finding has drawn more than $105.9 million from the Commonwealth alone, is still being paid, and that no public body appears to have looked. That is a demand for an audit, and the records carry it.
+The records support a narrower statement than the post. The 45 entities registered under the two names include 27 administratively dissolved at least once, nine revoked tax exemptions and home health agencies in three states. The Comptroller has paid the six vendor strings $105,956,006, and payments continue. The State Auditor flagged up to $887,225 in 2020, and no public record reports what MassHealth recovered or any follow-up after the 2021 recoupment flag.
 
 ---
 
 ## Corrections to the 20 September version
 
-1. Greater Boston Home Health Care was not a new payee in June 2025; only the vendor string changed.
-2. Beyond Adult Day Health Center was hers from 2014 to February 2017. Its current managers are Victoria Vinokur and Paul Rayev; Gennady Vinokur is a real-property signatory, not a manager.
+1. Greater Boston Home Health Care was not a new payee in June 2025; only the vendor string changed (the earlier string is a probable match).
+2. Beyond Adult Day Health Center was hers from 2014 to February 2017. Its current managers are two people outside this web; the seller who became manager in February 2017 is now listed only for real property.
 3. Beyond Healthcare Agency was dissolved twice, not once.
 4. The IRS list holds 11 rows for 10 EINs, not 8 for 7.
 5. "7,380 payments" are 7,380 payment lines (1,868 payments).
-6. The latest date moved from 17 to 21 September 2026 after a Comptroller reload, with no new money; nine undated lines ($59,939.61) sit outside every date-bounded figure.
-7. The NPI table grew from seven to sixteen; Beyond Healthcare Agency's record changed on 24 September 2026.
+6. The latest date moved from 17 to 21 September 2026 after a Comptroller reload, with no new money; nine undated lines ($59,939.61, FY2020) sit outside every date-bounded figure except the 2018–2024 comparison with HHS data, which counts them by fiscal year.
+7. The NPI table grew from seven to sixteen. Separately, Beyond Healthcare Agency's record changed after the first version, on 24 September 2026.
 8. Healing Pathways: Naomi Aderonke Egah is the SOC signatory, not a manager.
 9. Entity 412251357 merged away in 2016, and Medicoach Transportation dissolved voluntarily in 2015; both were shown as active.
 10. The phone link is weaker than first presented.
-11. A chart caption asserted "scheduled sweeps"; no schedule is published.
+11. A chart caption asserted "scheduled sweeps"; no published schedule was found.
 12. The audit's settlements-and-judgments check was malformed; the corrected search still finds nothing.
 13. `data/findings.json` carried five-vendor totals and retracted claims; it has been replaced.
+14. Attribution between same-named LLCs is open for Beyond Independent Living as well as Greater Boston Home Health Care; every candidate is filed under Osagiede or Egah.
+15. The first version said five entities share 30 June 2025 (nine do) and that LLC dissolutions fall in December (through 2021 they fell in June).
+16. "No legal existence" was wrong in law: MGL c.156C §70(c) says an administratively dissolved LLC continues in existence, limited to winding up.
 
 ---
 
@@ -269,8 +273,8 @@ The defensible claim is not that someone stole $103 million. It is that a single
 
 - **None of this establishes fraud.** An involuntary dissolution is a failure to file an annual report. The auditor's phrase is *"appear to be unallowable"*, an upper-bound estimate, not an adjudicated finding. Every sentence should survive being read by a lawyer for the other side.
 - **Do not add figures across sources.** CTHRU and T-MSIS overlap; Medicare, the SBA and the Provider Relief Fund are separate programs.
-- **Do not read the clustered dissolution dates as a single event.** Five entities share 28 Jun 2019 and five share 30 Jun 2025, and the LLC dissolutions fall on 29–31 December. Neither statute prescribes a date: [MGL c.156D §14.21](https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXXII/Chapter156D/Section14.21) (corporations) and [MGL c.156C §70](https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXXII/Chapter156C/Section70) (LLCs) each require written notice and a **90-day cure period**, after which the Secretary *shall* dissolve. The clustering is an observed pattern in the filing data, consistent with batch processing, and I have not found a published schedule. Report the **count**, not the coincidence of dates.
-- **$105.9M is a floor, not a ceiling.** HHS data show Medicaid money reaching these providers through managed-care plans, which never passes through the Comptroller, and Medicare pays through CMS.
+- **Do not read the clustered dissolution dates as a single event.** Five entities show 28 Jun 2019 as their latest dissolution, and filing histories add three more dissolved that day. Nine nonprofits share 30 Jun 2025. LLC dissolutions fell at the end of June through 2021 and on 29–31 December from 2022. For LLCs and business corporations, neither statute prescribes a date: [MGL c.156D §14.21](https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXXII/Chapter156D/Section14.21) (corporations) and [MGL c.156C §70](https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXXII/Chapter156C/Section70) (LLCs) each require written notice and a **90-day cure period**, after which the Secretary *shall* dissolve. The nine nonprofits fall under a different chapter, which this check did not read. The clustering is an observed pattern in the filing data, consistent with batch processing, and I have not found a published schedule. Report the **count**, not the coincidence of dates.
+- **$105.9M is a floor.** HHS billing data record more Medicaid money for these providers than the ledger does. Payments by managed-care plans never appear in the ledger under a provider's name and would explain the gap (inference: neither file carries a payer flag). Medicare pays through CMS.
 - **Appropriation labels are accounting buckets.** "Managed Care Plan", "MassHealth Senior Care", "Indemnity / Third Party Liability Plan" describe which account the money left, not which service was billed.
 - **Attribution between same-named LLCs is open** for Greater Boston Home Health Care and Beyond Independent Living. CTHRU carries no entity ID. Every candidate is filed under Osagiede or Egah.
 - **Other people share these surnames.** The Osagiede search returns filings by at least a dozen other individuals: an attorney, a shipping company, several churches. Only the 45 entities in [`data/entities.csv`](data/entities.csv) carry Naomi Osagiede or Naomi Egah as an officer, manager, agent or signatory.
@@ -283,7 +287,7 @@ Across all 7,380 lines there is not one negative amount; the smallest line is $0
 
 | Entity | CTHRU total | Why |
 |---|---:|---|
-| `BEYOND ADULT DAY HEALTH CENTER, LLC` after 2017-02-22, and `VILAJ LAJWA ADHC, LLC` | $1,946,926.76 + $3,729,881.81 | Other managers from 22 Feb 2017 (Victoria Vinokur, Paul Rayev) |
+| `BEYOND ADULT DAY HEALTH CENTER, LLC` after 2017-02-22, and `VILAJ LAJWA ADHC, LLC` | $1,946,926.76 + $3,729,881.81 | Osagiede stopped managing it on 22 Feb 2017, when one of the sellers of Greater Boston Home Health Care took over; two people outside this web manage it today |
 | `BEYOND TRANSPORTATION LLC` | $124,799.78 | Methuen/Tewksbury. No officer link in the register. |
 | `MEDICAL COMMUNITY PSYCHOTHERAPY LLC` | $10,851.69 | Natick. Substring collision with "Community Psych". |
 
@@ -291,15 +295,13 @@ Across all 7,380 lines there is not one negative amount; the smallest line is $0
 
 ## Scope of this check
 
-Stated plainly so a reader can see where the work stops.
-
-**Retrieved.** First pull 20 September 2026; every figure re-derived on 24 and 25 September 2026. Payment data from the Comptroller's load of 25 September 2026. Re-running [`scripts/audit.py`](scripts/audit.py) re-derives the published figures from the live sources and fails on any disagreement.
+**Retrieved.** First pull 20 September 2026; every figure re-derived on 24 and 25 September 2026. Payment data from the Comptroller's load of 25 September 2026. Re-running [`scripts/audit.py`](scripts/audit.py) re-derives most published figures from the live sources and fails on any disagreement.
 
 **Read in full.** All 45 entity summaries at the Corporations Division, and the filing histories of the Greater Boston Home Health Care, Greater Healthcare Solutions, Beyond Business Management and Beyond Adult Day Health Center entities. The Office of the State Auditor report of 21 September 2020 and its 2021 annual report. Every row these EINs return from the IRS Automatic Revocation list. Every NPPES record in the NPI file. CMS owner and enrolment files for the four agencies.
 
-**Searched completely, returning the counts stated.** CTHRU `pegc-naaa` (49,022,699 rows) and every other CTHRU table with a name column, HHS T-MSIS provider spending (238,015,729 rows), CMS Medicare post-acute utilisation files 2014–2024, SBA PPP and EIDL files, HRSA Provider Relief Fund, the IRS revocation list (1,247,140), the IRS Massachusetts exempt-organization master file, the HHS-OIG exclusion list (84,001), SAM exclusions, the Comptroller's Settlements and Judgments file (8,297).
+**Searched completely, returning the counts stated.** CTHRU `pegc-naaa` (49,022,699 rows) and every other CTHRU table with a name column (the quasi-public authorities' file hides the vendor on 564,743 of 2,384,476 rows), HHS T-MSIS provider spending (238,015,729 rows), CMS Medicare post-acute utilisation files 2014–2024, SBA PPP and EIDL files, HRSA Provider Relief Fund, the IRS revocation list (1,247,137 records), the IRS Massachusetts exempt-organization master file, the HHS-OIG exclusion list (84,001), SAM exclusions, the Comptroller's Settlements and Judgments file (8,297).
 
-**Read in part, and this is the limit that matters.** Of 130 CMR 450, I read only **450.212, 450.231, 450.235 and 450.237**. Statements on this page about what MassHealth's rules do and do not require are bounded to those four sections and should not be read as a survey of the regulation. Of the dissolution statutes I read MGL c.156D §14.21 and c.156C §70. Of the rate rules, 101 CMR 351 for the group adult foster care code.
+**Read in part.** Of 130 CMR 450, I read only **450.212, 450.231, 450.235 and 450.237**. Statements on this page about what MassHealth's rules do and do not require are bounded to those four sections and should not be read as a survey of the regulation. Of the dissolution statutes I read MGL c.156D §14.21 and c.156C §70. Of the rate rules, 101 CMR 351 for the group adult foster care code.
 
 **Not done.** No one named here was contacted. No interviews. No review of MassHealth's provider enrolment file, no claims-level data, no court filings beyond the docket entry, no property records, no Pennsylvania or Texas state records. Whether services were delivered has not been examined and could not be from these sources.
 
@@ -321,10 +323,10 @@ Stated plainly so a reader can see where the work stops.
 | [`data/covid-federal.csv`](data/covid-federal.csv) | PPP, EIDL, EIDL advance, Provider Relief Fund and ARP rows |
 | [`data/gbhhc-and-adhc-filings.csv`](data/gbhhc-and-adhc-filings.csv) | Corporations Division filings behind the two timelines |
 | [`data/irs-revocations.csv`](data/irs-revocations.csv) | The eleven rows these EINs return from the IRS revocation list |
-| [`data/npi-registry.csv`](data/npi-registry.csv) | Sixteen federal billing numbers, officials, addresses, status and tie |
+| [`data/npi-registry.csv`](data/npi-registry.csv) | Sixteen federal billing numbers, status, practice addresses and tie; officials named only where the page names them |
 | [`data/findings.json`](data/findings.json) | Machine-readable verdicts and findings with sources |
 | [`scripts/soda.py`](scripts/soda.py) | The Socrata query helper |
-| [`scripts/audit.py`](scripts/audit.py) | **The accuracy audit.** Re-derives the published figures from the live sources and the local data files, and fails if any disagree |
+| [`scripts/audit.py`](scripts/audit.py) | **The accuracy audit.** Re-derives most published figures from the live sources and the local data files, and fails if any disagree. It does not re-check enforcement-register sizes or the State Auditor's figures |
 
 ### Checking this page
 

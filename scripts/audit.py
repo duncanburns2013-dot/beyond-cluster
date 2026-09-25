@@ -148,7 +148,7 @@ for y in range(2013, 2028):
 chk("chart 1 bar labels all match live data", [], bad)
 # chart 2 in-window note
 n2, t2 = one(IN_BHA + " AND date > '2023-12-29' AND date < '2024-09-20'")
-m = re.search(r'>\$([\d,]+) paid across (\d+) payment lines while the company had no legal existence<', HTML)
+m = re.search(r'>\$([\d,]+) paid across (\d+) payment lines while the company stood administratively dissolved<', HTML)
 chk("chart 2 note figure", "%,d" % round(t2) if False else format(round(t2), ","), m.group(1) if m else "NOT FOUND")
 chk("chart 2 note payment count", str(n2), m.group(2) if m else "NOT FOUND")
 # chart 3 counts
@@ -177,7 +177,7 @@ for doc, nm in [(README, "README"), (HTML, "index.html")]:
 print("\n" + "=" * 118)
 print("J. THE FEDERAL RECORD (IRS revocations, NPPES, and the two null searches)")
 print("=" * 118)
-import ssl, urllib.request, io, zipfile, time
+import ssl, urllib.request, urllib.parse, io, zipfile, time
 _CTX = ssl.create_default_context(); _CTX.check_hostname = False; _CTX.verify_mode = ssl.CERT_NONE
 def _get(u, raw=False, timeout=600):
     rq = urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0"})
@@ -197,7 +197,8 @@ for row in npis:
     off = (b.get("authorized_official_first_name", "") + " " + b.get("authorized_official_last_name", "")).strip()
     chk("NPI %s status still active" % row["npi"], "A", b.get("status"))
     chk("NPI %s not deactivated" % row["npi"], "", b.get("deactivation_date") or "")
-    chk("NPI %s authorized official" % row["npi"], row["authorized_official"], off)
+    if row.get("tie") == "confirmed":  # other officials are withheld from the published file
+        chk("NPI %s authorized official" % row["npi"], row["authorized_official"], off)
     chk("NPI %s in the page" % row["npi"], True, row["npi"] in HTML)
 
 # --- IRS automatic revocations, re-downloaded and re-scanned
@@ -292,6 +293,8 @@ def skip(label, why):
     skips.append(label); print("SKIP  %-58s %s" % (label, why))
 
 # --- CTHRU: new strings, windows, reconciliation years
+n, t = one(IN + " AND date >= '2016-01-01' AND date <= '2026-01-21'"); chk("since 2016 through the post date $", 59288191.46, round(t, 2))
+n, t = one(IN + " AND date < '2016-01-01'"); chk("before 2016 $", 42999027.68, round(t, 2))
 n, t = one(IN + " AND date IS NULL"); chk("undated lines in the six strings", 9, n); chk("undated total", 59939.61, round(t, 2))
 pid = q(select="count(distinct payment_id) as p", where=IN)[0]["p"]; chk("distinct payment ids behind 7,380 lines", "1868", pid)
 G = "vendor='GR. BOSTON HOME HLTH LLC'"
@@ -359,6 +362,12 @@ try:
 except Exception as e:
     chk("HRSA PRF reachable", "ok", "ERROR: %s" % e)
 
+try:
+    aap = _get("https://data.cdc.gov/resource/v2pi-w3up.json?$where=" + urllib.parse.quote("upper(provider_name) like '%GREATER BOSTON HOME%'"), timeout=180)
+    chk("Medicare accelerated/advance payment, GBHHC $", 463529.01, sum(float(r.get("aap") or 0) for r in aap if r.get("state_territory") == "Massachusetts"))
+except Exception as e:
+    chk("HHS AAP file reachable", "ok", "ERROR: %s" % e)
+
 # --- SBA files (local; skipped when absent)
 SBA = os.environ.get("BEYOND_SBA_DIR", "")
 ppp = os.path.join(SBA, "public_150k_plus_240930.csv")
@@ -374,8 +383,8 @@ if SBA and os.path.exists(ppp):
 else:
     skip("SBA PPP checks", "set BEYOND_SBA_DIR to a folder holding public_150k_plus_240930.csv")
 cov = list(csv.DictReader(open(REPO + "data/covid-federal.csv", encoding="utf-8")))
-chk("EIDL entity loans in data file $", 1328200, sum(int(r["amount"]) for r in cov if r["program"] == "EIDL loan" and "individual" not in r["recipient_as_filed"]))
-chk("EIDL advances in data file $", 56000, sum(int(r["amount"]) for r in cov if r["program"] == "EIDL advance"))
+chk("EIDL entity loans in data file $", 1390000, sum(int(r["amount"]) for r in cov if r["program"] == "EIDL loan" and "individual" not in r["recipient_as_filed"]))
+chk("EIDL advances in data file $", 66000, sum(int(r["amount"]) for r in cov if r["program"] == "EIDL advance"))
 
 # --- HHS T-MSIS (local parquet; skipped when absent)
 PQ = os.environ.get("BEYOND_TMSIS", "E:/hhs-tmsis/medicaid-provider-spending.parquet")
@@ -399,9 +408,9 @@ tmf = list(csv.DictReader(open(REPO + "data/tmsis-by-npi-year.csv", encoding="ut
 chk("T-MSIS data file BIL total", 29101580.81, round(sum(float(r["total_paid"]) for r in tmf if r["billing_npi"] == "1003226630"), 2))
 
 # --- the page and the README carry the new figures
-for fig in ("$453,684.67", "$1,373,977", "$13,673,342", "$29,101,580.81", "$730,589.08", "$101,510.19", "1254592256", "$2,369,200", "$1,328,200", "$169,199", "$622,931", "201540575070", "201661665430"):
+for fig in ("$453,684.67", "$1,373,977", "$13,673,342", "$29,101,580.81", "$730,589.08", "$101,510.19", "1254592256", "$2,369,200", "$1,390,000", "$169,199", "$622,931", "$463,529.01", "$59,288,191", "201540575070", "201661665430"):
     chk("page carries %s" % fig, True, fig in HTML)
-for fig in ("$453,684.67", "$1,373,977.47", "$13,673,342", "$29,101,580.81", "1254592256", "$2,369,200", "$1,328,200"):
+for fig in ("$453,684.67", "$1,373,977.47", "$13,673,342", "$29,101,580.81", "1254592256", "$2,369,200", "$1,390,000", "$59,288,191"):
     chk("README carries %s" % fig, True, fig in README)
 chk("page has 11 tab panels", 11, HTML.count('role="tabpanel" id='))
 chk("page has no em dash", 0, HTML.count("&mdash;") + HTML.count("\u2014"))

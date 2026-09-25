@@ -10,7 +10,7 @@
    "tmsis": "HHS Medicaid Provider Spending by HCPCS, release 2026-02-09, sha256 f646d426126638dd0177cb14a86bfe7d7e9ed6b081a3e1c270bfe5070fb3fb94",
    "cms": "data.cms.gov HHA Enrollments and All Owners (2026-07-17; Eden from 2023-07-17), Provider of Services, PAC PUF by provider CY2014-2024",
    "nppes": "NPPES NPI Registry API v2.1, queried 2026-09-25",
-   "sba": "PPP FOIA public_150k_plus_240930.csv; EIDL loans (April 2021 delivery, through 2020-11-15); EIDL Advance through 2020-11-15",
+   "sba": "PPP FOIA public_150k_plus_240930.csv; EIDL loans (April 2021 delivery, through 2020-11-15); EIDL Advance through 2020-11-15; public_up_to_150k_10_240930.csv (PA loans)",
    "hrsa": "data.cdc.gov kh8y-3es6 (PRF, updated 2025-03-28); 8v6a-z6zq (ARP Rural)",
    "irs": "Automatic Revocation of Exemption list, file of 2026-09-12, 1,247,140 lines",
    "soc": "MA Corporations Division summaries, name indexes (2026-09-20 and 2026-09-24) and filing documents",
@@ -68,13 +68,24 @@
     "total": 3479.0,
     "link": "probable"
    }
-  ]
+  ],
+  "since_2016_01_01_through_post": {
+   "total": 59288191.46
+  },
+  "before_2016": {
+   "total": 42999027.68
+  }
  },
  "claim_verdicts": [
   {
    "claim": "$103,000,000 since 2016",
    "verdict": "right size, wrong frame",
-   "evidence": "$102,287,219.14 through 2026-01-21; $62,897,038.88 since 2016-01-01"
+   "evidence": "$102,287,219.14 through 2026-01-21; $59,288,191.46 of it dated 2016-01-01 or later; $42,999,027.68 (42%) before 2016"
+  },
+  {
+   "claim": "BIL received >$29M FY2017 to early 2026",
+   "verdict": "slightly over then, true now",
+   "evidence": "$28,730,378.83 FY2017+ at the post date; $32,156,354.02 now"
   },
   {
    "claim": "$121,728.16 on 16 Jan 2025",
@@ -148,18 +159,18 @@
   {
    "id": "BHA-2019-WINDOW",
    "class": "confirmed",
-   "finding": "Beyond Healthcare Agency reinstated 2019-10-10 after an administrative dissolution; CTHRU paid 81 lines $730,589.08 dated 2019-07-01..2019-09-30",
+   "finding": "Beyond Healthcare Agency dissolved 2019-06-28 (filing 201910333990) and reinstated 2019-10-10 (201931597250); CTHRU paid 81 lines $730,589.08 dated 2019-07-01..2019-09-30",
    "figures": {
     "window_2019": 730589.08,
     "window_2023_24": 643388.39,
     "both": 1373977.47
-   },
-   "caveat": "2019 dissolution date not on the summary page; start assumed at the 2019-06-28 sweep (inference)"
+   }
   },
   {
    "id": "PECOS-OWNER",
    "class": "confirmed",
-   "finding": "CMS associate 1254592256 NAOMI A EGAH is 100% owner of BHA (CCN 227541, from 2010-05-20), GBHHC (227507, 2016-09-12), Guaranteed Home Health Services PA (398334, 2019-09-09) and was of Eden Healthcare TX (677975, 2014-08-22; 2023 file)"
+   "finding": "CMS associate 1254592256 NAOMI A EGAH is 100% owner of BHA (CCN 227541, from 2010-05-20), GBHHC (227507, 2016-09-12), Guaranteed Home Health Services PA (398334, 2019-09-09) and was of Eden Healthcare TX (677975, 2014-08-22; 2023 file)",
+   "note": "NPPES names Naomi Osagiede for the BHA, GBHHC and Guaranteed NPIs; Eden's NPI names a different official"
   },
   {
    "id": "TMSIS",
@@ -205,11 +216,13 @@
     "ppp_gbhhc_two_loans": 2369200,
     "ppp_gbhhc_forgiven": 2388640.42,
     "ppp_beyond_business_consulting_probable": 155107,
-    "eidl_loans_11_entities": 1328200,
     "eidl_loan_naomi_egah": 74500,
-    "eidl_advances": 56000,
+    "eidl_advances": 66000,
     "prf_four_payees": 169199,
-    "arp_rural": 500
+    "arp_rural": 500,
+    "ppp_guaranteed_pa_two_loans_probable": 152629,
+    "eidl_loans_12_entities": 1390000,
+    "medicare_aap_gbhhc_probable": 463529.01
    }
   },
   {
@@ -220,7 +233,8 @@
     "464731086",
     "814176136",
     "851507631"
-   ]
+   ],
+   "note": "EIN 462941036 equals the SoC ID of the 2013 Beyond Independent Living LLC; tying the $32.4M CTHRU vendor to it is probable"
   },
   {
    "id": "NPI",
@@ -252,7 +266,10 @@
   "978-930-9410 is shared by three NPIs with other officials",
   "chart caption no longer asserts a dissolution schedule",
   "settlements check in audit.py fixed",
-  "this file previously carried five-vendor totals and claims the README had retracted; replaced"
+  "this file previously carried five-vendor totals and claims the README had retracted; replaced",
+  "nine entities share 2025-06-30, not five; LLC dissolutions fell in June through 2021",
+  "'no legal existence' replaced with 'administratively dissolved' (MGL c.156C s.70(c))",
+  "Guaranteed Home Health Services SBA rows added; Medicare advance $463,529.01 reproduces"
  ],
  "standing_caveats": [
   "None of this establishes fraud. The auditor's phrase is 'appear to be unallowable'.",
