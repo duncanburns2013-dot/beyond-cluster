@@ -36,7 +36,7 @@ n, t = one(IN + " AND date <= '2026-01-21'");               chk("total as of the
 n, t = one(IN + " AND date >= '2016-01-01'");               chk("total since 2016-01-01", 62897038.88, round(t, 2))
 n, t = one(IN + " AND date > '2026-01-21'");                chk("paid since the post", 3608847.42, round(t, 2))
 r = q(select="max(date) as l,min(date) as f,min(amount) as mn", where=IN)[0]
-chk("latest payment date", "2026-09-17", r["l"][:10]); chk("earliest payment date", "2011-05-25", r["f"][:10])
+chk("latest payment date (date field, load-dependent)", "2026-09-21", r["l"][:10]); chk("earliest payment date", "2011-05-25", r["f"][:10])
 chk("smallest payment in the group", 0.21, f(r["mn"]))
 neg = q(select="count(1) as n", where=IN + " AND amount < 0")[0]["n"]
 chk("negative lines (recoupments)", "0", neg)
@@ -120,7 +120,7 @@ chk("Osagiede-listed", 20, len(os_)); chk("Egah-listed", 26, len(eg_))
 chk("true overlap", 1, len(os_ & eg_))
 chk("union", 45, len(os_ | eg_))
 chk("with an involuntary dissolution", 27, sum(1 for e in ents if e["involuntary_dissolution"].strip()))
-chk("ceased by conversion", 3, sum(1 for e in ents if e["ceased_by_conversion"].strip()))
+chk("ceased by conversion or merger", 4, sum(1 for e in ents if e["ceased_by_conversion"].strip()))
 chk("HTML register table rows", 45, HTML.count('<tr><td>') + HTML.count('<tr class="paid"><td>'))
 for sid, fld, val in [("271533104", "involuntary_dissolution", "2023-12-29"), ("271533104", "revived", "2024-09-20"),
                       ("001309461", "involuntary_dissolution", "2025-06-30"), ("001421873", "organized", "2020-01-22"),
@@ -148,7 +148,7 @@ for y in range(2013, 2028):
 chk("chart 1 bar labels all match live data", [], bad)
 # chart 2 in-window note
 n2, t2 = one(IN_BHA + " AND date > '2023-12-29' AND date < '2024-09-20'")
-m = re.search(r'>\$([\d,]+) paid across (\d+) payments while the company had no legal existence<', HTML)
+m = re.search(r'>\$([\d,]+) paid across (\d+) payment lines while the company had no legal existence<', HTML)
 chk("chart 2 note figure", "%,d" % round(t2) if False else format(round(t2), ","), m.group(1) if m else "NOT FOUND")
 chk("chart 2 note payment count", str(n2), m.group(2) if m else "NOT FOUND")
 # chart 3 counts
@@ -177,7 +177,7 @@ for doc, nm in [(README, "README"), (HTML, "index.html")]:
 print("\n" + "=" * 118)
 print("J. THE FEDERAL RECORD (IRS revocations, NPPES, and the two null searches)")
 print("=" * 118)
-import ssl, urllib.request, io, zipfile
+import ssl, urllib.request, io, zipfile, time
 _CTX = ssl.create_default_context(); _CTX.check_hostname = False; _CTX.verify_mode = ssl.CERT_NONE
 def _get(u, raw=False, timeout=600):
     rq = urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0"})
@@ -185,10 +185,11 @@ def _get(u, raw=False, timeout=600):
         d = fh.read()
     return d if raw else json.loads(d.decode())
 
-# --- the seven federal billing numbers, re-queried live
+# --- every billing number in data/npi-registry.csv, re-queried live
 npis = list(csv.DictReader(open(REPO + "data/npi-registry.csv", encoding="utf-8")))
-chk("NPI rows on file", 7, len(npis))
+chk("NPI rows on file", 16, len(npis))
 for row in npis:
+    time.sleep(1.5)  # NPPES answers 403 to bursts
     live = _get("https://npiregistry.cms.hhs.gov/api/?version=2.1&number=%s" % row["npi"], timeout=180)
     if not live.get("results"):
         chk("NPI %s resolves" % row["npi"], True, False); continue
@@ -201,9 +202,9 @@ for row in npis:
 
 # --- IRS automatic revocations, re-downloaded and re-scanned
 rev = list(csv.DictReader(open(REPO + "data/irs-revocations.csv", encoding="utf-8")))
-chk("IRS revocation rows on file", 8, len(rev))
-chk("distinct EINs revoked", 7, len({r["ein"] for r in rev}))
-chk("rows with no reinstatement", 6, sum(1 for r in rev if not r["reinstatement_date"].strip()))
+chk("IRS revocation rows on file", 11, len(rev))
+chk("distinct EINs revoked", 10, len({r["ein"] for r in rev}))
+chk("rows with no reinstatement", 9, sum(1 for r in rev if not r["reinstatement_date"].strip()))
 try:
     z = zipfile.ZipFile(io.BytesIO(_get("https://apps.irs.gov/pub/epostcard/data-download-revocation.zip", raw=True)))
     txt = z.read(z.namelist()[0]).decode("latin-1").splitlines()
@@ -214,7 +215,7 @@ try:
         e = line.split("|", 1)[0].strip()
         if e in want: got.setdefault(e, []).append(line)
     chk("all published EINs still on the IRS revocation list", sorted(want), sorted(got))
-    chk("total rows the IRS returns for those EINs", 8, sum(len(v) for v in got.values()))
+    chk("total rows the IRS returns for those EINs", 11, sum(len(v) for v in got.values()))
     for r in rev:
         f = [x.strip() for x in next(l for l in got[r["ein"]]
              if [y.strip() for y in l.split("|")][9] == r["revocation_date"]).split("|")]
@@ -237,8 +238,8 @@ try:
 except Exception as e:
     chk("LEIE re-download", "ok", "ERROR: %s" % e)
 
-sj = q(select="count(1) as n", where=("upper(payee_name) like '%25BEYOND%25' OR upper(payee_name) like '%25OSAGIEDE%25' "
-                                      "OR upper(payee_name) like '%25EGAH%25'"), dataset="gpqz-7ppn")
+sj = q(select="count(1) as n", where=("upper(payee_name) like '%BEYOND%' OR upper(payee_name) like '%OSAGIEDE%' "
+                                      "OR upper(payee_name) like '%EGAH%'"), dataset="gpqz-7ppn")
 chk("Comptroller settlements/judgments naming this web", "0", sj[0]["n"])
 
 # --- the claim that ties the two registers together
@@ -280,6 +281,131 @@ for doc, nm in [(README, "README"), (HTML, "index.html")]:
     chk("%s states no wrongdoing is alleged" % nm, True, "wrongdoing" in doc.lower())
     chk("%s disclaims legal advice" % nm, True, "nothing here is legal advice" in doc.lower())
     chk("%s gives the retrieval date" % nm, True, "20 September 2026" in doc)
+
+print("\n" + "=" * 118)
+print("M. THE 25 SEPTEMBER UPDATE (federal record, new strings, second window)")
+print("=" * 118)
+import os
+from soda import f  # section J reuses the name f for a list; restore the number parser
+skips = []
+def skip(label, why):
+    skips.append(label); print("SKIP  %-58s %s" % (label, why))
+
+# --- CTHRU: new strings, windows, reconciliation years
+n, t = one(IN + " AND date IS NULL"); chk("undated lines in the six strings", 9, n); chk("undated total", 59939.61, round(t, 2))
+pid = q(select="count(distinct payment_id) as p", where=IN)[0]["p"]; chk("distinct payment ids behind 7,380 lines", "1868", pid)
+G = "vendor='GR. BOSTON HOME HLTH LLC'"
+n, t = one(G);                                   chk("GR. BOSTON all-time $", 2017617.52, round(t, 2)); chk("GR. BOSTON all-time lines", 1248, n)
+n, t = one(G + " AND date <= '2015-07-16'");     chk("GR. BOSTON before the 2015 sale $", 1563932.85, round(t, 2))
+n, t = one(G + " AND date > '2015-07-16'");      chk("GR. BOSTON after the sale, dated $", 400709.69, round(t, 2))
+n, t = one(G + " AND date IS NULL");             chk("GR. BOSTON undated (FY2021-22) $", 52974.98, round(t, 2))
+n, t = one("vendor='BEYOND ADULT DAY HEALTH CENTER, LLC' AND date < '2017-02-22'")
+chk("Beyond ADHC while Osagiede managed it $", 101510.19, round(t, 2)); chk("Beyond ADHC while Osagiede managed it, lines", 23, n)
+n, t = one("vendor='BEYOND ADULT DAY HEALTH CENTER, LLC' AND date >= '2017-02-22'"); chk("Beyond ADHC after 2017-02-22 $", 1946926.76, round(t, 2))
+n, t = one("vendor='VILAJ LAJWA ADHC, LLC'"); chk("Vilaj Lajwa ADHC $ (moves with new payments)", 3729881.81, round(t, 2))
+n, t = one(IN_BHA + " AND date > '2019-06-28' AND date < '2019-10-10'")
+chk("BHA 2019 window $", 730589.08, round(t, 2)); chk("BHA 2019 window lines", 81, n)
+n2, t2 = one(IN_BHA + " AND date > '2023-12-29' AND date < '2024-09-20'")
+chk("both dissolution windows $", 1373977.47, round(t + t2, 2)); chk("both windows lines", 234, n + n2)
+Y = " AND date >= '2018-01-01' AND date <= '2024-12-31'"
+# undated lines count toward 2018-2024 when their budget fiscal year falls inside it (FY2019-FY2024)
+YU = " AND ((date >= '2018-01-01' AND date <= '2024-12-31') OR (date IS NULL AND budget_fiscal_year >= 2019 AND budget_fiscal_year <= 2024))"
+n, t = one("vendor='BEYOND INDEPENDENT LIVING LLC'" + Y); chk("BIL CTHRU 2018-2024 $", 22130538.18, round(t, 2))
+n, t = one(IN_BHA + YU);                                    chk("BHA CTHRU 2018-2024 $", 12711139.06, round(t, 2))
+n, t = one(G + YU);                                         chk("GR. BOSTON CTHRU 2018-2024 $", 253725.31, round(t, 2))
+n, t = one("vendor='BEYOND INDEPENDENT LIVING LLC' AND appropriation_name like '%MANAGED CARE PLAN%'" + Y)
+chk("BIL Managed Care Plan account 2018-2024 $", 5146623.26, round(t, 2))
+
+# --- CMS Medicare payments (PAC PUF by provider, one dataset per year)
+PUF = {2014: "28544ea6-d53c-4fd6-a85c-1457ac7872c3", 2015: "42ec5f14-9c41-405a-8450-eda5f4161525", 2016: "5e931266-c5ea-447e-884d-43c30d581fba",
+       2017: "9993352b-2ea4-4375-afb6-c7711fe66e04", 2018: "7d6f3161-1768-4796-91a8-42f4930a5ff6", 2019: "5c063a22-c9f6-4402-bacb-853b8d49a819",
+       2020: "e968ecf6-cef3-4b75-ae40-460273d3844e", 2021: "35416e1b-b805-464f-a376-d2ed04e2574b", 2022: "672e81ea-f675-4f48-ae2e-e4492d996a3f",
+       2023: "51d84821-8fc0-45ce-820c-38be22d1736f", 2024: "7013adbd-3cf9-4a64-a61f-d7d65a0eaa97"}
+def puf(ccn, years):
+    out = {}
+    for y in years:
+        rows = _get("https://data.cms.gov/data-api/v1/dataset/%s/data?filter[PRVDR_ID]=%s" % (PUF[y], ccn), timeout=180)
+        prov = [r for r in rows if (r.get("SMRY_CTGRY") or "").upper() == "PROVIDER"] or rows
+        if prov: out[y] = int(float(prov[0]["TOT_MDCR_PYMT_AMT"]))
+    return out
+try:
+    g = puf("227507", range(2014, 2025))
+    chk("Medicare GBHHC years with a row", 11, len(g))
+    chk("Medicare GBHHC CY2014-2024 $", 15333781, sum(g.values()))
+    chk("Medicare GBHHC CY2016-2024 $", 13673342, sum(v for k, v in g.items() if k >= 2016))
+    chk("Medicare BHA rows (CY2015 only)", {2015: 82133}, puf("227541", range(2014, 2025)))
+    chk("Medicare Eden CY2015-2018 $", 622931, sum(puf("677975", range(2015, 2019)).values()))
+except Exception as e:
+    chk("CMS PUF reachable", "ok", "ERROR: %s" % e)
+
+# --- CMS PECOS owners, associate 1254592256
+try:
+    own = _get("https://data.cms.gov/data-api/v1/dataset/fc009b2d-7846-44b1-b4a1-692f0c143879/data?filter[ASSOCIATE%20ID%20-%20OWNER]=1254592256", timeout=180)
+    pct = {(r["ENROLLMENT ID"], r["ASSOCIATION DATE - OWNER"]) for r in own if r.get("ROLE TEXT - OWNER", "").startswith("5% OR GREATER DIRECT")}
+    chk("PECOS: Egah 100% owner rows (BHA, GBHHC, PA)", 3, len(pct))
+    chk("PECOS: owner name", {"EGAH"}, {r["LAST NAME - OWNER"] for r in own})
+    eden = _get("https://data.cms.gov/data-api/v1/dataset/94c1d434-bdad-47e5-b301-6bcf8634af6b/data?filter[ENROLLMENT%20ID]=O20150912000320", timeout=180)
+    chk("PECOS 2023: Eden owned by 1254592256 from 2014-08-22", True, any(r["ASSOCIATE ID - OWNER"] == "1254592256" and r["ASSOCIATION DATE - OWNER"] == "2014-08-22" for r in eden))
+except Exception as e:
+    chk("CMS PECOS reachable", "ok", "ERROR: %s" % e)
+
+# --- HRSA Provider Relief Fund
+try:
+    prf = 0
+    for s, st in [("BEYOND%20HEALTHCARE", "MA"), ("BEYOND%20INDEPENDENT", "MA"), ("GREATER%20BOSTON%20HOME%20HEALTH", "MA"), ("GUARANTEED%20HOME%20HEALTH", "PA")]:
+        for r in _get("https://data.cdc.gov/resource/kh8y-3es6.json?$q=%s" % s, timeout=180):
+            if r.get("state") == st: prf += int(r["payment"].replace("$", "").replace(",", ""))
+    chk("HHS Provider Relief Fund, four payees $", 169199, prf)
+except Exception as e:
+    chk("HRSA PRF reachable", "ok", "ERROR: %s" % e)
+
+# --- SBA files (local; skipped when absent)
+SBA = os.environ.get("BEYOND_SBA_DIR", "")
+ppp = os.path.join(SBA, "public_150k_plus_240930.csv")
+if SBA and os.path.exists(ppp):
+    got = {}
+    with open(ppp, encoding="utf-8", errors="replace", newline="") as fh:
+        for r in csv.DictReader(fh):
+            if r["LoanNumber"] in ("8009847100", "3390558708", "5267977702"):
+                got[r["LoanNumber"]] = (float(r["CurrentApprovalAmount"]), float(r["ForgivenessAmount"] or 0))
+    chk("PPP GBHHC two loans $", 2369200.0, got.get("8009847100", (0, 0))[0] + got.get("3390558708", (0, 0))[0])
+    chk("PPP GBHHC forgiven $", 2388640.42, round(got.get("8009847100", (0, 0))[1] + got.get("3390558708", (0, 0))[1], 2))
+    chk("PPP Beyond Business Consulting $", 155107.0, got.get("5267977702", (0, 0))[0])
+else:
+    skip("SBA PPP checks", "set BEYOND_SBA_DIR to a folder holding public_150k_plus_240930.csv")
+cov = list(csv.DictReader(open(REPO + "data/covid-federal.csv", encoding="utf-8")))
+chk("EIDL entity loans in data file $", 1328200, sum(int(r["amount"]) for r in cov if r["program"] == "EIDL loan" and "individual" not in r["recipient_as_filed"]))
+chk("EIDL advances in data file $", 56000, sum(int(r["amount"]) for r in cov if r["program"] == "EIDL advance"))
+
+# --- HHS T-MSIS (local parquet; skipped when absent)
+PQ = os.environ.get("BEYOND_TMSIS", "E:/hhs-tmsis/medicaid-provider-spending.parquet")
+try:
+    import duckdb
+    have = os.path.exists(PQ)
+except ImportError:
+    have = False
+if have:
+    con = duckdb.connect()
+    tm = dict(con.sql("SELECT BILLING_PROVIDER_NPI_NUM, round(sum(TOTAL_PAID::DECIMAL(38,2)),2) FROM '%s' WHERE BILLING_PROVIDER_NPI_NUM IN ('1003226630','1003116021','1063691905') GROUP BY 1" % PQ).fetchall())
+    chk("T-MSIS BIL 2018-2024 $", 29101580.81, float(tm.get("1003226630", 0)))
+    chk("T-MSIS BHA 2018-2024 $", 13234951.02, float(tm.get("1003116021", 0)))
+    chk("T-MSIS GBHHC 2018-2024 $", 1143093.82, float(tm.get("1063691905", 0)))
+    w24 = con.sql("SELECT round(sum(TOTAL_PAID::DECIMAL(38,2)),2) FROM '%s' WHERE BILLING_PROVIDER_NPI_NUM='1003116021' AND CLAIM_FROM_MONTH BETWEEN '2024-01' AND '2024-08'" % PQ).fetchone()[0]
+    w19 = con.sql("SELECT round(sum(TOTAL_PAID::DECIMAL(38,2)),2) FROM '%s' WHERE BILLING_PROVIDER_NPI_NUM='1003116021' AND CLAIM_FROM_MONTH BETWEEN '2019-07' AND '2019-09'" % PQ).fetchone()[0]
+    chk("T-MSIS BHA service months 2024-01..08 $", 653850.92, float(w24)); chk("T-MSIS BHA service months 2019-07..09 $", 744126.71, float(w19))
+else:
+    skip("HHS T-MSIS checks", "parquet not found at %s (set BEYOND_TMSIS)" % PQ)
+tmf = list(csv.DictReader(open(REPO + "data/tmsis-by-npi-year.csv", encoding="utf-8")))
+chk("T-MSIS data file BIL total", 29101580.81, round(sum(float(r["total_paid"]) for r in tmf if r["billing_npi"] == "1003226630"), 2))
+
+# --- the page and the README carry the new figures
+for fig in ("$453,684.67", "$1,373,977", "$13,673,342", "$29,101,580.81", "$730,589.08", "$101,510.19", "1254592256", "$2,369,200", "$1,328,200", "$169,199", "$622,931", "201540575070", "201661665430"):
+    chk("page carries %s" % fig, True, fig in HTML)
+for fig in ("$453,684.67", "$1,373,977.47", "$13,673,342", "$29,101,580.81", "1254592256", "$2,369,200", "$1,328,200"):
+    chk("README carries %s" % fig, True, fig in README)
+chk("page has 11 tab panels", 11, HTML.count('role="tabpanel" id='))
+chk("page has no em dash", 0, HTML.count("&mdash;") + HTML.count("\u2014"))
+if skips: print("\n%d check group(s) skipped: %s" % (len(skips), ", ".join(skips)))
 
 print("\n" + "=" * 118)
 fails = [r for r in results if not r[0]]

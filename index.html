@@ -1,4 +1,10 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Beyond Cluster</title>
+<meta name="description" content="A public-records check on the Osagiede/Egah home care and adult foster care providers: the Massachusetts corporate register, the Comptroller's ledger, HHS Medicaid billing, Medicare enrollment and payments, SBA COVID loans and the enforcement record.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -10,7 +16,7 @@
   --rule:#DFDCD4; --rule-2:#EBE8E1;
   --bay:#14558F; --cranberry:#680A1D;
   --ok:#2C6249; --bad:#9E2B28; --warn:#8A5A10;
-  --ok-bg:#E6EFE9; --bad-bg:#F7E5E3; --warn-bg:#F6EDDC;
+  --ok-bg:#E6EFE9; --bad-bg:#F7E5E3; --warn-bg:#F6EDDC; --new-bg:#E7EEF6;
   --c1:#A62C3E; --c2:#14558F; --c3:#388557; --band:rgba(166,44,62,.10);
   color-scheme:light;
 }
@@ -19,7 +25,7 @@
     --paper:#15171A; --card:#1C1F23; --ink:#EDEAE4; --ink-2:#B3BAC0; --ink-3:#8A939A;
     --rule:#33383D; --rule-2:#262A2E; --bay:#78AEE2; --cranberry:#E2818E;
     --ok:#7FC3A3; --bad:#EA9691; --warn:#DCB169;
-    --ok-bg:#1D2E27; --bad-bg:#332022; --warn-bg:#302818;
+    --ok-bg:#1D2E27; --bad-bg:#332022; --warn-bg:#302818; --new-bg:#1B2633;
     --c1:#CF5A70; --c2:#3E8FD6; --c3:#46A873; --band:rgba(207,90,112,.15);
     color-scheme:dark;
   }
@@ -28,11 +34,13 @@
   --paper:#15171A; --card:#1C1F23; --ink:#EDEAE4; --ink-2:#B3BAC0; --ink-3:#8A939A;
   --rule:#33383D; --rule-2:#262A2E; --bay:#78AEE2; --cranberry:#E2818E;
   --ok:#7FC3A3; --bad:#EA9691; --warn:#DCB169;
-  --ok-bg:#1D2E27; --bad-bg:#332022; --warn-bg:#302818;
+  --ok-bg:#1D2E27; --bad-bg:#332022; --warn-bg:#302818; --new-bg:#1B2633;
+  --c1:#CF5A70; --c2:#3E8FD6; --c3:#46A873; --band:rgba(207,90,112,.15);
   color-scheme:dark;
 }
 
-body{background:var(--paper); color:var(--ink);
+html{scroll-padding-top:64px;}
+body{margin:0; background:var(--paper); color:var(--ink);
   font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased;}
 .wrap{max-width:1140px; margin-inline:auto; padding-inline:32px; padding-block:48px 80px;}
@@ -41,26 +49,48 @@ p{margin:0;} a{color:var(--bay);}
 
 .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px; font-weight:500;
   letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3);}
-.masthead{display:flex; flex-direction:column; gap:14px; padding-bottom:26px; border-bottom:2px solid var(--ink);}
+.masthead{display:flex; flex-direction:column; gap:14px; padding-bottom:26px;}
 h1{font-size:clamp(2.1rem,6vw,3.1rem); font-weight:600; line-height:1.06; letter-spacing:-.015em;}
-.standfirst{font-size:1.09rem; color:var(--ink-2); max-width:64ch;}
+.standfirst{font-size:1.09rem; color:var(--ink-2); max-width:66ch;}
 .slug{display:flex; flex-wrap:wrap; gap:6px 18px; font-family:"IBM Plex Mono",monospace;
   font-size:11.5px; color:var(--ink-3); padding-top:4px;}
 .slug b{color:var(--ink-2); font-weight:500;}
 
-.strip{display:grid; grid-template-columns:repeat(auto-fit,minmax(162px,1fr)); gap:1px;
-  background:var(--rule); border:1px solid var(--rule); margin-block:34px;}
+/* tabs */
+.tabbar{position:sticky; top:0; z-index:5; background:var(--paper); border-top:2px solid var(--ink);
+  border-bottom:1px solid var(--rule); margin-inline:-32px; padding-inline:32px;}
+.tablist{display:flex; flex-wrap:wrap; gap:0 2px;}
+.tab{appearance:none; border:0; background:none; cursor:pointer; white-space:nowrap;
+  font-family:"IBM Plex Sans",sans-serif; font-size:13.5px; font-weight:500; color:var(--ink-2);
+  padding:13px 12px 11px; border-bottom:3px solid transparent; margin-bottom:-1px;}
+.tab:hover{color:var(--ink);}
+.tab[aria-selected="true"]{color:var(--ink); border-bottom-color:var(--cranberry); font-weight:600;}
+.tab:focus-visible{outline:2px solid var(--bay); outline-offset:-2px;}
+.tab .dot{display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--bay);
+  margin-left:6px; vertical-align:2px;}
+.panel{padding-top:8px; margin-top:0;}
+.panel > section:first-child{margin-top:28px;}
+.panel:focus{outline:none;}
+.panel-h{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink-3); margin-top:26px;}
+.next{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-top:44px; padding-top:16px;
+  border-top:1px solid var(--rule); font-size:.9rem;}
+.next a{text-decoration:none; font-weight:500;}
+
+.strip{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:1px;
+  background:var(--rule); border:1px solid var(--rule); margin-block:26px 10px;}
 .fig{background:var(--card); padding:18px 18px 16px; display:flex; flex-direction:column; gap:3px;}
 .fig .n{font-family:"IBM Plex Mono",monospace; font-size:1.36rem; font-weight:600;
   font-variant-numeric:tabular-nums; letter-spacing:-.02em; color:var(--cranberry);}
 .fig .k{font-size:12.5px; color:var(--ink-2); line-height:1.4;}
 .fig .s{font-size:11px; color:var(--ink-3); font-family:"IBM Plex Mono",monospace;}
 
-section{margin-top:48px;}
+section{margin-top:40px;}
 h2{font-size:1.5rem; font-weight:600; letter-spacing:-.01em;
   padding-bottom:9px; border-bottom:1px solid var(--rule); margin-bottom:6px;}
-.lede{font-size:.95rem; color:var(--ink-2); margin-top:12px; max-width:72ch;}
+.lede{font-size:.95rem; color:var(--ink-2); margin-top:12px; max-width:74ch;}
 .lede + .lede{margin-top:10px;}
+.lede b{color:var(--ink);}
 
 .verdicts{display:flex; flex-direction:column;}
 .v{display:grid; grid-template-columns:116px 1fr; gap:22px; padding:20px 0; border-bottom:1px solid var(--rule-2);}
@@ -70,9 +100,11 @@ h2{font-size:1.5rem; font-weight:600; letter-spacing:-.01em;
 .c-ok{background:var(--ok-bg); color:var(--ok);}
 .c-bad{background:var(--bad-bg); color:var(--bad);}
 .c-warn{background:var(--warn-bg); color:var(--warn);}
+.c-new{background:var(--new-bg); color:var(--bay);}
 .v .claim{font-family:Newsreader,Georgia,serif; font-size:1.13rem; line-height:1.4; margin-bottom:7px; display:block;}
 .v .body{font-size:.925rem; color:var(--ink-2); max-width:76ch;}
 .v .body b{color:var(--ink); font-weight:600;}
+.v .cav{display:block; margin-top:9px; padding-top:9px; border-top:1px dashed var(--rule); font-size:.855rem; color:var(--ink-3);}
 
 .scroll{overflow-x:auto; margin-top:20px; border:1px solid var(--rule);}
 table{border-collapse:collapse; width:100%; font-size:13px; background:var(--card);}
@@ -82,38 +114,48 @@ thead th{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.
 tbody tr:last-child td{border-bottom:none;}
 td.m,th.m{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap;}
 td.num{text-align:right; font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap;}
+th.r{text-align:right;}
 tfoot td{font-weight:600; background:var(--paper); border-top:1px solid var(--rule); border-bottom:none;}
 .vend{font-family:"IBM Plex Mono",monospace; font-size:12px; line-height:1.45;}
 .d{color:var(--bad); font-weight:600; font-family:"IBM Plex Mono",monospace; white-space:nowrap;}
 .live{color:var(--ok); font-weight:600; font-family:"IBM Plex Mono",monospace;}
 .paid{background:var(--warn-bg);}
 tr.paid td{border-bottom-color:var(--rule);}
+tr.sub td{color:var(--ink-3);}
 .tag{font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.06em; text-transform:uppercase;
   background:var(--cranberry); color:#fff; padding:2px 5px; border-radius:2px; white-space:nowrap;}
+.tag.b{background:var(--bay);}
+.tag.g{background:var(--ink-3);}
 :root[data-theme="dark"] .tag, :root:not([data-theme="light"]) .tag{color:#15171A;}
 @media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .tag{color:#fff;}}
+.note{font-size:.84rem; color:var(--ink-3); margin-top:10px; max-width:86ch;}
 
 .finds{display:flex; flex-direction:column; gap:14px; margin-top:22px;}
 .find{background:var(--card); border:1px solid var(--rule); border-left:3px solid var(--bay); padding:16px 18px;}
 .find h3{font-size:1.06rem; font-weight:600; margin-bottom:5px;}
-.find p{font-size:.92rem; color:var(--ink-2); max-width:78ch;}
+.find p{font-size:.92rem; color:var(--ink-2); max-width:80ch;}
+.find p + p{margin-top:8px;}
 .find p b{color:var(--ink);}
 .find .cav{display:block; margin-top:9px; padding-top:9px; border-top:1px dashed var(--rule);
   font-size:.855rem; color:var(--ink-3);}
+.find .go{display:inline-block; margin-top:9px; font-size:.85rem; font-weight:500; text-decoration:none;}
 .find.corr{border-left-color:var(--bad);}
 .find.key{border-left-color:var(--cranberry);}
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px; margin-top:22px;}
+.grid2 .find{margin:0;}
 
 .chain{list-style:none; padding:0; margin:22px 0 0; display:flex; flex-direction:column;}
-.chain li{display:grid; grid-template-columns:96px 1fr; gap:14px; padding:11px 0;
+.chain li{display:grid; grid-template-columns:104px 1fr; gap:14px; padding:11px 0;
   border-bottom:1px solid var(--rule-2); font-size:.92rem; color:var(--ink-2);}
 .chain li:first-child{border-top:1px solid var(--rule-2);}
 .chain time{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-3); font-variant-numeric:tabular-nums;}
 .chain b{color:var(--ink); font-weight:600;}
 .chain .end b{color:var(--bad);}
+.chain .src{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3);}
 
 .caveats{margin-top:22px; padding:20px 22px; background:var(--card); border:1px solid var(--rule);}
-.caveats ul{margin:0; padding-left:19px; display:flex; flex-direction:column; gap:11px;}
-.caveats li{font-size:.9rem; color:var(--ink-2); max-width:84ch;}
+.caveats ul, .caveats ol{margin:0; padding-left:19px; display:flex; flex-direction:column; gap:11px;}
+.caveats li{font-size:.9rem; color:var(--ink-2); max-width:86ch;}
 .caveats li b{color:var(--ink); font-weight:600;}
 
 footer{margin-top:52px; padding-top:20px; border-top:1px solid var(--rule); font-size:.82rem; color:var(--ink-3);}
@@ -150,76 +192,157 @@ figcaption{margin-top:12px; padding-top:11px; border-top:1px dashed var(--rule);
 .legend .k1{background:var(--c1);} .legend .k2{background:var(--c2);} .legend .k3{background:var(--c3);}
 
 @media (max-width:760px){
-  .wrap{padding-inline:20px;}
+  .wrap{padding-inline:16px; padding-top:32px;}
+  .tabbar{margin-inline:-16px; padding-inline:8px;}
+  .tablist{flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;
+    -webkit-mask-image:linear-gradient(90deg,#000 85%,transparent); mask-image:linear-gradient(90deg,#000 85%,transparent);}
+  .tablist::-webkit-scrollbar{display:none;}
+  .tab{padding:12px 10px 10px; font-size:13px;}
 }
 @media (max-width:560px){
   .v{grid-template-columns:1fr; gap:9px;}
   .chip{width:112px;}
   .chain li{grid-template-columns:1fr; gap:2px;}
 }
+@media print{
+  .tabbar,.next{display:none;}
+  .panel[hidden]{display:block !important;}
+}
 </style>
-
+</head>
+<body>
 <div class="wrap">
 
 <div class="masthead">
-  <span class="eyebrow">Public records check &middot; Massachusetts</span>
+  <span class="eyebrow">Public records check &middot; Massachusetts &middot; federal</span>
   <h1>The Beyond Cluster</h1>
-  <p class="standfirst">A complete pull of the corporate register behind a family of MassHealth adult foster care providers, checked line by line against the Comptroller's payment ledger and the 2020 State Auditor report. Forty-five entities, two names, one person.</p>
+  <p class="standfirst">A pull of every public register that touches one family of MassHealth home care and adult foster care providers: the Massachusetts corporate register, the Comptroller's payment ledger, HHS Medicaid billing, Medicare enrollment and payment files, SBA COVID loans, the IRS and the enforcement record. Forty-five Massachusetts entities, two filing names, one person.</p>
   <div class="slug">
-    <span><b>Checked</b> 20 Sep 2026</span>
+    <span><b>First checked</b> 20 Sep 2026</span>
+    <span><b>Updated</b> 25 Sep 2026</span>
     <span><b>Claim under review</b> @Ryan_Arthur_xyz, 21 Jan 2026</span>
-    <span><b>Payments current to</b> 17 Sep 2026</span>
+    <span><b>State payments current to</b> 21 Sep 2026</span>
   </div>
 </div>
+
+<nav class="tabbar" aria-label="Sections">
+  <div class="tablist" role="tablist">
+    <button class="tab" role="tab" id="t-overview" aria-controls="overview" aria-selected="true">Overview</button>
+    <button class="tab" role="tab" id="t-claims" aria-controls="claims" aria-selected="false">Claims checked</button>
+    <button class="tab" role="tab" id="t-payments" aria-controls="payments" aria-selected="false">State payments</button>
+    <button class="tab" role="tab" id="t-federal" aria-controls="federal" aria-selected="false">Medicaid &amp; Medicare<span class="dot" title="New in this update"></span></button>
+    <button class="tab" role="tab" id="t-gbhhc" aria-controls="gbhhc" aria-selected="false">Greater Boston Home Health<span class="dot" title="New in this update"></span></button>
+    <button class="tab" role="tab" id="t-covid" aria-controls="covid" aria-selected="false">COVID money<span class="dot" title="New in this update"></span></button>
+    <button class="tab" role="tab" id="t-identity" aria-controls="identity" aria-selected="false">Identity</button>
+    <button class="tab" role="tab" id="t-register" aria-controls="register" aria-selected="false">Register &amp; IRS</button>
+    <button class="tab" role="tab" id="t-enforcement" aria-controls="enforcement" aria-selected="false">Enforcement</button>
+    <button class="tab" role="tab" id="t-followups" aria-controls="followups" aria-selected="false">Follow-ups</button>
+    <button class="tab" role="tab" id="t-method" aria-controls="method" aria-selected="false">Corrections &amp; method</button>
+  </div>
+</nav>
+
+<section class="panel" role="tabpanel" id="overview" aria-labelledby="t-overview" tabindex="-1">
 
 <div class="strip">
   <div class="fig">
     <span class="n">$105,956,006</span>
-    <span class="k">Total state payments across six vendor identities</span>
-    <span class="s">2011&ndash;2026 &middot; 7,380 payments</span>
+    <span class="k">State payments across six vendor strings</span>
+    <span class="s">2011&ndash;2026 &middot; 7,380 payment lines</span>
   </div>
   <div class="fig">
     <span class="n">45</span>
     <span class="k">Entities registered under Naomi Osagiede or Naomi Egah</span>
-    <span class="s">27 dissolved &middot; 7 exemptions revoked</span>
+    <span class="s">27 dissolved &middot; 9 EINs stand revoked</span>
   </div>
   <div class="fig">
-    <span class="n">$643,388</span>
+    <span class="n">$1,373,977</span>
     <span class="k">Paid to the audited company while it stood dissolved</span>
-    <span class="s">153 payments &middot; Jan&ndash;Sep 2024</span>
+    <span class="s">two windows &middot; 2019 and 2024</span>
+  </div>
+  <div class="fig">
+    <span class="n">$13,673,342</span>
+    <span class="k">Medicare paid Greater Boston Home Health Care after she bought it</span>
+    <span class="s">CY2016&ndash;2024 &middot; CMS</span>
+  </div>
+  <div class="fig">
+    <span class="n">4</span>
+    <span class="k">Medicare home health agencies under one CMS owner ID</span>
+    <span class="s">MA &times;2 &middot; PA &middot; TX</span>
   </div>
   <div class="fig">
     <span class="n">$0.00</span>
-    <span class="k">Recoupment visible anywhere in the ledger</span>
-    <span class="s">No negative line in 7,380 rows</span>
+    <span class="k">Recoupment visible anywhere in the Comptroller's ledger</span>
+    <span class="s">No negative line in 7,380</span>
   </div>
 </div>
+<p class="note">The six figures come from four different payers and registers. Do not add them together: HHS Medicaid billing and the Comptroller's ledger overlap, and Medicare is a separate federal program.</p>
 
 <section>
-  <h2>The two names are one filing apart</h2>
-  <p class="lede">The original post asserts that Naomi Osagiede also files as Naomi Egah. That is not inference, and it does not require comparing signatures or addresses across documents. It is on a single record.</p>
+  <h2>What the 25 September update adds</h2>
+  <p class="lede">The first version of this page checked the corporate register and the state ledger. This update adds the federal record, and it changes three things the first version said.</p>
 
-  <div class="finds">
+  <div class="grid2">
     <div class="find key">
-      <h3>Beyond Faith Consulting, LLC &mdash; entity 463474045</h3>
-      <p>One filing, one address at <b>1208B VFW Parkway, Suite 304, Boston 02132</b>, and both names on it:</p>
-      <p style="margin-top:9px; font-family:'IBM Plex Mono',monospace; font-size:.83rem; line-height:1.9; color:var(--ink)">
-        MANAGER &nbsp;&rarr;&nbsp; NAOMI EGAH<br>
-        SOC SIGNATORY &nbsp;&rarr;&nbsp; NAOMI EGAH<br>
-        REAL PROPERTY &nbsp;&rarr;&nbsp; <b>ADERONKE NAOMI OSAGIEDE</b><br>
-        REAL PROPERTY &nbsp;&rarr;&nbsp; <b>NAOMI EGAH</b><br>
-        MANAGER &nbsp;&rarr;&nbsp; BEYOND BUSINESS MANAGEMENT INC (Suite 301)
-      </p>
-      <span class="cav">The last line matters separately: an entity in this web is itself listed as the manager of another entity in this web. The same nesting appears at Beyond Healthcare Agency LLC, whose registered managers are &ldquo;Naomi A Osagiede&rdquo; and an entity called <b>Beyond Trust</b> &mdash; which exists in the register as Beyond Trust Int LLC, filed under Egah.</span>
+      <h3>Greater Boston Home Health Care is not a new payee. She bought it in 2015.</h3>
+      <p>A state filing of 30 July 2015 records &ldquo;the sale of the agency to Aderonke Naomi Osagiede&rdquo;. The state paid the agency under a vendor string nobody had searched, <code>GR. BOSTON HOME HLTH LLC</code>, from 2009. Medicare has paid it $13.7M since 2016, and SBA forgave $2.39M of PPP.</p>
+      <a class="go" href="#gbhhc">Open the Greater Boston tab &rarr;</a>
+    </div>
+    <div class="find key">
+      <h3>One federal owner ID, four home health agencies, three states</h3>
+      <p>CMS's Medicare enrollment system lists <b>Naomi A Egah</b> as 100% owner of Beyond Healthcare Agency and Greater Boston Home Health Care in Massachusetts, of Guaranteed Home Health Services in Pennsylvania, and until 2023 of Eden Healthcare in Texas. The federal NPI registry names <b>Naomi Osagiede</b> for the same agencies.</p>
+      <a class="go" href="#identity">Open the Identity tab &rarr;</a>
+    </div>
+    <div class="find key">
+      <h3>The audited company was dissolved twice and paid through both</h3>
+      <p>Beyond Healthcare Agency was also dissolved in mid-2019 and reinstated on 10 October 2019. The Comptroller paid it $730,589 between 1 July and 30 September 2019. With the 2024 window the total is <b>$1,373,977</b>. HHS billing data show services running at the usual pace through both.</p>
+      <a class="go" href="#payments">Open the State payments tab &rarr;</a>
+    </div>
+    <div class="find key">
+      <h3>The HHS Medicaid file shows more than the state ledger</h3>
+      <p>HHS's provider-level Medicaid file (T-MSIS, 2018&ndash;2024) records <b>$29.1M</b> paid under Beyond Independent Living's NPI and $13.2M under Beyond Healthcare Agency's. The state ledger shows $22.1M and $12.7M for the same years. Claims paid by managed-care plans never pass through the Comptroller, which fits the gap.</p>
+      <a class="go" href="#federal">Open the Medicaid &amp; Medicare tab &rarr;</a>
+    </div>
+    <div class="find">
+      <h3>COVID money the first version missed</h3>
+      <p>Two forgiven PPP loans of $1,184,600 each, eleven EIDL disaster loans to cluster entities worth $1,328,200, a $74,500 EIDL loan to Naomi Egah personally, and $169,199 in HHS Provider Relief Fund payments. Several borrowers stood dissolved on the day they borrowed.</p>
+      <a class="go" href="#covid">Open the COVID money tab &rarr;</a>
+    </div>
+    <div class="find corr">
+      <h3>Correction: Beyond Adult Day Health Center was hers until 2017</h3>
+      <p>The first version dropped this company as a stranger's. The register shows she organised it in 2014 and managed it until February 2017, when the man who sold her Greater Boston Home Health Care took over. He sued her in federal court in 2018.</p>
+      <a class="go" href="#method">Open Corrections &amp; method &rarr;</a>
     </div>
   </div>
-
-  <p class="lede">Searching only the Osagiede surname returns 20 entities. Searching Egah returns 26. One overlaps. Anyone who searched one name and stopped saw less than half the structure &mdash; which is what happened in the original post.</p>
 </section>
 
 <section>
+  <h2>What is actually provable</h2>
+  <p class="lede">The gap between what the records show and what a reader will assume is where this goes wrong, so it is worth being exact.</p>
+
+  <div class="finds">
+    <div class="find key">
+      <h3>Provable from documents today, no inference</h3>
+      <p>One person operates <b>45</b> Massachusetts entities under two filing names. State and federal records tie the names together six separate times, three of them in CMS's own files. <b>27</b> entities carry an involuntary dissolution. The audited company was dissolved <b>twice</b> and paid <b>$1,373,977</b> while dissolved. <b>Nine</b> of the ten cluster EINs on the IRS revocation list stand revoked for failure to file, including the EIN of the <b>$32.4M</b> payee. One CMS owner ID holds or held <b>four</b> Medicare home health agencies in three states. She bought Greater Boston Home Health Care in <b>2015</b>, and Medicare has paid it <b>$13.7M</b> since. A 2020 audit found up to <b>$887,225</b> in billing that appears to be unallowable. Every NPI checked is still <b>active</b>.</p>
+    </div>
+    <div class="find">
+      <h3>Answerable with a records request, which nobody has yet</h3>
+      <p>How much MassHealth recouped of the $887,225, which its auditor marked &ldquo;recouping&rdquo; in 2021. Whether provider enrolment lapsed during either dissolution. Which managed-care plans paid these providers. What the SBA applications said about corporate standing. The <a href="#followups">Follow-ups tab</a> lists each request by name.</p>
+    </div>
+    <div class="find corr">
+      <h3>Not provable by anyone outside government</h3>
+      <p>Whether services were delivered, whether any billing was knowingly false, and intent. Those need claims-level data and a subpoena. <b>The defensible claim is not that someone stole $103 million.</b> It is that a single operator with 45 companies, 27 administrative dissolutions, nine revoked exemptions, an audit finding with no public resolution and agencies in three states has drawn more than $105.9 million from the Commonwealth alone, is still being paid, and that no public body appears to have looked. That is a demand for an audit, and the records carry it.</p>
+    </div>
+  </div>
+  <p class="note">No wrongdoing by any named person or entity is alleged. Every record cited is a public filing or a public disclosure by the Commonwealth or the federal government.</p>
+</section>
+
+<div class="next"><span></span><a href="#claims">Next: Claims checked &rarr;</a></div>
+</section>
+
+<section class="panel" role="tabpanel" id="claims" aria-labelledby="t-claims" tabindex="-1">
+<section>
   <h2>Claim by claim</h2>
-  <p class="lede">Eight checkable assertions. Six hold or understate, one is a date slip, one fails outright.</p>
+  <p class="lede">Eight checkable assertions from the 21 January 2026 post. Six hold or understate, one is a date slip, one fails outright. Figures are the Comptroller's ledger as of its 25 September 2026 load.</p>
 
   <div class="verdicts">
 
@@ -227,7 +350,7 @@ figcaption{margin-top:12px; padding-top:11px; border-top:1px dashed var(--rule);
       <span class="chip c-warn">Right size<br>wrong frame</span>
       <div>
         <span class="claim">&ldquo;$103,000,000 &hellip; since 2016&rdquo;</span>
-        <p class="body">The total is close. Payments through the day of the post came to <b>$102,287,219</b>, within 0.7% of the figure claimed. But it is not money paid since 2016: payments dated 2016&#8209;01&#8209;01 onward total <b>$62,897,039</b>, and roughly 41% of the $103M predates 2016 entirely. Written correctly the claim is stronger &mdash; the running total now stands at <b>$105,956,006</b>.</p>
+        <p class="body">The total is close. Payments through the day of the post came to <b>$102,287,219</b>, within 0.7% of the figure claimed. The date frame is wrong: payments dated 2016&#8209;01&#8209;01 onward total <b>$62,897,039</b>, and roughly 41% of the $103M predates 2016. Written correctly the claim is stronger. The running total stands at <b>$105,956,006</b>, and that counts the state ledger only.</p>
       </div>
     </div>
 
@@ -235,7 +358,7 @@ figcaption{margin-top:12px; padding-top:11px; border-top:1px dashed var(--rule);
       <span class="chip c-bad">Fails</span>
       <div>
         <span class="claim">&ldquo;On a single day, January 16, 2025, they received $121,728.16&rdquo;</span>
-        <p class="body">This does not verify. There is <b>no payment to any of these vendors on 16 January 2025</b>. No row anywhere in the 49-million-row Comptroller dataset carries an amount of 121,728.16, and no vendor-day in the group sums to between 121,727 and 121,730. The nearest candidate is a year later: on <b>16 January 2026</b>, Beyond Independent Living LLC took 13 payments worth <b>$172,708.26</b>, with a group day total of $190,165.88. Drop the line or replace it with the 2026 figure.</p>
+        <p class="body">This does not verify. The ledger has <b>no payment to any of these vendors on 16 January 2025</b>. No row anywhere in the 49-million-row Comptroller dataset carries an amount of 121,728.16, and no vendor-day in the group sums to between 121,727 and 121,730. The nearest candidate falls a year later: on <b>16 January 2026</b>, Beyond Independent Living LLC took 13 payment lines worth <b>$172,708.26</b>, with a group day total of $190,165.88. Drop the line or replace it with the 2026 figure.</p>
       </div>
     </div>
 
@@ -243,7 +366,7 @@ figcaption{margin-top:12px; padding-top:11px; border-top:1px dashed var(--rule);
       <span class="chip c-ok">Exact</span>
       <div>
         <span class="claim">&ldquo;A state audit flagging $887,225&rdquo;</span>
-        <p class="body">The dollar figure is exact. The Office of the State Auditor published its review on <b>21 September 2020</b>, covering 1 January 2016 to 31 December 2018. MassHealth paid Beyond Healthcare Agency <b>$1,392,917 for 1,945 GAFC claims covering 117 members</b>, and Finding 1 states the agency was paid as much as <b>$887,225</b> for group adult foster care that appears to be unallowable, billed on the same day as Home Health Program services. One word needs changing: the post calls these <i>fraudulent</i> claims. The auditor's phrase is <b>&ldquo;appear to be unallowable&rdquo;</b> &mdash; an upper-bound estimate, not an adjudicated finding. That distinction is the difference between a defensible post and a libel risk.</p>
+        <p class="body">The dollar figure is exact. The Office of the State Auditor published its review on <b>21 September 2020</b>, covering 1 January 2016 to 31 December 2018. MassHealth paid Beyond Healthcare Agency <b>$1,392,917 for 1,945 GAFC claims covering 117 members</b>, and Finding 1 states the agency was paid as much as <b>$887,225</b> for group adult foster care that appears to be unallowable, billed on the same day as Home Health Program services. One word needs changing. The post calls these <i>fraudulent</i> claims; the auditor's phrase is <b>&ldquo;appear to be unallowable&rdquo;</b>, an upper-bound estimate and not an adjudicated finding. That distinction separates a defensible post from a libel risk.</p>
       </div>
     </div>
 
@@ -251,7 +374,7 @@ figcaption{margin-top:12px; padding-top:11px; border-top:1px dashed var(--rule);
       <span class="chip c-ok">Under by<br>two thirds</span>
       <div>
         <span class="claim">&ldquo;At least 12&ndash;15 LLCs and corporations tied to her name&rdquo;</span>
-        <p class="body">Badly understated. The full pull is <b>45 distinct entities</b> &mdash; 20 filed under Osagiede, 26 under Egah, one appearing in both. They span home health, hospice, adult day health, medical equipment, medical billing, a healthcare school, transportation, software, HVAC, cleaning, real estate, seven churches or ministries, and eight nonprofits.</p>
+        <p class="body">Badly understated. The full pull is <b>45 distinct entities</b>: 20 filed under Osagiede, 26 under Egah, one in both. They span home health, hospice, adult day health, medical equipment, medical billing, a healthcare school, transportation, software, cleaning, real estate, seven churches or ministries, and eight nonprofits. A 46th, Beyond Adult Day Health Center LLC, carried her as organiser and manager from 2014 to 2017 and now has other managers (<a href="#gbhhc">details</a>). Outside Massachusetts she holds two Pennsylvania provider numbers (<a href="#identity">details</a>).</p>
       </div>
     </div>
 
@@ -259,8 +382,8 @@ figcaption{margin-top:12px; padding-top:11px; border-top:1px dashed var(--rule);
       <span class="chip c-ok">Confirmed<br>27 of 45</span>
       <div>
         <span class="claim">&ldquo;Then involuntarily dissolved by the Secretary of the Commonwealth&rdquo;</span>
-        <p class="body">Holds. <b>27 of the 45 entities carry at least one Date of Involuntary Dissolution</b> &mdash; 60%. Six of those were later revived and three were dissolved a second time afterwards. Of the eighteen never dissolved, three ceased by conversion or merger rather than by lapse.</p>
-        <span class="cav" style="color:var(--ink-3); display:block; margin-top:9px; padding-top:9px; border-top:1px dashed var(--rule); font-size:.855rem">Read the dates carefully before writing about them. Five of these entities share 28 June 2019 and five share 30 June 2025, and the LLC dissolutions fall on 29&ndash;31 December. Neither statute prescribes a date: <b>MGL c.156D &sect;14.21</b> for corporations and <b>MGL c.156C &sect;70</b> for LLCs each require written notice and a <b>90-day cure period</b>, after which the Secretary shall dissolve. The clustering is an observed pattern in the filing data, consistent with batch processing; I have not found a published schedule and do not assert one. The figure worth reporting is the <i>count</i>, not the coincidence of dates.</span>
+        <p class="body">Holds. <b>27 of the 45 entities carry at least one Date of Involuntary Dissolution</b>, 60%. The register summary shows only the latest dissolution, so earlier ones hide behind a revival date: Beyond Healthcare Agency's filing history records a 2019 reinstatement that its summary page does not show. Of the eighteen never involuntarily dissolved, four ceased by conversion or merger and one dissolved voluntarily.</p>
+        <span class="cav">Read the dates carefully before writing about them. Five of these entities share 28 June 2019 and five share 30 June 2025, and the LLC dissolutions fall on 29&ndash;31 December. Neither statute prescribes a date: <b>MGL c.156D &sect;14.21</b> for corporations and <b>MGL c.156C &sect;70</b> for LLCs each require written notice and a <b>90-day cure period</b>, after which the Secretary shall dissolve. The clustering is an observed pattern in the filing data, consistent with batch processing. I have not found a published schedule and do not assert one. Report the <i>count</i>, not the coincidence of dates.</span>
       </div>
     </div>
 
@@ -268,7 +391,7 @@ figcaption{margin-top:12px; padding-top:11px; border-top:1px dashed var(--rule);
       <span class="chip c-warn">Date differs</span>
       <div>
         <span class="claim">&ldquo;&hellip; official notice in February 2025 &hellip; before the state revoked its charter&rdquo;</span>
-        <p class="body">The nonprofit is real and the revocation is real, but the register dates it differently. Beyond Independent Living Inc (ID <code>001309461</code>), organised 10 Jan 2018, carries a <b>Date of Involuntary Dissolution of 30 June 2025</b>. February 2025 is entirely consistent with the notice the post reproduces. Write it as &ldquo;noticed in February, revoked 30 June 2025&rdquo; and it is airtight.</p>
+        <p class="body">The nonprofit is real and the revocation is real, but the register dates it differently. Beyond Independent Living Inc (ID <code>001309461</code>), organised 10 Jan 2018, carries a <b>Date of Involuntary Dissolution of 30 June 2025</b>. February 2025 fits the notice the post reproduces. Write it as &ldquo;noticed in February, revoked 30 June 2025&rdquo; and it holds.</p>
       </div>
     </div>
 
@@ -276,7 +399,7 @@ figcaption{margin-top:12px; padding-top:11px; border-top:1px dashed var(--rule);
       <span class="chip c-ok">Exact</span>
       <div>
         <span class="claim">&ldquo;On January 22, 2020, Beyond Independent Living LLC was registered to 661 Centre St&rdquo;</span>
-        <p class="body">Confirmed to the day. Entity <code>001421873</code>, Date of Organization <b>22 January 2020</b>, records address <b>661 Centre St, Brockton MA 02302</b>, resident agent and manager <b>Naomi Egah</b>. Two things the post does not say: the address is in <b>Brockton</b>, and this is a <b>second LLC carrying a name identical to the one being paid</b>, which is registered in Boston under the Osagiede spelling. The Fire of Life link also checks out &mdash; <b>Fire Of Life. Inc</b>, ID <code>001150418</code>, is a Chapter 180 religious corporation filed under Naomi Egah at a Brockton address.</p>
+        <p class="body">Confirmed to the day. Entity <code>001421873</code>, Date of Organization <b>22 January 2020</b>, records address <b>661 Centre St, Brockton MA 02302</b>, resident agent and manager <b>Naomi Egah</b>. The post leaves out two things: the address is in <b>Brockton</b>, and this is a <b>second LLC carrying a name identical to the one being paid</b>, which is registered in Boston under the Osagiede spelling. The Fire of Life link also checks out: <b>Fire Of Life. Inc</b>, ID <code>001150418</code>, is a Chapter 180 religious corporation filed under Naomi Egah at a Brockton address.</p>
       </div>
     </div>
 
@@ -284,21 +407,25 @@ figcaption{margin-top:12px; padding-top:11px; border-top:1px dashed var(--rule);
       <span class="chip c-ok">Confirmed</span>
       <div>
         <span class="claim">&ldquo;Yet the money keeps flowing&rdquo;</span>
-        <p class="body">Understated. Beyond Independent Living LLC has been paid <b>every fiscal year since FY2016</b>, rising from $247,827 to <b>$4,782,426 in FY2026</b>, with $1,125,748 already booked against FY2027. A further <b>$3,608,847</b> has gone out since the post was published. The most recent payment in the cluster is dated <b>17 September 2026</b> &mdash; three days before this check was run.</p>
+        <p class="body">Understated. The Comptroller has paid Beyond Independent Living LLC <b>every fiscal year since FY2016</b>, rising from $247,827 to <b>$4,782,426 in FY2026</b>, with $1,125,748 already booked against FY2027. A further <b>$3,608,847</b> has gone out since the post was published. The ledger's latest dated lines fall on <b>21 September 2026</b>.</p>
+        <span class="cav">The first version gave 17 September as the latest date. The Comptroller reloaded its FY2026&ndash;27 rows between 23 and 25 September, and 18 lines already inside the published total ($105,995.52) now carry dates of 18 and 21 September. The total and the line count did not change. Treat &ldquo;latest payment&rdquo; as the date field in the load you query, not as a settled payment date.</span>
       </div>
     </div>
 
   </div>
 </section>
+<div class="next"><a href="#overview">&larr; Overview</a><a href="#payments">Next: State payments &rarr;</a></div>
+</section>
 
+<section class="panel" role="tabpanel" id="payments" aria-labelledby="t-payments" tabindex="-1">
 <section>
-  <h2>Where the money actually went</h2>
-  <p class="lede">Six vendor identities in the Comptroller's file, mapping to three real businesses. Vendor strings are reproduced exactly as the state spells them &mdash; two are truncated at forty characters and one misspells &ldquo;Beyond&rdquo; as <code>BEYONE</code>, which is why the largest block of money, $63.2 million, does not surface in a plain search for the company name.</p>
+  <h2>Where the Commonwealth's money went</h2>
+  <p class="lede">The Comptroller's ledger, CTHRU dataset <code>pegc-naaa</code>, carries six vendor strings that map to three real businesses. The table reproduces each string exactly as the state spells it. Two are truncated at forty characters and one misspells &ldquo;Beyond&rdquo; as <code>BEYONE</code>, which is why the largest block of money, $63.2 million, does not surface in a plain search for the company name.</p>
 
   <div class="scroll">
     <table>
       <thead>
-        <tr><th>Vendor string in CTHRU</th><th>City</th><th class="m">Payments</th><th class="m">Total</th><th class="m">Span</th></tr>
+        <tr><th>Vendor string in CTHRU</th><th>City</th><th class="m r">Payment lines</th><th class="m r">Total</th><th class="m">Span</th></tr>
       </thead>
       <tbody>
         <tr><td class="vend">ADERONKE NAOMI OSAGIEDE BEYONE HEALTHCAR</td><td>Woburn</td><td class="num">1,432</td><td class="num">$63,247,375.74</td><td class="num">2012&ndash;2018</td></tr>
@@ -313,8 +440,9 @@ figcaption{margin-top:12px; padding-top:11px; border-top:1px dashed var(--rule);
       </tfoot>
     </table>
   </div>
+  <p class="note">A &ldquo;payment line&rdquo; is one row of the ledger. The Comptroller splits a single remittance into one line per appropriation, so the 7,380 lines are 1,868 distinct payments. Nine lines worth $59,939.61 carry no date, which is why the date-bounded figures on this page do not add up to the grand total. Queried against the load of 25 September 2026.</p>
 
-  <figure>
+<figure>
 <h3>Two peaks, one operator</h3>
 <p class="sub">Annual payments from the Commonwealth, split by business. The first collapses from $17.5M to under $1M; the second replaces it and climbs steadily back.</p>
 <div class="legend"><span><i class="k1"></i>Beyond Healthcare Agency</span><span><i class="k2"></i>Beyond Independent Living</span><span><i class="k3"></i>Greater Boston Home Health Care</span></div>
@@ -393,103 +521,57 @@ figcaption{margin-top:12px; padding-top:11px; border-top:1px dashed var(--rule);
 <line x1="62" y1="326" x2="984" y2="326" class="axis"/>
 <text x="62" y="366" class="ax ax-note" text-anchor="start">Fiscal year &#183; FY2027 is partial, three months booked</text>
 </svg>
-<figcaption>The 2015 peak and the 2022&ndash;2026 plateau are different companies under the same owner. Beyond Healthcare Agency falls away after the audit period; Beyond Independent Living carries the volume from FY2021 on. Exact figures are in the fiscal-year table below.</figcaption>
+<figcaption>The 2015 peak and the 2022&ndash;2026 plateau are different companies under the same owner. Beyond Healthcare Agency falls away after the audit period; Beyond Independent Living carries the volume from FY2021 on. The chart covers the six published strings only. Exact figures by fiscal year are in <code>data/payments-by-fiscal-year.csv</code>.</figcaption>
 </figure>
-  <p class="lede">The first, third, fourth and sixth rows are all one company. The Corporations Division name history for entity <code>271533104</code> records that Beyond Healthcare Agency LLC was legally named <i>Aderonke Naomi Osagiede Beyond Healthcare Agency LLC</i> until 14 October 2015; the payment system carried the old name for four more years. That single entity accounts for <b>$73.50 million</b>.</p>
+  <p class="lede">The first, third, fourth and sixth rows are one company. The Corporations Division name history for entity <code>271533104</code> records that Beyond Healthcare Agency LLC was legally named <i>Aderonke Naomi Osagiede Beyond Healthcare Agency LLC</i> until 14 October 2015, and the payment system carried the old name for four more years. That single entity accounts for <b>$73.50 million</b>. The sixth row's tie to it rests on name, town and program rather than an identifier, so treat those $3,479 as probable.</p>
 </section>
 
 <section>
-  <h2>The federal record</h2>
-  <p class="lede">The state register shows companies being struck off. The federal register shows the same pattern independently, and it is the harder of the two documents.</p>
-
-  <h3 class="sub-h">Every 501(c)(3) in this web lost its exemption</h3>
-  <p class="lede">The IRS publishes an Automatic Revocation of Exemption list: organisations whose tax-exempt status was revoked under IRC&nbsp;6033(j) for failing to file a return three years running. Searching all 1,247,140 records returns eight rows, covering all seven of the nonprofits here.</p>
-
-  <div class="scroll">
-    <table>
-      <thead><tr><th class="m">EIN</th><th>Organisation</th><th class="m">Revoked</th><th class="m">Posted</th><th class="m">Reinstated</th></tr></thead>
-      <tbody>
-        <tr class="paid"><td class="m">462941036</td><td><b>BEYOND INDEPENDENT LIVING LLC</b> <span class="tag">$32.4M payee</span></td><td class="d">15 May 2021</td><td class="m">9 Aug 2021</td><td class="d">no</td></tr>
-        <tr><td class="m">472476331</td><td>Fire of Life Inc</td><td class="d">15 May 2022</td><td class="m">17 Jan 2026</td><td class="d">no</td></tr>
-        <tr><td class="m">850730708</td><td>Hope and Power Mega Church</td><td class="d">15 May 2023</td><td class="m">14 Aug 2023</td><td class="d">no</td></tr>
-        <tr><td class="m">821341006</td><td>Nkums World Outreach</td><td class="d">15 May 2020</td><td class="m">11 Aug 2020</td><td class="d">no</td></tr>
-        <tr><td class="m">822091333</td><td>Nigerian Nurses Association of Massachusetts</td><td class="d">15 May 2020</td><td class="m">11 Aug 2020</td><td class="d">no</td></tr>
-        <tr><td class="m">822326336</td><td>Embassy of Grace, A Place of Favor</td><td class="d">15 May 2020</td><td class="m">11 Aug 2020</td><td class="d">no</td></tr>
-        <tr><td class="m">465109128</td><td>Beyond Zoe Ministry</td><td class="d">15 May 2017</td><td class="m">16 Aug 2017</td><td class="live">15 May 2017</td></tr>
-        <tr><td class="m">472476331</td><td>Fire of Life <i>(first revocation)</i></td><td class="d">15 May 2017</td><td class="m">16 Aug 2017</td><td class="live">15 May 2017</td></tr>
-      </tbody>
-    </table>
-  </div>
-
+  <h2>Two more strings the first version missed</h2>
   <div class="finds">
     <div class="find key">
-      <h3>The revoked charity and the paid vendor share a number</h3>
-      <p><b>EIN 462941036 is the same number the Secretary of the Commonwealth uses as the identification number for Beyond Independent Living LLC</b> &mdash; the vendor the Comptroller has paid <b>$32,404,181</b>. Its exemption was revoked on 15 May 2021 for three consecutive years of not filing. The Commonwealth has paid it every year since: $3.48M in FY2021, climbing to $4.78M in FY2026.</p>
-      <span class="cav">Fire of Life&rsquo;s second revocation was posted on <b>17 January 2026</b>, four days before the post that started this. And none of the seven EINs appears in the IRS&rsquo;s current Massachusetts exempt-organization master file &mdash; checked across all 44,035 records, by EIN and by name.</span>
-    </div>
-  </div>
-
-  <h3 class="sub-h">Seven federal billing numbers, all still live</h3>
-  <div class="scroll">
-    <table>
-      <thead><tr><th class="m">NPI</th><th>Organisation</th><th>Authorized official</th><th>Practice address</th><th class="m">Status</th><th class="m">Updated</th></tr></thead>
-      <tbody>
-        <tr><td class="m">1003226630</td><td>Beyond Independent Living LLC</td><td><b>Naomi Osagiede</b>, Owner</td><td>661 Centre St, Brockton</td><td class="live">active</td><td class="m">23 Jun 2026</td></tr>
-        <tr><td class="m">1003116021</td><td>Beyond Healthcare Agency LLC</td><td><b>Naomi Osagiede</b>, CEO</td><td>10 New England Business Center Dr, Andover</td><td class="live">active</td><td class="m">23 Jun 2026</td></tr>
-        <tr><td class="m">1063691905</td><td>Greater Boston Home Health Care LLC</td><td><b>Naomi Osagiede</b>, Owner</td><td>661 Centre St, Brockton</td><td class="live">active</td><td class="m">24 Aug 2026</td></tr>
-        <tr><td class="m">1255748281</td><td>Community Psych Healthcare LLC</td><td><b>Naomi Egah</b>, Owner</td><td>661 Centre St, Brockton</td><td class="live">active</td><td class="m">9 Oct 2024</td></tr>
-        <tr><td class="m">1952723322</td><td>Always Available Healthcare LLC</td><td><b>Aderonke Osagiede</b>, CEO</td><td>691 Main St, Waltham</td><td class="live">active</td><td class="m">9 Jun 2014</td></tr>
-        <tr><td class="m">1316376999</td><td>Beyond Zoe Hospice LLC</td><td><b>Aderonke Osagiede</b>, CEO</td><td>10 Tower Office Park, Woburn</td><td class="live">active</td><td class="m">3 Mar 2015</td></tr>
-        <tr><td class="m">1700662186</td><td>Healing Pathways Home Care LLC</td><td>Raquel Vargas, Owner/President</td><td>101 Amesbury St, Lawrence</td><td class="live">active</td><td class="m">1 Sep 2023</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p class="lede">Every one carries status <b>A</b>. None has a deactivation date. That includes companies the Commonwealth has struck off.</p>
-  <p class="lede">This table also settles the identity question a third time, in a federal record rather than a state one. Community Psych Healthcare is filed under <b>Naomi Egah</b> with a mailing address of <b>1208B VFW Parkway, West Roxbury</b> &mdash; the Osagiede hub &mdash; and shares the telephone number <b>978-930-9410</b> with Always Available Healthcare, filed under <b>Aderonke Osagiede</b>. Beyond Healthcare Agency and Beyond Zoe Hospice share <b>781-932-1166</b>.</p>
-  <p class="lede">Healing Pathways Home Care is the exception worth naming: Naomi Aderonke Egah is a manager on the state filing, but the federal registry gives a different authorized official. Treat it as adjacent, not as hers.</p>
-
-  <div class="finds">
-    <div class="find corr">
-      <h3>What the federal record does not show</h3>
-      <p>Two searches came back empty, and both matter. The <b>HHS-OIG List of Excluded Individuals and Entities</b>, all 84,001 records, returns nothing for Osagiede, for Egah, or for any of the business names &mdash; nobody here is barred from federal health programmes. The Comptroller&rsquo;s own <b>Settlements and Judgments</b> file, 7,999 records, returns nothing either. <b>There is no enforcement action against anyone in this web anywhere on the public record.</b> That is a fact about the file and it belongs in any honest account of it.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2>What is actually provable</h2>
-  <p class="lede">Worth being exact about, because the gap between what the records show and what a reader will assume is where this goes wrong.</p>
-
-  <div class="finds">
-    <div class="find key">
-      <h3>Provable from documents today, no inference</h3>
-      <p>One person operates <b>45</b> Massachusetts entities under two filing names, tied together by three independent records, one of them federal. <b>27</b> carry an involuntary dissolution. All <b>seven</b> that held federal tax exemption lost it for failure to file. The entity revoked in May 2021 has been paid <b>$32.4M</b>, including $4.78M in FY2026. Beyond Healthcare Agency was paid <b>$643,388</b> across 153 payments while dissolved. A 2020 audit put up to <b>$887,225</b> in apparently unallowable billing with no recovery in any public file. Every company still holds an <b>active federal billing number</b>.</p>
+      <h3><code>GR. BOSTON HOME HLTH LLC</code>: Greater Boston Home Health Care before June 2025</h3>
+      <p>The Comptroller paid this string <b>$2,017,617.52</b> across 1,248 lines from 25 September 2009 to 13 June 2025. Its last line at Boston 02132 came seven days before the first line to <code>GREATER BOSTON HOME HEALTH CARE LLC</code>, at the same ZIP. CMS's provider file places the Medicare agency with the same NPI at the same addresses on the same schedule: Brighton until 2018, 1208B VFW Parkway from 2018, Brockton from 2025.</p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Period</th><th>Who managed the company</th><th class="m r">Lines</th><th class="m r">Paid</th></tr></thead>
+          <tbody>
+            <tr><td class="m">2009-09-25 &rarr; 2015-07-13</td><td>Earlier owners, before the sale</td><td class="num">485</td><td class="num">$1,563,932.85</td></tr>
+            <tr class="paid"><td class="m">2015-07-20 &rarr; 2025-06-13</td><td>After the July 2015 sale to Osagiede</td><td class="num">668</td><td class="num">$400,709.69</td></tr>
+            <tr class="paid"><td class="m">undated, FY2021&ndash;22</td><td>After the sale</td><td class="num">95</td><td class="num">$52,974.98</td></tr>
+          </tbody>
+          <tfoot><tr><td colspan="2">After the sale, this string</td><td class="num">763</td><td class="num">$453,684.67</td></tr></tfoot>
+        </table>
+      </div>
+      <span class="cav">The link from this string to the company rests on name, ZIP history and the seven-day handover; CTHRU carries no entity ID or NPI. It stays outside the $105,956,006 headline, which counts only the six strings above. No line reached either string between 17 July 2018 and 28 June 2020, although HHS data show the agency billing Medicaid throughout that period.</span>
+      <a class="go" href="#gbhhc">The full Greater Boston record &rarr;</a>
     </div>
     <div class="find">
-      <h3>Answerable with one more record, which nobody has yet</h3>
-      <p>Whether MassHealth ever recouped the $887,225, and whether provider enrolment lapsed during the dissolution. Both sit in MassHealth&rsquo;s provider file. The public records request is the way to get them.</p>
-    </div>
-    <div class="find corr">
-      <h3>Not provable by anyone outside government</h3>
-      <p>Whether services were delivered, whether any billing was knowingly false, and intent. Those need claims-level data and a subpoena. <b>The defensible claim is not that someone stole $103 million.</b> It is that a single operator with 45 companies, 27 administrative dissolutions, seven revoked exemptions and an unresolved audit finding has been paid $105.9 million and is still being paid, and that no public body appears to have looked. That is a demand for an audit, and the records carry it.</p>
+      <h3><code>BEYOND ADULT DAY HEALTH CENTER, LLC</code>: hers until February 2017</h3>
+      <p>The first version excluded this vendor as a different company. The register shows Osagiede organised it in March 2014 and managed it until 22 February 2017. The Comptroller paid it <b>$101,510.19</b> across 23 lines while she managed it (19 September 2016 to 13 February 2017), and $1,946,926.76 afterwards, when it had other managers. The successor string <code>VILAJ LAJWA ADHC, LLC</code> has taken $3,729,881.81 since July 2020. Only the $101,510.19 belongs to her record, and it also stays outside the headline.</p>
+      <a class="go" href="#method">Why this reverses an earlier correction &rarr;</a>
     </div>
   </div>
 </section>
 
 <section>
-  <h2>What the post missed</h2>
-  <p class="lede">Five findings that do not appear in the original thread. The first two are the substantive ones.</p>
+  <h2>Paid while it had no legal existence, twice</h2>
+  <p class="lede">Beyond Healthcare Agency LLC, the company the State Auditor examined, has been administratively dissolved twice. The register summary shows only the second window. The first appears in the filing history as a reinstatement dated 10 October 2019, after three years of annual reports were filed on one day, 30 September 2019.</p>
 
-  <div class="finds">
-    <div class="find key">
-      <h3>The state paid the audited company while it was legally dissolved</h3>
-      <p>Beyond Healthcare Agency LLC &mdash; the entity the State Auditor examined &mdash; was involuntarily dissolved by the Secretary of the Commonwealth on <b>29 December 2023</b> and not revived until <b>20 September 2024</b>. Inside that nine-month window the Comptroller records <b>153 payments totalling $643,388.39</b>, running from 8 January to 16 September 2024.</p>
-    </div>
-
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Window</th><th>Register record</th><th>Vendor string paid</th><th class="m r">Lines</th><th class="m r">Paid</th></tr></thead>
+      <tbody>
+        <tr><td class="m">mid-2019 &rarr; 10 Oct 2019</td><td>Reinstatement filing <code>201931597250</code>; dissolution date not on the summary page</td><td class="vend">ADERONKE NAOMI OSAGIEDE BEYOND HLTH CARE</td><td class="num">81</td><td class="num">$730,589.08</td></tr>
+        <tr><td class="m">29 Dec 2023 &rarr; 20 Sep 2024</td><td>Date of Involuntary Dissolution and Date of Revival on the summary page</td><td class="vend">BEYOND HEALTHCARE AGENCY LLC</td><td class="num">153</td><td class="num">$643,388.39</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="3">Both windows</td><td class="num">234</td><td class="num">$1,373,977.47</td></tr></tfoot>
+    </table>
   </div>
+  <p class="note">The 2019 lines run from 1 July to 30 September 2019. The figure assumes the 2019 dissolution came in the 28 June 2019 sweep that dissolved three other LLCs in this web; the summary page no longer shows the date, so that start is inference. The 2023&ndash;24 figure excludes both boundary days. Counting 29 December 2023 adds three lines worth $23,636.42.</p>
 
-  <figure>
-<h3>The nine months with no legal existence</h3>
+<figure>
+<h3>The second window: nine months with no legal existence</h3>
 <p class="sub">Monthly payments to Beyond Healthcare Agency LLC. The shaded band is the period between the Secretary of the Commonwealth dissolving the company and reviving it.</p>
 <svg viewBox="0 0 1000 330" role="img" aria-label="Monthly payments to Beyond Healthcare Agency with the involuntary dissolution window shaded" class="chart">
 <title>Monthly payments to Beyond Healthcare Agency, 2022-2026</title>
@@ -505,104 +587,462 @@ figcaption{margin-top:12px; padding-top:11px; border-top:1px dashed var(--rule);
 <line x1="62" y1="22.0" x2="984" y2="22.0" class="grid"/>
 <text x="53" y="26.0" class="ax ax-y">$120K</text>
 <polyline points="62.0,69.3 78.5,106.1 94.9,131.5 111.4,94.7 127.9,49.9 144.3,114.5 160.8,112.4 177.2,88.1 193.7,130.1 210.2,104.7 226.6,133.0 243.1,88.7 259.6,154.0 276.0,168.4 292.5,146.3 309.0,122.0 325.4,118.0 341.9,124.7 358.4,118.2 374.8,114.8 391.3,128.5 407.8,110.0 424.2,144.6 440.7,86.3 457.1,103.1 473.6,148.9 490.1,150.8 506.5,77.3 523.0,163.4 539.5,124.3 555.9,65.8 572.4,105.9 588.9,110.8 605.3,126.5 621.8,152.9 638.2,131.7 654.7,174.1 671.2,176.6 687.6,161.2 704.1,229.5 720.6,204.0 737.0,169.6 753.5,182.2 770.0,205.3 786.4,201.0 802.9,202.2 819.4,221.7 835.8,214.2 852.3,223.0 868.8,225.5 885.2,194.9 901.7,233.2 918.1,237.5 934.6,242.1 951.1,239.5 967.5,247.8 984.0,250.7" class="line c1-s"/>
-<circle cx="62.0" cy="69.3" r="4.5" class="dot c1"><title>2022-01 &#183; $97K &#183; 18 payments</title></circle>
-<circle cx="78.5" cy="106.1" r="4.5" class="dot c1"><title>2022-02 &#183; $80K &#183; 7 payments</title></circle>
-<circle cx="94.9" cy="131.5" r="4.5" class="dot c1"><title>2022-03 &#183; $68K &#183; 19 payments</title></circle>
-<circle cx="111.4" cy="94.7" r="4.5" class="dot c1"><title>2022-04 &#183; $85K &#183; 18 payments</title></circle>
-<circle cx="127.9" cy="49.9" r="4.5" class="dot c1"><title>2022-05 &#183; $107K &#183; 25 payments</title></circle>
-<circle cx="144.3" cy="114.5" r="4.5" class="dot c1"><title>2022-06 &#183; $76K &#183; 19 payments</title></circle>
-<circle cx="160.8" cy="112.4" r="4.5" class="dot c1"><title>2022-07 &#183; $77K &#183; 18 payments</title></circle>
-<circle cx="177.2" cy="88.1" r="4.5" class="dot c1"><title>2022-08 &#183; $89K &#183; 23 payments</title></circle>
-<circle cx="193.7" cy="130.1" r="4.5" class="dot c1"><title>2022-09 &#183; $69K &#183; 20 payments</title></circle>
-<circle cx="210.2" cy="104.7" r="4.5" class="dot c1"><title>2022-10 &#183; $81K &#183; 23 payments</title></circle>
-<circle cx="226.6" cy="133.0" r="4.5" class="dot c1"><title>2022-11 &#183; $67K &#183; 19 payments</title></circle>
-<circle cx="243.1" cy="88.7" r="4.5" class="dot c1"><title>2022-12 &#183; $88K &#183; 24 payments</title></circle>
-<circle cx="259.6" cy="154.0" r="4.5" class="dot c1"><title>2023-01 &#183; $57K &#183; 19 payments</title></circle>
-<circle cx="276.0" cy="168.4" r="4.5" class="dot c1"><title>2023-02 &#183; $50K &#183; 17 payments</title></circle>
-<circle cx="292.5" cy="146.3" r="4.5" class="dot c1"><title>2023-03 &#183; $61K &#183; 18 payments</title></circle>
-<circle cx="309.0" cy="122.0" r="4.5" class="dot c1"><title>2023-04 &#183; $72K &#183; 19 payments</title></circle>
-<circle cx="325.4" cy="118.0" r="4.5" class="dot c1"><title>2023-05 &#183; $74K &#183; 25 payments</title></circle>
-<circle cx="341.9" cy="124.7" r="4.5" class="dot c1"><title>2023-06 &#183; $71K &#183; 16 payments</title></circle>
-<circle cx="358.4" cy="118.2" r="4.5" class="dot c1"><title>2023-07 &#183; $74K &#183; 20 payments</title></circle>
-<circle cx="374.8" cy="114.8" r="4.5" class="dot c1"><title>2023-08 &#183; $76K &#183; 16 payments</title></circle>
-<circle cx="391.3" cy="128.5" r="4.5" class="dot c1"><title>2023-09 &#183; $69K &#183; 16 payments</title></circle>
-<circle cx="407.8" cy="110.0" r="4.5" class="dot c1"><title>2023-10 &#183; $78K &#183; 21 payments</title></circle>
-<circle cx="424.2" cy="144.6" r="4.5" class="dot c1"><title>2023-11 &#183; $62K &#183; 16 payments</title></circle>
-<circle cx="440.7" cy="86.3" r="4.5" class="dot c1"><title>2023-12 &#183; $89K &#183; 19 payments</title></circle>
-<circle cx="457.1" cy="103.1" r="4.5" class="dot c1"><title>2024-01 &#183; $81K &#183; 17 payments</title></circle>
-<circle cx="473.6" cy="148.9" r="4.5" class="dot c1"><title>2024-02 &#183; $60K &#183; 15 payments</title></circle>
-<circle cx="490.1" cy="150.8" r="4.5" class="dot c1"><title>2024-03 &#183; $59K &#183; 13 payments</title></circle>
-<circle cx="506.5" cy="77.3" r="4.5" class="dot c1"><title>2024-04 &#183; $94K &#183; 23 payments</title></circle>
-<circle cx="523.0" cy="163.4" r="4.5" class="dot c1"><title>2024-05 &#183; $53K &#183; 16 payments</title></circle>
-<circle cx="539.5" cy="124.3" r="4.5" class="dot c1"><title>2024-06 &#183; $71K &#183; 17 payments</title></circle>
-<circle cx="555.9" cy="65.8" r="4.5" class="dot c1"><title>2024-07 &#183; $99K &#183; 20 payments</title></circle>
-<circle cx="572.4" cy="105.9" r="4.5" class="dot c1"><title>2024-08 &#183; $80K &#183; 18 payments</title></circle>
-<circle cx="588.9" cy="110.8" r="4.5" class="dot c1"><title>2024-09 &#183; $78K &#183; 21 payments</title></circle>
-<circle cx="605.3" cy="126.5" r="4.5" class="dot c1"><title>2024-10 &#183; $70K &#183; 16 payments</title></circle>
-<circle cx="621.8" cy="152.9" r="4.5" class="dot c1"><title>2024-11 &#183; $58K &#183; 16 payments</title></circle>
-<circle cx="638.2" cy="131.7" r="4.5" class="dot c1"><title>2024-12 &#183; $68K &#183; 21 payments</title></circle>
-<circle cx="654.7" cy="174.1" r="4.5" class="dot c1"><title>2025-01 &#183; $48K &#183; 19 payments</title></circle>
-<circle cx="671.2" cy="176.6" r="4.5" class="dot c1"><title>2025-02 &#183; $46K &#183; 18 payments</title></circle>
-<circle cx="687.6" cy="161.2" r="4.5" class="dot c1"><title>2025-03 &#183; $54K &#183; 22 payments</title></circle>
-<circle cx="704.1" cy="229.5" r="4.5" class="dot c1"><title>2025-04 &#183; $21K &#183; 10 payments</title></circle>
-<circle cx="720.6" cy="204.0" r="4.5" class="dot c1"><title>2025-05 &#183; $33K &#183; 17 payments</title></circle>
-<circle cx="737.0" cy="169.6" r="4.5" class="dot c1"><title>2025-06 &#183; $50K &#183; 19 payments</title></circle>
-<circle cx="753.5" cy="182.2" r="4.5" class="dot c1"><title>2025-07 &#183; $44K &#183; 16 payments</title></circle>
-<circle cx="770.0" cy="205.3" r="4.5" class="dot c1"><title>2025-08 &#183; $33K &#183; 15 payments</title></circle>
-<circle cx="786.4" cy="201.0" r="4.5" class="dot c1"><title>2025-09 &#183; $35K &#183; 23 payments</title></circle>
-<circle cx="802.9" cy="202.2" r="4.5" class="dot c1"><title>2025-10 &#183; $34K &#183; 18 payments</title></circle>
-<circle cx="819.4" cy="221.7" r="4.5" class="dot c1"><title>2025-11 &#183; $25K &#183; 16 payments</title></circle>
-<circle cx="835.8" cy="214.2" r="4.5" class="dot c1"><title>2025-12 &#183; $28K &#183; 20 payments</title></circle>
-<circle cx="852.3" cy="223.0" r="4.5" class="dot c1"><title>2026-01 &#183; $24K &#183; 12 payments</title></circle>
-<circle cx="868.8" cy="225.5" r="4.5" class="dot c1"><title>2026-02 &#183; $23K &#183; 11 payments</title></circle>
-<circle cx="885.2" cy="194.9" r="4.5" class="dot c1"><title>2026-03 &#183; $38K &#183; 15 payments</title></circle>
-<circle cx="901.7" cy="233.2" r="4.5" class="dot c1"><title>2026-04 &#183; $19K &#183; 12 payments</title></circle>
-<circle cx="918.1" cy="237.5" r="4.5" class="dot c1"><title>2026-05 &#183; $17K &#183; 12 payments</title></circle>
-<circle cx="934.6" cy="242.1" r="4.5" class="dot c1"><title>2026-06 &#183; $15K &#183; 17 payments</title></circle>
-<circle cx="951.1" cy="239.5" r="4.5" class="dot c1"><title>2026-07 &#183; $16K &#183; 13 payments</title></circle>
-<circle cx="967.5" cy="247.8" r="4.5" class="dot c1"><title>2026-08 &#183; $12K &#183; 10 payments</title></circle>
-<circle cx="984.0" cy="250.7" r="4.5" class="dot c1"><title>2026-09 &#183; $11K &#183; 7 payments</title></circle>
+<circle cx="62.0" cy="69.3" r="4.5" class="dot c1"><title>2022-01 &#183; $97K &#183; 18 payment lines</title></circle>
+<circle cx="78.5" cy="106.1" r="4.5" class="dot c1"><title>2022-02 &#183; $80K &#183; 7 payment lines</title></circle>
+<circle cx="94.9" cy="131.5" r="4.5" class="dot c1"><title>2022-03 &#183; $68K &#183; 19 payment lines</title></circle>
+<circle cx="111.4" cy="94.7" r="4.5" class="dot c1"><title>2022-04 &#183; $85K &#183; 18 payment lines</title></circle>
+<circle cx="127.9" cy="49.9" r="4.5" class="dot c1"><title>2022-05 &#183; $107K &#183; 25 payment lines</title></circle>
+<circle cx="144.3" cy="114.5" r="4.5" class="dot c1"><title>2022-06 &#183; $76K &#183; 19 payment lines</title></circle>
+<circle cx="160.8" cy="112.4" r="4.5" class="dot c1"><title>2022-07 &#183; $77K &#183; 18 payment lines</title></circle>
+<circle cx="177.2" cy="88.1" r="4.5" class="dot c1"><title>2022-08 &#183; $89K &#183; 23 payment lines</title></circle>
+<circle cx="193.7" cy="130.1" r="4.5" class="dot c1"><title>2022-09 &#183; $69K &#183; 20 payment lines</title></circle>
+<circle cx="210.2" cy="104.7" r="4.5" class="dot c1"><title>2022-10 &#183; $81K &#183; 23 payment lines</title></circle>
+<circle cx="226.6" cy="133.0" r="4.5" class="dot c1"><title>2022-11 &#183; $67K &#183; 19 payment lines</title></circle>
+<circle cx="243.1" cy="88.7" r="4.5" class="dot c1"><title>2022-12 &#183; $88K &#183; 24 payment lines</title></circle>
+<circle cx="259.6" cy="154.0" r="4.5" class="dot c1"><title>2023-01 &#183; $57K &#183; 19 payment lines</title></circle>
+<circle cx="276.0" cy="168.4" r="4.5" class="dot c1"><title>2023-02 &#183; $50K &#183; 17 payment lines</title></circle>
+<circle cx="292.5" cy="146.3" r="4.5" class="dot c1"><title>2023-03 &#183; $61K &#183; 18 payment lines</title></circle>
+<circle cx="309.0" cy="122.0" r="4.5" class="dot c1"><title>2023-04 &#183; $72K &#183; 19 payment lines</title></circle>
+<circle cx="325.4" cy="118.0" r="4.5" class="dot c1"><title>2023-05 &#183; $74K &#183; 25 payment lines</title></circle>
+<circle cx="341.9" cy="124.7" r="4.5" class="dot c1"><title>2023-06 &#183; $71K &#183; 16 payment lines</title></circle>
+<circle cx="358.4" cy="118.2" r="4.5" class="dot c1"><title>2023-07 &#183; $74K &#183; 20 payment lines</title></circle>
+<circle cx="374.8" cy="114.8" r="4.5" class="dot c1"><title>2023-08 &#183; $76K &#183; 16 payment lines</title></circle>
+<circle cx="391.3" cy="128.5" r="4.5" class="dot c1"><title>2023-09 &#183; $69K &#183; 16 payment lines</title></circle>
+<circle cx="407.8" cy="110.0" r="4.5" class="dot c1"><title>2023-10 &#183; $78K &#183; 21 payment lines</title></circle>
+<circle cx="424.2" cy="144.6" r="4.5" class="dot c1"><title>2023-11 &#183; $62K &#183; 16 payment lines</title></circle>
+<circle cx="440.7" cy="86.3" r="4.5" class="dot c1"><title>2023-12 &#183; $89K &#183; 19 payment lines</title></circle>
+<circle cx="457.1" cy="103.1" r="4.5" class="dot c1"><title>2024-01 &#183; $81K &#183; 17 payment lines</title></circle>
+<circle cx="473.6" cy="148.9" r="4.5" class="dot c1"><title>2024-02 &#183; $60K &#183; 15 payment lines</title></circle>
+<circle cx="490.1" cy="150.8" r="4.5" class="dot c1"><title>2024-03 &#183; $59K &#183; 13 payment lines</title></circle>
+<circle cx="506.5" cy="77.3" r="4.5" class="dot c1"><title>2024-04 &#183; $94K &#183; 23 payment lines</title></circle>
+<circle cx="523.0" cy="163.4" r="4.5" class="dot c1"><title>2024-05 &#183; $53K &#183; 16 payment lines</title></circle>
+<circle cx="539.5" cy="124.3" r="4.5" class="dot c1"><title>2024-06 &#183; $71K &#183; 17 payment lines</title></circle>
+<circle cx="555.9" cy="65.8" r="4.5" class="dot c1"><title>2024-07 &#183; $99K &#183; 20 payment lines</title></circle>
+<circle cx="572.4" cy="105.9" r="4.5" class="dot c1"><title>2024-08 &#183; $80K &#183; 18 payment lines</title></circle>
+<circle cx="588.9" cy="110.8" r="4.5" class="dot c1"><title>2024-09 &#183; $78K &#183; 21 payment lines</title></circle>
+<circle cx="605.3" cy="126.5" r="4.5" class="dot c1"><title>2024-10 &#183; $70K &#183; 16 payment lines</title></circle>
+<circle cx="621.8" cy="152.9" r="4.5" class="dot c1"><title>2024-11 &#183; $58K &#183; 16 payment lines</title></circle>
+<circle cx="638.2" cy="131.7" r="4.5" class="dot c1"><title>2024-12 &#183; $68K &#183; 21 payment lines</title></circle>
+<circle cx="654.7" cy="174.1" r="4.5" class="dot c1"><title>2025-01 &#183; $48K &#183; 19 payment lines</title></circle>
+<circle cx="671.2" cy="176.6" r="4.5" class="dot c1"><title>2025-02 &#183; $46K &#183; 18 payment lines</title></circle>
+<circle cx="687.6" cy="161.2" r="4.5" class="dot c1"><title>2025-03 &#183; $54K &#183; 22 payment lines</title></circle>
+<circle cx="704.1" cy="229.5" r="4.5" class="dot c1"><title>2025-04 &#183; $21K &#183; 10 payment lines</title></circle>
+<circle cx="720.6" cy="204.0" r="4.5" class="dot c1"><title>2025-05 &#183; $33K &#183; 17 payment lines</title></circle>
+<circle cx="737.0" cy="169.6" r="4.5" class="dot c1"><title>2025-06 &#183; $50K &#183; 19 payment lines</title></circle>
+<circle cx="753.5" cy="182.2" r="4.5" class="dot c1"><title>2025-07 &#183; $44K &#183; 16 payment lines</title></circle>
+<circle cx="770.0" cy="205.3" r="4.5" class="dot c1"><title>2025-08 &#183; $33K &#183; 15 payment lines</title></circle>
+<circle cx="786.4" cy="201.0" r="4.5" class="dot c1"><title>2025-09 &#183; $35K &#183; 23 payment lines</title></circle>
+<circle cx="802.9" cy="202.2" r="4.5" class="dot c1"><title>2025-10 &#183; $34K &#183; 18 payment lines</title></circle>
+<circle cx="819.4" cy="221.7" r="4.5" class="dot c1"><title>2025-11 &#183; $25K &#183; 16 payment lines</title></circle>
+<circle cx="835.8" cy="214.2" r="4.5" class="dot c1"><title>2025-12 &#183; $28K &#183; 20 payment lines</title></circle>
+<circle cx="852.3" cy="223.0" r="4.5" class="dot c1"><title>2026-01 &#183; $24K &#183; 12 payment lines</title></circle>
+<circle cx="868.8" cy="225.5" r="4.5" class="dot c1"><title>2026-02 &#183; $23K &#183; 11 payment lines</title></circle>
+<circle cx="885.2" cy="194.9" r="4.5" class="dot c1"><title>2026-03 &#183; $38K &#183; 15 payment lines</title></circle>
+<circle cx="901.7" cy="233.2" r="4.5" class="dot c1"><title>2026-04 &#183; $19K &#183; 12 payment lines</title></circle>
+<circle cx="918.1" cy="237.5" r="4.5" class="dot c1"><title>2026-05 &#183; $17K &#183; 12 payment lines</title></circle>
+<circle cx="934.6" cy="242.1" r="4.5" class="dot c1"><title>2026-06 &#183; $15K &#183; 17 payment lines</title></circle>
+<circle cx="951.1" cy="239.5" r="4.5" class="dot c1"><title>2026-07 &#183; $16K &#183; 13 payment lines</title></circle>
+<circle cx="967.5" cy="247.8" r="4.5" class="dot c1"><title>2026-08 &#183; $12K &#183; 10 payment lines</title></circle>
+<circle cx="984.0" cy="250.7" r="4.5" class="dot c1"><title>2026-09 &#183; $11K &#183; 7 payment lines</title></circle>
 <text x="62.0" y="292" class="ax">2022</text>
 <text x="259.6" y="292" class="ax">2023</text>
 <text x="457.1" y="292" class="ax">2024</text>
 <text x="654.7" y="292" class="ax">2025</text>
 <text x="852.3" y="292" class="ax">2026</text>
 <line x1="62" y1="274" x2="984" y2="274" class="axis"/>
-<text x="62" y="316" class="ax ax-note" text-anchor="start">$643,388 paid across 153 payments while the company had no legal existence</text>
+<text x="62" y="316" class="ax ax-note" text-anchor="start">$643,388 paid across 153 payment lines while the company had no legal existence</text>
 </svg>
-<figcaption>Points are monthly totals, so the shaded band is drawn to the nearest month; the $643,388 figure is the exact window, 8 January to 16 September 2024. Payments do not pause, dip or resume &mdash; the line runs through the band at its usual level. Whether that is a defect depends on whether a MassHealth provider enrolment survives a corporate lapse, which is the question to put to MassHealth.</figcaption>
+<figcaption>Points are monthly totals, so the shaded band is drawn to the nearest month; the $643,388 figure is the exact window, 8 January to 16 September 2024. Payments do not pause, dip or resume. The line runs through the band at its usual level. Whether that is a defect depends on whether a MassHealth provider enrolment survives a corporate lapse, which is the question to put to MassHealth.</figcaption>
 </figure>
 
   <div class="finds">
-    <div class="find key">
-      <h3>Payments continue after the surviving corporate entity was dissolved</h3>
-      <p>Since the Beyond Independent Living nonprofit was involuntarily dissolved on 30 June 2025, the Comptroller has paid a vendor named <b>Beyond Independent Living LLC</b> a further <b>778 payments worth $5,908,174.45</b>, from 7 July 2025 through 17 September 2026 &mdash; booked to <b>West Roxbury 02132</b>, the Osagiede address, not the separately registered Brockton LLC of the same name.</p>
-      <span class="cav"><b>Read this before calling it a violation, because it is close to the opposite of one.</b> A MassHealth provider number and a corporate charter are separate instruments. <b>130 CMR 450.212</b> sets out ten provider eligibility criteria and none of them requires active corporate registration, good standing, or notice to MassHealth of a dissolution. <b>130 CMR 450.231</b> conditions payment on the provider being a participating provider <i>on the date of service</i> and says nothing about corporate status. On the face of those two sections, paying a dissolved company breaks no rule &mdash; and that is the finding. Two of the Commonwealth's registers disagree and nothing in the billing regulation requires them to agree. A legislator can close that gap; an auditor cannot.</span>
-    </div>
-
     <div class="find">
-      <h3>A new payee opened as the old one closed</h3>
-      <p><b>Greater Boston Home Health Care LLC</b> began drawing state money on <b>20 June 2025</b> &mdash; ten days before the nonprofit's dissolution. It has taken 83 payments worth $47,203 and is still being paid as of 17 September 2026. The payments start at <b>Boston 02132</b>, the Osagiede address, then move to <b>Brockton 02302</b>, the 661 Centre St address, during FY2026. Two LLCs of that name sit in the register, entities <code>412251357</code> and <code>001618231</code>, both under Egah &mdash; and because CTHRU carries no entity ID, <b>the payments cannot be attributed between them</b>. Small money so far, but it is the newest working vehicle and it is live.</p>
-    </div>
-
-    <div class="find">
-      <h3>No recoupment is visible anywhere</h3>
-      <p>Across all 7,380 payments there is not a single negative amount; the smallest line in the group is $0.21. No clawback of the $887,225 appears in the state's own checkbook.</p>
-      <span class="cav"><b>Absence is not proof that nothing was repaid</b>, but the reason is narrower than it looks: CTHRU records money paid <i>out</i> by the Commonwealth, and money returned <i>to</i> it is revenue that would sit in a different file. What the regulations say is worth quoting. <b>130 CMR 450.235</b> requires a provider to report in writing and return an identified overpayment within 60 days. <b>130 CMR 450.237</b> gives MassHealth a notice-and-determination process and says the agency will take appropriate action to recover. Neither section, as written, describes netting an overpayment against future claims. Ask for the overpayment determination by name.</span>
-    </div>
-
-    <div class="find corr">
-      <h3>Correction: Beyond Adult Day Health Center is not hers</h3>
-      <p>The Comptroller paid a vendor called <b>Beyond Adult Day Health Center, LLC</b> $2,048,436.95 across 616 payments between 2016 and 2020 at a Boston 02132 address. It is a different company. Entity <code>001175773</code> was renamed <b>Vilaj Lajwa, LLC</b> on 6 July 2017 and its managers are Victoria Vinokur, Paul Rayev and Gennady Vinokur of Waltham. Do not fold that $2.05M into any total. Beyond Transportation LLC ($124,800, Methuen) and Medical Community Psychotherapy LLC ($10,852, Natick) are excluded on the same grounds &mdash; name collisions, no officer link.</p>
+      <h3>Read this before calling it a violation</h3>
+      <p>A MassHealth provider number and a corporate charter are separate instruments. <b>130 CMR 450.212</b> sets out ten provider eligibility criteria, and none of them requires active corporate registration, good standing, or notice to MassHealth of a dissolution. <b>130 CMR 450.231</b> conditions payment on the provider being a participating provider <i>on the date of service</i> and says nothing about corporate status. On the face of those two sections, paying a dissolved company breaks no rule, and that is the finding. Two of the Commonwealth's registers disagree and nothing in the billing regulation requires them to agree. A legislator can close that gap; an auditor cannot.</p>
     </div>
   </div>
 </section>
 
 <section>
-  <h2>The full register</h2>
-  <p class="lede">All 45 entities, pulled individually from the Corporations Division on 20 September 2026. Highlighted rows received state money. &ldquo;Converted&rdquo; means the entity ceased by conversion or merger rather than by administrative lapse.</p>
+  <h2>Payments after the surviving corporate entity was dissolved</h2>
+  <p class="lede">Since the Beyond Independent Living nonprofit was involuntarily dissolved on 30 June 2025, the Comptroller has paid a vendor named <b>Beyond Independent Living LLC</b> a further <b>778 payment lines worth $5,908,174.45</b>, dated 7 July 2025 through 21 September 2026 and booked to <b>West Roxbury 02132</b>. The federal NPI for that name sits at 661 Centre St, Brockton, the address of the separately registered Brockton LLC, so which legal entity receives the money is not settled by either record. Every candidate entity is filed under Osagiede or Egah.</p>
+  <p class="lede">The appropriation labels are accounting buckets, not service descriptions. From 2018 to 2024 Beyond Independent Living was paid from six MassHealth accounts, including <b>$5,146,623.26</b> from the one labelled &ldquo;Managed Care Plan&rdquo;. So the state ledger is not purely fee-for-service, and the gap to HHS data on the <a href="#federal">Medicaid &amp; Medicare tab</a> needs care.</p>
+</section>
 
-  <figure>
+<section>
+  <h2>No recoupment is visible anywhere</h2>
+  <div class="finds">
+    <div class="find">
+      <p>Across all 7,380 lines there is not a single negative amount; the smallest line in the group is $0.21. No clawback of the $887,225 appears in the state's checkbook.</p>
+      <span class="cav"><b>Absence is not proof that nothing was repaid</b>, and the reason is narrow. CTHRU records money paid <i>out</i> by the Commonwealth; money returned <i>to</i> it is revenue. The Comptroller's only public revenue dataset (<code>kcy7-ivxi</code>) has no payer column, so no public file can show a repayment by this provider. The State Auditor's 2021 Medicaid Audit Unit annual report lists the Beyond audit with &ldquo;MassHealth Recouping Payments: Yes&rdquo; and gives no amount. <b>130 CMR 450.235</b> requires a provider to report and return an identified overpayment within 60 days; <b>130 CMR 450.237</b> gives MassHealth a notice-and-determination process and says the agency will take appropriate action to recover. Neither section, as written, describes netting an overpayment against future claims. Ask for the overpayment determination by name.</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Kept out of every total</h2>
+  <div class="finds">
+    <div class="find corr">
+      <p><b>Beyond Transportation LLC</b> ($124,799.78, Methuen and Tewksbury) and <b>Medical Community Psychotherapy LLC</b> ($10,851.69, Natick) are name collisions with no officer link. <b>Beyond Adult Day Health Center, LLC</b> after 22 February 2017 ($1,946,926.76) and its successor <b>Vilaj Lajwa ADHC, LLC</b> ($3,729,881.81) have managers outside this web. The co-location and the shared phone line are set out on the <a href="#identity">Identity tab</a>.</p>
+    </div>
+  </div>
+</section>
+<div class="next"><a href="#claims">&larr; Claims checked</a><a href="#federal">Next: Medicaid &amp; Medicare &rarr;</a></div>
+</section>
+
+<section class="panel" role="tabpanel" id="federal" aria-labelledby="t-federal" tabindex="-1">
+<section>
+  <h2>What HHS's Medicaid file shows</h2>
+  <p class="lede">In February 2026 HHS released provider-level Medicaid spending built from T-MSIS, the claims feed every state sends CMS. Each row is one billing NPI, one servicing NPI, one procedure code and one month, from January 2018 to December 2024, covering fee-for-service claims, managed-care encounters and CHIP. HHS drops any cell with fewer than 12 claim lines or 12 patients, so a missing month means small, not zero. 2024 is preliminary, and claims paid after December 2024 are absent, so late 2024 runs short.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th class="m">Billing NPI</th><th>Business</th><th class="m r">Paid 2018&ndash;2024</th><th>Main procedure codes</th><th class="m">Months</th></tr></thead>
+      <tbody>
+        <tr class="paid"><td class="m">1003226630</td><td>Beyond Independent Living</td><td class="num">$29,101,580.81</td><td>S5140 adult foster care, nearly all</td><td class="m">2018-01 &rarr; 2024-12</td></tr>
+        <tr class="paid"><td class="m">1003116021</td><td>Beyond Healthcare Agency</td><td class="num">$13,234,951.02</td><td>G0156 aide, T1502 medication visit, G0299 RN, H0043, G0300, S5130</td><td class="m">2018-01 &rarr; 2024-12</td></tr>
+        <tr><td class="m">1063691905</td><td>Greater Boston Home Health Care</td><td class="num">$1,143,093.82</td><td>G0299, S9123, G0151, S9131, G0300</td><td class="m">2018-02 &rarr; 2024-12</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">The other twelve NPIs linked to this web have no published rows at all, in any state. Source: HHS Open Data, <i>Medicaid Provider Spending by HCPCS</i>, release of 9 February 2026 (the only release), parquet file 3,072,545,478 bytes, checksum matched to HHS's published sha256. Queried 24&ndash;25 September 2026. The file's whole-dataset total is unusable, because 34 rows under code &ldquo;20&rdquo; carry a placeholder of $888,888,888.88 per line; none of the rows on this page contain it.</p>
+
+  <h3 class="sub-h">Against the state ledger</h3>
+  <p class="lede">T-MSIS counts what Medicaid paid for services in a month, including payments made by managed-care plans. The Comptroller's ledger counts what the Commonwealth disbursed to a named vendor on a date. Money for managed-care members leaves the Comptroller as capitation to the plans, and a plan's payment to a provider never appears under the provider's name. The two files should not match, and the size of the gap is the finding.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Business</th><th class="m r">HHS T-MSIS, service years 2018&ndash;2024</th><th class="m r">CTHRU, payment dates 2018&ndash;2024</th><th class="m r">Ratio</th><th>Against Massachusetts peers</th></tr></thead>
+      <tbody>
+        <tr><td class="vend">Beyond Independent Living</td><td class="num">$29,101,580.81</td><td class="num">$22,130,538.18</td><td class="num">1.32&times;</td><td>Typical. Median of 25 matched MA adult foster care billers is 1.26&times;</td></tr>
+        <tr><td class="vend">Beyond Healthcare Agency, four strings</td><td class="num">$13,234,951.02</td><td class="num">$12,711,139.06</td><td class="num">1.04&times;</td><td>Typical. Median of 30 MA home health billers is 1.15&times;</td></tr>
+        <tr><td class="vend">Greater Boston Home Health Care, GR. BOSTON string</td><td class="num">$1,143,093.82</td><td class="num">$253,725.31</td><td class="num">4.51&times;</td><td><b>Atypical.</b> 5.44&times; on 2021&ndash;2024; one of 30 peers runs higher</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">The CTHRU column counts lines dated 2018&ndash;2024 plus undated lines whose budget fiscal year falls in FY2019&ndash;FY2024: $59,939.61 for Beyond Healthcare Agency and $52,974.98 for the GR. BOSTON string. Timing explains little: shifting the ledger by one to three months moves Beyond Independent Living's total by at most $0.82M. For Greater Boston Home Health Care, HHS shows $173,431.14 of services in service months August 2018 to May 2020, a stretch in which the ledger shows no line to it under any name. Plan-paid claims are the documented mechanism that fits a gap; neither file carries a payer flag, so this is inference, and a withhold or offset applied at payment level would also lower the ledger.</p>
+</section>
+
+<section>
+  <h2>Billing inside the dissolution windows</h2>
+  <div class="grid2">
+    <div class="find key">
+      <h3>2024: $653,850.92 for services while dissolved</h3>
+      <p>Beyond Healthcare Agency billed <b>$653,850.92</b> across 11,182 claim lines for service months January to August 2024, every month inside the 29 December 2023 to 20 September 2024 window: G0156 $243,194.24, T1502 $204,618.72, G0299 $196,077.36, G0300 $9,960.60. The window's monthly average ran at 103.8% of the eight months before it. Nothing slowed.</p>
+    </div>
+    <div class="find key">
+      <h3>2019: $744,126.71 for July to September</h3>
+      <p>For service months July to September 2019, before the 10 October 2019 reinstatement, HHS records <b>$744,126.71</b> under the same NPI, including $151,721.46 under H0043, the code MassHealth's rate regulation (101 CMR 351) assigns to group adult foster care.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Against Massachusetts peers</h2>
+  <p class="lede">The peer set is every billing NPI whose NPPES practice location is in Massachusetts: 11,107 NPIs that billed any of these codes nationally were looked up one by one, and 635 are in Massachusetts. A high percentile is a pattern to explain, not a finding.</p>
+  <div class="finds">
+    <div class="find">
+      <h3>Adult foster care, S5140: high within the peer range</h3>
+      <p>Beyond Independent Living's caseload rose from 58 to 204 beneficiaries a month between 2018 and 2024. In every year its paid per beneficiary-month sat above the Massachusetts median, between the <b>82nd and 95th percentile</b> ($2,280&ndash;$2,588 against yearly medians of $2,098&ndash;$2,361). In the median month about one in nine Massachusetts S5140 billers sat higher, so it is at the high end of the range, not outside it. After March 2022, when nearly every Massachusetts biller moved to daily lines, it was paid $113.41 a line in 2023 against a median of $82.62, while sending fewer lines per patient-month than most (21&ndash;23 against a median of 28&ndash;30).</p>
+      <span class="cav">Checked and not an anomaly: its claim lines per patient roughly quadrupled in March 2022 while pay per patient held flat. Under a strict test, 18 Massachusetts adult foster care billers, this one among them, made the same switch that month, and 33 of the 41 that still billed in coarse lines in January 2022 had switched by July. It is a statewide change in how claims were itemised.</span>
+    </div>
+    <div class="find">
+      <h3>Home health and group adult foster care: mostly ordinary</h3>
+      <p>Beyond Healthcare Agency's aide visits (G0156) paid per patient-month sat between the 35th and 52nd percentile. Its H0043 group adult foster care billing matched the Massachusetts median per patient-month in 2018 ($1,108 against $1,149 across 82 billers). One stretch stands out: homemaker service (S5130) paid close to nothing per line for eighteen months from July 2021, then in January to March 2023 paid <b>$2,090 per patient-month against a Massachusetts median of $616</b> (97th percentile), and then disappears from the published cells.</p>
+      <span class="cav">H0043 is last visible in October 2019, which matches the agency's own statement to the State Auditor that it stopped group adult foster care that month.</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Medicare: four agencies, one owner ID</h2>
+  <p class="lede">CMS's Medicare enrollment system, PECOS, publishes the owners of every certified home health agency. The same individual owner record, CMS associate ID <b>1254592256</b>, <b>NAOMI A EGAH</b>, appears as 100% owner on four agencies.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Agency</th><th class="m">CCN</th><th class="m">NPI</th><th>State</th><th class="m">In Medicare since</th><th class="m">Egah owner since</th><th>Status in CMS files</th></tr></thead>
+      <tbody>
+        <tr><td class="vend">BEYOND HEALTHCARE AGENCY LLC</td><td class="m">227541</td><td class="m">1003116021</td><td>MA</td><td class="m">2011-11-03</td><td class="m">2010-05-20</td><td>Enrolled in all 14 quarterly files from 2023 to 2026, including three inside its 2023&ndash;24 dissolution</td></tr>
+        <tr><td class="vend">GREATER BOSTON HOME HEALTH CARE, LLC</td><td class="m">227507</td><td class="m">1063691905</td><td>MA</td><td class="m">2008-09-23</td><td class="m">2016-09-12</td><td>Enrolled. CMS's provider file has never recorded a change of ownership</td></tr>
+        <tr><td class="vend">GUARANTEED HOME HEALTH SERVICES INC. <span class="tag b">dba Always A Step Beyond</span></td><td class="m">398334</td><td class="m">1356750228</td><td>PA</td><td class="m">2004-07-20</td><td class="m">2019-09-09</td><td>Enrolled; the agency predates her ownership</td></tr>
+        <tr><td class="vend">EDEN HEALTHCARE LLC, later TRINITY HOME HEALTHCARE LLC</td><td class="m">677975</td><td class="m">1306244041</td><td>TX</td><td class="m">2006-06-28</td><td class="m">2014-08-22</td><td>In the July 2023 owner file only; gone from CMS files after 2023</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Source: CMS Home Health Agency Enrollments and All Owners files (data.cms.gov), release of 17 July 2026 for the first three and of 17 July 2023 for Eden; Provider of Services file for participation dates. Egah also appears on the Greater Boston enrollment as corporate director with a 2007 date. State filings name other managers from 2007 to 2015, so that row's date does not fit the register and is not used here. For Eden, the NPI registry today names a different authorized official; the link rests on CMS's 2023 owner file alone.</p>
+
+  <h3 class="sub-h">What Medicare paid</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th class="m">Calendar year</th><th>Greater Boston Home Health Care</th><th class="m r">Beneficiaries</th><th class="m r">Medicare paid</th></tr></thead>
+      <tbody>
+        <tr class="sub"><td class="m">2014</td><td>Brighton, before the sale</td><td class="num">149</td><td class="num">$832,155</td></tr>
+        <tr class="sub"><td class="m">2015</td><td>Brighton, sale on 16 July</td><td class="num">136</td><td class="num">$828,284</td></tr>
+        <tr><td class="m">2016</td><td>Brighton</td><td class="num">107</td><td class="num">$895,862</td></tr>
+        <tr><td class="m">2017</td><td>Brighton</td><td class="num">93</td><td class="num">$780,335</td></tr>
+        <tr><td class="m">2018</td><td>Boston</td><td class="num">148</td><td class="num">$1,487,411</td></tr>
+        <tr><td class="m">2019</td><td>Boston</td><td class="num">153</td><td class="num">$1,369,274</td></tr>
+        <tr><td class="m">2020</td><td>Boston</td><td class="num">144</td><td class="num">$1,563,680</td></tr>
+        <tr><td class="m">2021</td><td>Boston</td><td class="num">180</td><td class="num">$1,916,277</td></tr>
+        <tr><td class="m">2022</td><td>Boston</td><td class="num">170</td><td class="num">$1,934,741</td></tr>
+        <tr><td class="m">2023</td><td>Boston</td><td class="num">152</td><td class="num">$1,890,909</td></tr>
+        <tr><td class="m">2024</td><td>Boston</td><td class="num">149</td><td class="num">$1,834,853</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td colspan="3">2016&ndash;2024, after the sale</td><td class="num">$13,673,342</td></tr>
+        <tr><td colspan="3">2014&ndash;2024, all years</td><td class="num">$15,333,781</td></tr>
+      </tfoot>
+    </table>
+  </div>
+  <p class="note">Source: CMS <i>Medicare Post-Acute Care Utilization, Home Health Agency by Provider</i>, one dataset per year, filtered to CCN 227507; retrieved 25 September 2026. Fee-for-service only; Medicare Advantage is not in these files. The same files show <b>Beyond Healthcare Agency</b> with a row in one year only, 2015, $82,133 for 24 beneficiaries, and <b>Eden Healthcare</b> in Texas at $622,931 for 2015&ndash;2018. CMS suppresses any provider with ten or fewer beneficiaries in a year, so a missing year means small, not zero. CMS's Care Compare rates Beyond Healthcare Agency one star for quality of patient care and Greater Boston Home Health Care three.</p>
+</section>
+<div class="next"><a href="#payments">&larr; State payments</a><a href="#gbhhc">Next: Greater Boston Home Health &rarr;</a></div>
+</section>
+
+<section class="panel" role="tabpanel" id="gbhhc" aria-labelledby="t-gbhhc" tabindex="-1">
+<section>
+  <h2>Greater Boston Home Health Care: bought, not new</h2>
+  <p class="lede">The first version of this page called Greater Boston Home Health Care &ldquo;a new payee&rdquo; that began drawing state money on 20 June 2025. The payee name was new. The company is a Medicare-certified home health agency from 2008, and the corporate register records its sale to Osagiede in July 2015.</p>
+
+  <ul class="chain">
+    <li><time>5 Sep 2007</time><span><b>Greater Boston Home Health Care, LLC</b> organised, entity <code>412251357</code>. Its filings from 2007 to 2014 name managers outside this web, from August 2008 <b>Gennady Vinokur</b>. <span class="src">200796277280 &middot; 200832699650 &middot; 201499124770</span></span></li>
+    <li><time>28 Oct 2007</time><span>NPI <code>1063691905</code> issued. Its registry record still carries the 2007 LLC's comma spelling as an other name.</span></li>
+    <li><time>23 Sep 2008</time><span>Medicare certification, CCN <code>227507</code>. First Comptroller payment as <code>GR. BOSTON HOME HLTH LLC</code> follows on 25 Sep 2009.</span></li>
+    <li><time>11 Mar 2014</time><span>Osagiede organises <b>Beyond Adult Day Health Center LLC</b>, entity <code>001175773</code>, and is its manager. <span class="src">201474084390</span></span></li>
+    <li><time>30 Jul 2015</time><span>Certificate of amendment: <b>&ldquo;removed previous members/ owners and added one new owner, to reflect the sale of the agency to Aderonke Naomi Osagiede.&rdquo;</b> She becomes manager and resident agent. <span class="src">201540575070 &middot; 201540567840</span></span></li>
+    <li><time>Aug&ndash;Sep 2015</time><span>Renamed Greater Healthcare Solutions LLC, then renamed back, both amendments signed by Osagiede. <span class="src">201542469520 &middot; 201545364660</span></span></li>
+    <li><time>8 Oct 2015</time><span>Osagiede organises a separate <b>Greater Healthcare Solutions LLC</b>, entity <code>001192774</code>.</span></li>
+    <li><time>26 Jan 2016</time><span>Certificate of merger: the 2007 LLC merges into <code>001192774</code>. The certificate says the agency was sold as of 16 July 2015 to &ldquo;Naomi Osagiede's corporate designee Beyond Business Management Inc.&rdquo; and names Vinokur as a seller. <span class="src">201661665430</span></span></li>
+    <li><time>12 Sep 2016</time><span>CMS's Medicare owner record for the agency starts: <b>Naomi A Egah, 100% direct owner</b>, with no end date.</span></li>
+    <li><time>22 Feb 2017</time><span>Vinokur becomes manager of Beyond Adult Day Health Center, the company Osagiede organised. She stays its resident agent until December 2020. <span class="src">201719738770 &middot; 202018648470</span></span></li>
+    <li><time>21 Feb 2018</time><span><i>Vinokur v. Osagiede</i>, a contract suit in the US District Court for Massachusetts, 1:18-cv-10335. Voluntarily dismissed 23 Apr 2018.</span></li>
+    <li><time>3 Apr 2018</time><span>Resident office moves to <b>1208B VFW Parkway, Suite 302</b>, signed by Osagiede as resident agent. CMS files place the agency at that suite from late 2018. <span class="src">201899663680</span></span></li>
+    <li class="end"><time>28 Jun 2019</time><span><b>The merged LLC, 001192774, is involuntarily dissolved.</b> No active LLC of the agency's name stands on the register until November 2022.</span></li>
+    <li><time>15 Apr 2020</time><span>PPP loan of $1,184,600 to &ldquo;Greater Boston Home Health Care LLC&rdquo;, 179 jobs reported, 1208B VFW Parkway Suite 302. A second of $1,184,600 follows on 31 Mar 2021. Both forgiven.</span></li>
+    <li><time>29 Jun 2020</time><span>Comptroller payments resume at Boston 02132. The last line before this was dated 16 July 2018.</span></li>
+    <li><time>11 Nov 2022</time><span>Naomi A Egah organises a new <b>Greater Boston Home Health Care LLC</b>, entity <code>001618231</code>, at the same suite. <span class="src">202253358820</span></span></li>
+    <li><time>20 Jun 2025</time><span>Payments switch from <code>GR. BOSTON HOME HLTH LLC</code>, last paid 13 June, to <code>GREATER BOSTON HOME HEALTH CARE LLC</code>, the 2022 LLC's exact name.</span></li>
+    <li><time>2025</time><span>CMS files from mid-2025, and the Comptroller from 7 November 2025, place the agency at <b>661 Centre St, Brockton</b>.</span></li>
+    <li><time>24 Aug 2026</time><span>NPI record recertified naming <b>Naomi Osagiede</b>, Owner.</span></li>
+  </ul>
+  <p class="note">Filing numbers are the Corporations Division's own document numbers, read on 24&ndash;25 September 2026. Paper scans were read page by page.</p>
+</section>
+
+<section>
+  <h2>Money by source</h2>
+  <p class="lede">Every public payer, kept separate. The HHS figure overlaps the Comptroller figures, because MassHealth's direct payments appear in both. Medicare and the SBA are separate programs.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Source</th><th>Period</th><th class="m r">Amount</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr class="sub"><td class="vend">Comptroller, GR. BOSTON HOME HLTH LLC</td><td class="m">2009 &rarr; 13 Jul 2015</td><td class="num">$1,563,932.85</td><td>Before the sale; earlier owners</td></tr>
+        <tr class="paid"><td class="vend">Comptroller, GR. BOSTON HOME HLTH LLC</td><td class="m">20 Jul 2015 &rarr; 13 Jun 2025</td><td class="num">$453,684.67</td><td>After the sale, incl. $52,974.98 undated</td></tr>
+        <tr class="paid"><td class="vend">Comptroller, GREATER BOSTON HOME HEALTH CARE LLC</td><td class="m">20 Jun 2025 &rarr; 18 Sep 2026</td><td class="num">$47,203.01</td><td>In the six-string headline</td></tr>
+        <tr class="paid"><td class="vend">HHS T-MSIS Medicaid, NPI 1063691905</td><td class="m">service months 2018-02 &rarr; 2024-12</td><td class="num">$1,143,093.82</td><td>Includes plan-paid claims; overlaps the Comptroller rows</td></tr>
+        <tr class="sub"><td class="vend">Medicare fee-for-service home health</td><td class="m">CY2014&ndash;2015</td><td class="num">$1,660,439</td><td>Straddles the sale</td></tr>
+        <tr class="paid"><td class="vend">Medicare fee-for-service home health</td><td class="m">CY2016&ndash;2024</td><td class="num">$13,673,342</td><td>After the sale</td></tr>
+        <tr class="paid"><td class="vend">SBA Paycheck Protection Program, two loans</td><td class="m">Apr 2020, Mar 2021</td><td class="num">$2,369,200</td><td>Forgiven, $2,388,640.42 with interest</td></tr>
+        <tr class="paid"><td class="vend">SBA COVID EIDL loan</td><td class="m">19 Jun 2020</td><td class="num">$150,000</td><td>Repayable; status unpublished</td></tr>
+        <tr class="paid"><td class="vend">SBA EIDL advance</td><td class="m">18 Jun 2020</td><td class="num">$10,000</td><td>Grant</td></tr>
+        <tr class="paid"><td class="vend">HHS Provider Relief Fund</td><td class="m">2020</td><td class="num">$1,335</td><td>Name and city match only</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Sources: CTHRU <code>pegc-naaa</code> (load of 25 Sep 2026); HHS T-MSIS release of 9 Feb 2026; CMS PAC PUF by year for CCN 227507; SBA PPP loan-level file (30 Sep 2024 release), loans 8009847100 and 3390558708; SBA EIDL data through November 2020, FAIN 8840017900 and EIDLGT:3304760125; HRSA Provider Relief Fund on data.cdc.gov (<code>kh8y-3es6</code>).</p>
+</section>
+
+<section>
+  <h2>What stays open</h2>
+  <div class="finds">
+    <div class="find">
+      <h3>Which legal entity operated from mid-2019 to late 2022</h3>
+      <p>The 2007 LLC merged away in January 2016. The surviving LLC was dissolved on 28 June 2019 and never revived. The new LLC was not organised until 11 November 2022. Throughout that stretch the agency kept its Medicare certification, billed Medicaid ($651,383.98 in service months July 2019 to October 2022) and borrowed from the SBA in the name &ldquo;Greater Boston Home Health Care LLC&rdquo;. No filing made during those years names the owner. The CMS owner record, first published in 2023, dates her ownership from 2016 with no break.</p>
+      <span class="cav">As on the State payments tab: MassHealth's eligibility rule, 130 CMR 450.212, does not condition a provider number on corporate standing. Whether the SBA's rules were met is a question for the SBA.</span>
+    </div>
+    <div class="find">
+      <h3>The seller and the adult day center</h3>
+      <p>The man who sold her this agency in 2015 became manager of the adult day center she had organised, in February 2017. That company's federal NPI, issued in 2014 while she managed it, still lists the cluster's phone line, 978-930-9410, at 1208 VFW Parkway. A year later he sued her. The complaint sits on PACER and has not been read, so its subject is unknown.</p>
+    </div>
+  </div>
+</section>
+<div class="next"><a href="#federal">&larr; Medicaid &amp; Medicare</a><a href="#covid">Next: COVID money &rarr;</a></div>
+</section>
+
+<section class="panel" role="tabpanel" id="covid" aria-labelledby="t-covid" tabindex="-1">
+<section>
+  <h2>COVID money</h2>
+  <p class="lede">The SBA and HHS publish every pandemic loan and relief payment at recipient level. Searching them for every entity name, street line and ZIP in this web returns the rows below. The loan files carry no EIN or UEI, so an entity match rests on exact name plus a cluster address; treat those as probable. The two rows that name Naomi Egah as the recipient are confirmed.</p>
+
+  <h3 class="sub-h">Paycheck Protection Program</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Borrower as filed</th><th class="m">Approved</th><th class="m r">Loan</th><th class="m r">Forgiven</th><th class="m r">Jobs</th><th>Register standing that day</th></tr></thead>
+      <tbody>
+        <tr class="paid"><td class="vend">GREATER BOSTON HOME HEALTH CARE LLC</td><td class="m">2020-04-15</td><td class="num">$1,184,600</td><td class="num">$1,195,634.63</td><td class="num">179</td><td>No active LLC of that name (2007 LLC merged 2016; survivor dissolved 2019)</td></tr>
+        <tr class="paid"><td class="vend">GREATER BOSTON HOME HEALTH CARE LLC</td><td class="m">2021-03-31</td><td class="num">$1,184,600</td><td class="num">$1,193,005.79</td><td class="num">179</td><td>Same</td></tr>
+        <tr><td class="vend">BEYOND BUSINESS CONSULTING LLC <span class="tag g">probable</span></td><td class="m">2020-05-01</td><td class="num">$155,107</td><td class="num">$157,584.46</td><td class="num">15</td><td>Former name of entity <code>463474045</code>, changed 2013; borrower address is a Weston address the IRS lists for a cluster church</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Source: SBA PPP FOIA loan-level file <code>public_150k_plus_240930.csv</code>, loans 8009847100, 3390558708 and 5267977702; lender for the first two is Citizens Bank. No PPP loan went to Beyond Healthcare Agency, Beyond Independent Living or either person.</p>
+
+  <h3 class="sub-h">COVID Economic Injury Disaster Loans</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Recipient as filed</th><th class="m">Date</th><th class="m r">Loan</th><th>Register standing that day</th></tr></thead>
+      <tbody>
+        <tr><td class="vend">Greater Boston Home Health Care LLC</td><td class="m">2020-06-19</td><td class="num">$150,000</td><td>No active LLC of that name</td></tr>
+        <tr><td class="vend">ZEIIND Family Foundation</td><td class="m">2020-06-24</td><td class="num">$150,000</td><td>Active; IRS exemption revoked 15 May 2019</td></tr>
+        <tr><td class="vend">Beyond Business Management LLC</td><td class="m">2020-06-25</td><td class="num">$119,200</td><td>LLC converted 2016; its successor corporation dissolved 2019</td></tr>
+        <tr><td class="vend">Beyond Healthcare Agency LLC</td><td class="m">2020-06-25</td><td class="num">$150,000</td><td>Active, reinstated October 2019</td></tr>
+        <tr><td class="vend">Certified Billing Consulting LLC</td><td class="m">2020-07-08</td><td class="num">$71,400</td><td>Dissolved 28 Jun 2019, never revived</td></tr>
+        <tr class="paid"><td class="vend">Naomi Egah, individual</td><td class="m">2020-07-28</td><td class="num">$74,500</td><td>Person, confirmed</td></tr>
+        <tr><td class="vend">Fire of Life Inc</td><td class="m">2020-07-29</td><td class="num">$11,000</td><td>Active</td></tr>
+        <tr><td class="vend">Beyond Zoe Hospice LLC</td><td class="m">2020-08-04</td><td class="num">$139,500</td><td>Revived 15 Jul 2020, three weeks earlier</td></tr>
+        <tr><td class="vend">Community Psych Healthcare LLC</td><td class="m">2020-08-04</td><td class="num">$150,000</td><td>Dissolved; revived 1 Sep 2020, four weeks later</td></tr>
+        <tr><td class="vend">Beyond Zoe Ministries International</td><td class="m">2020-08-05</td><td class="num">$135,500</td><td>Organised 13 Jul 2020, three weeks earlier</td></tr>
+        <tr><td class="vend">Beyond Agency Software Systems LLC</td><td class="m">2020-08-05</td><td class="num">$150,000</td><td>Revived 15 Jul 2020</td></tr>
+        <tr><td class="vend">Always Available Healthcare LLC</td><td class="m">2020-08-06</td><td class="num">$101,600</td><td>Revived 15 Jul 2020</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td colspan="2">Eleven entity loans</td><td class="num">$1,328,200</td><td></td></tr>
+        <tr><td colspan="2">With Naomi Egah's own loan</td><td class="num">$1,402,700</td><td></td></tr>
+      </tfoot>
+    </table>
+  </div>
+  <p class="note">EIDL loans are 30-year loans, repayable. The SBA does not publish loan-level repayment, deferment or charge-off status, and USAspending shows no later transaction on any of these awards. Source: SBA EIDL loan data delivered April 2021, covering loans through 15 November 2020; also at api.usaspending.gov by FAIN.</p>
+
+  <h3 class="sub-h">EIDL advance grants</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Recipient as filed</th><th class="m">Date</th><th class="m r">Grant</th></tr></thead>
+      <tbody>
+        <tr><td class="vend">Beyond Business Management LLC</td><td class="m">2020-06-18</td><td class="num">$10,000</td></tr>
+        <tr><td class="vend">Beyond Healthcare Agency LLC</td><td class="m">2020-06-18</td><td class="num">$10,000</td></tr>
+        <tr><td class="vend">Greater Boston Home Health Care</td><td class="m">2020-06-18</td><td class="num">$10,000</td></tr>
+        <tr><td class="vend">Beyond Independent Living LLC</td><td class="m">2020-06-18</td><td class="num">$10,000</td></tr>
+        <tr><td class="vend">Fire of Life Inc</td><td class="m">2020-06-18</td><td class="num">$1,000</td></tr>
+        <tr><td class="vend">ZEIIND Family Foundation</td><td class="m">2020-06-22</td><td class="num">$5,000</td></tr>
+        <tr class="paid"><td class="vend">Naomi Egah, DBA Beyond Faith Clinic</td><td class="m">2020-07-13</td><td class="num">$10,000</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">Seven grants</td><td class="num">$56,000</td></tr></tfoot>
+    </table>
+  </div>
+  <p class="note">Beyond Faith Clinic LLC, entity <code>464164029</code>, was involuntarily dissolved on 30 June 2017, three years before the advance named it. Source: SBA EIDL Advance data through 15 November 2020.</p>
+
+  <h3 class="sub-h">HHS Provider Relief Fund</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Payee on the billing TIN</th><th>City</th><th class="m r">Received and attested</th></tr></thead>
+      <tbody>
+        <tr><td class="vend">BEYOND HEALTHCARE AGENCY LLC</td><td>Andover MA</td><td class="num">$113,608</td></tr>
+        <tr><td class="vend">BEYOND INDEPENDENT LIVING INC</td><td>West Roxbury MA</td><td class="num">$40,541</td></tr>
+        <tr><td class="vend">GUARANTEED HOME HEALTH SERVICES INC</td><td>Newtown PA</td><td class="num">$13,715</td></tr>
+        <tr><td class="vend">GREATER BOSTON HOME HEALTH CARE, LLC</td><td>Boston MA</td><td class="num">$1,335</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">Four payees</td><td class="num">$169,199</td></tr></tfoot>
+    </table>
+  </div>
+  <p class="note">Source: HRSA <i>HHS Provider Relief Fund</i> on data.cdc.gov, dataset <code>kh8y-3es6</code>, updated 28 March 2025. Name and city only, so probable. A further $500 American Rescue Plan rural payment went to &ldquo;Aderonke Naomi Osagiede Beyond Healthcare Agency LLC&rdquo;, the company's pre-2015 name (dataset <code>8v6a-z6zq</code>).</p>
+
+  <div class="finds">
+    <div class="find">
+      <h3>Read the standing column carefully</h3>
+      <p>The table records sequences in two public registers. Four borrowers had no active registration under the borrowing name on the day they borrowed, and three LLCs were revived three weeks before theirs. Whether corporate standing affected SBA eligibility, and what each application said, cannot be answered from public records. No conclusion about intent is drawn.</p>
+    </div>
+    <div class="find corr">
+      <h3>Searched, nothing found</h3>
+      <p>No SBA 7(a) or 504 loan to any cluster name since FY2000. No federal contract, grant or subaward on USAspending beyond the SBA rows above. No Medicare accelerated payment is claimed here: one HHS file lists one for Greater Boston Home Health Care, and it did not reproduce on a second query.</p>
+    </div>
+  </div>
+</section>
+<div class="next"><a href="#gbhhc">&larr; Greater Boston Home Health</a><a href="#identity">Next: Identity &rarr;</a></div>
+</section>
+
+<section class="panel" role="tabpanel" id="identity" aria-labelledby="t-identity" tabindex="-1">
+<section>
+  <h2>The two names are one person</h2>
+  <p class="lede">The original post asserts that Naomi Osagiede also files as Naomi Egah. Proving it does not require comparing signatures or addresses across documents. Both names sit on single records.</p>
+
+  <div class="finds">
+    <div class="find key">
+      <h3>Beyond Faith Consulting, LLC, entity 463474045</h3>
+      <p>One filing, one address at <b>1208B VFW Parkway, Suite 304, Boston 02132</b>, and both names on it:</p>
+      <p style="margin-top:9px; font-family:'IBM Plex Mono',monospace; font-size:.83rem; line-height:1.9; color:var(--ink)">
+        MANAGER &nbsp;&rarr;&nbsp; NAOMI EGAH<br>
+        SOC SIGNATORY &nbsp;&rarr;&nbsp; NAOMI EGAH<br>
+        REAL PROPERTY &nbsp;&rarr;&nbsp; <b>ADERONKE NAOMI OSAGIEDE</b><br>
+        REAL PROPERTY &nbsp;&rarr;&nbsp; <b>NAOMI EGAH</b><br>
+        MANAGER &nbsp;&rarr;&nbsp; BEYOND BUSINESS MANAGEMENT INC (Suite 301)
+      </p>
+      <span class="cav">The last line matters separately: one entity in this web is listed as the manager of another. The same nesting appears at Beyond Healthcare Agency LLC, whose registered managers are &ldquo;Naomi A Osagiede&rdquo; and an entity called <b>Beyond Trust</b>, which exists in the register as Beyond Trust Int LLC, filed under Egah.</span>
+    </div>
+  </div>
+  <p class="lede">Searching only the Osagiede surname returns 20 entities. Searching Egah returns 26. One overlaps. Anyone who searched one name and stopped saw less than half the structure, and the original post did exactly that.</p>
+
+  <h3 class="sub-h">Six records that join the names</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Entity</th><th>Record</th><th>Name on it</th><th>Second record</th><th>Name on it</th></tr></thead>
+      <tbody>
+        <tr><td class="vend">Beyond Faith Consulting, LLC</td><td>MA register, 463474045</td><td>Naomi Egah</td><td>Same filing</td><td>Aderonke Naomi Osagiede</td></tr>
+        <tr><td class="vend">Greater Boston Home Health Care, LLC</td><td>MA register, 412251357</td><td>Naomi Aderonke Egah, manager</td><td>Same record</td><td>Aderonke Naomi Osagiede, resident agent</td></tr>
+        <tr><td class="vend">Beyond Healthcare Agency LLC</td><td>CMS Medicare owners, O20120322000034</td><td>Naomi A Egah, 100%</td><td>CMS NPI registry, 1003116021</td><td>Naomi A Osagiede, CEO</td></tr>
+        <tr><td class="vend">Greater Boston Home Health Care</td><td>CMS Medicare owners, O20071114000553</td><td>Naomi A Egah, 100%</td><td>CMS NPI registry, 1063691905</td><td>Naomi Osagiede, Owner</td></tr>
+        <tr><td class="vend">Guaranteed Home Health Services (PA)</td><td>CMS Medicare owners, O20191107002080</td><td>Naomi A Egah, 100%</td><td>CMS NPI registry, 1356750228</td><td>Naomi Osagiede, Owner/CEO</td></tr>
+        <tr><td class="vend">Beyond Agency Software Systems, LLC</td><td>MA register, 001127305</td><td>Naomi Egah, manager</td><td>CMS NPI registry, 1639544471</td><td>Naomi Osagiede, Owner</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Three of the six pair two of CMS's own systems: the Medicare enrollment owner files and the NPI registry, both retrieved 25 September 2026. The register summary for 412251357 is a current record and carries no date, so it proves the pairing today, not in any past year.</p>
+</section>
+
+<section>
+  <h2>Sixteen federal billing numbers, all active</h2>
+  <p class="lede">The first version listed seven NPIs. A sweep of the NPI registry by organisation name, official's surname, every cluster address and every phone number found nine more worth listing. Each is classed by the strength of its tie. Every one is status A with no deactivation date, including numbers for companies the Commonwealth struck off years ago.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th class="m">NPI</th><th>Organisation</th><th>Authorized official</th><th>Practice location</th><th>Tie</th><th class="m">Updated</th></tr></thead>
+      <tbody>
+        <tr><td class="m">1003226630</td><td>Beyond Independent Living LLC</td><td><b>Naomi Osagiede</b>, Owner</td><td>661 Centre St, Brockton</td><td><span class="tag">confirmed</span></td><td class="m">2026-06-23</td></tr>
+        <tr><td class="m">1003116021</td><td>Beyond Healthcare Agency LLC</td><td><b>Naomi A Osagiede</b>, CEO</td><td>40 Shattuck Rd Ste 309, Andover</td><td><span class="tag">confirmed</span></td><td class="m">2026-09-24</td></tr>
+        <tr><td class="m">1063691905</td><td>Greater Boston Home Health Care LLC</td><td><b>Naomi Osagiede</b>, Owner</td><td>661 Centre St, Brockton</td><td><span class="tag">confirmed</span></td><td class="m">2026-08-24</td></tr>
+        <tr><td class="m">1255748281</td><td>Community Psych Healthcare LLC</td><td><b>Naomi Aderonke Egah</b>, Owner</td><td>661 Centre St, Brockton</td><td><span class="tag">confirmed</span></td><td class="m">2024-10-09</td></tr>
+        <tr><td class="m">1952723322</td><td>Always Available Healthcare LLC</td><td><b>Aderonke Naomi Osagiede</b>, CEO</td><td>691 Main St, Waltham</td><td><span class="tag">confirmed</span></td><td class="m">2014-06-09</td></tr>
+        <tr><td class="m">1316376999</td><td>Beyond Zoe Hospice LLC</td><td><b>Aderonke Naomi Osagiede</b>, CEO</td><td>10 Tower Office Park Ste 313, Woburn</td><td><span class="tag">confirmed</span></td><td class="m">2015-03-03</td></tr>
+        <tr><td class="m">1639544471</td><td>Beyond Agency Software Systems LLC</td><td><b>Naomi Osagiede</b>, Owner</td><td>1208B VFW Pkwy Ste 301, Boston</td><td><span class="tag">confirmed</span> <span class="tag b">new</span></td><td class="m">2016-03-31</td></tr>
+        <tr><td class="m">1003342874</td><td>Beyond Business Management Inc</td><td><b>Naomi A Osagiede</b>, Owner</td><td>1208B VFW Pkwy Ste 301, West Roxbury</td><td><span class="tag">confirmed</span> <span class="tag b">new</span></td><td class="m">2017-05-11</td></tr>
+        <tr><td class="m">1174935159</td><td>Beyond Medical Equipment LLC</td><td><b>Aderonke Osagiede</b>, CEO</td><td>1208 VFW Pkwy, West Roxbury</td><td><span class="tag">confirmed</span> <span class="tag b">new</span></td><td class="m">2015-02-10</td></tr>
+        <tr><td class="m">1356750228</td><td>Guaranteed Home Health Services Inc</td><td><b>Naomi Osagiede</b>, Owner/CEO</td><td>638 Newtown Yardley Rd Ste 2I, Newtown PA</td><td><span class="tag">confirmed</span> <span class="tag b">new</span></td><td class="m">2026-06-23</td></tr>
+        <tr><td class="m">1790204477</td><td>Zoe Healthcare, LLC <span class="tag b">dba Always A Step Beyond</span></td><td><b>Naomi Osagiede</b>, Owner</td><td>Southampton PA; mail to 1208B VFW Pkwy Ste 304</td><td><span class="tag">confirmed</span> <span class="tag b">new</span></td><td class="m">2017-09-14</td></tr>
+        <tr><td class="m">1700662186</td><td>Healing Pathways Home Care LLC</td><td>Another official, Owner/President</td><td>101 Amesbury St Ste 104, Lawrence</td><td><span class="tag g">probable</span></td><td class="m">2023-09-01</td></tr>
+        <tr><td class="m">1306298583</td><td>Certified Billing Consulting LLC</td><td>Another official, Manager</td><td>1208B VFW Pkwy Ste 301, Boston</td><td><span class="tag g">probable</span> <span class="tag b">new</span></td><td class="m">2016-07-12</td></tr>
+        <tr><td class="m">1215389499</td><td>Cool Care LLC</td><td>Another official, COO</td><td>1208B VFW Pkwy Ste 301, Boston</td><td><span class="tag g">adjacent</span> <span class="tag b">new</span></td><td class="m">2016-07-12</td></tr>
+        <tr><td class="m">1356254361</td><td>Ascend Transportation Services LLC</td><td>A different Osagiede, CEO</td><td>661 Centre St, Brockton</td><td><span class="tag g">adjacent</span> <span class="tag b">new</span></td><td class="m">2026-09-23</td></tr>
+        <tr><td class="m">1003225764</td><td>Vilaj Lajwa LLC (formerly Beyond Adult Day Health Center)</td><td>Gennady Vinokur, Owner</td><td>1208 VFW Pkwy, West Roxbury</td><td><span class="tag g">adjacent</span> <span class="tag b">new</span></td><td class="m">2018-05-21</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Source: NPPES NPI Registry API v2.1, each number queried on 25 September 2026. Confirmed means the registry names Naomi Osagiede, Aderonke Osagiede or Naomi Egah as authorized official. Healing Pathways matches register entity 001693243, where Naomi Aderonke Egah is the SOC signatory, and its NPI was issued three days after that entity was organised. Certified Billing Consulting matches register entity 001222509 by exact name and suite. Adjacent means shared premises or phone line with a different official. Ascend Transportation, enumerated two days before this update as a taxi and medical-transport provider, matches a register entity managed by two other people surnamed Osagiede; Naomi holds no role on it.</p>
+
+  <div class="finds">
+    <div class="find corr">
+      <h3>A shared phone line is not an identifier on its own</h3>
+      <p>The number <b>978-930-9410</b> appears on six of the confirmed NPIs, on every one of them as the authorized official's own phone. It also appears as the location phone on three NPIs whose officials are other people: Cool Care, Ascend Transportation and Vilaj Lajwa. An unrelated imaging clinic listed Suite 301 at 1208B VFW Parkway for fourteen years. Cool Care and Certified Billing Consulting were entered into the registry four seconds apart on 12 July 2016, which points to one submitter filing both (inference). None of this proves who controls those three. The confirmed rows above rest on the named official, not the phone.</p>
+    </div>
+    <div class="find">
+      <h3>State health licences carry both cluster numbers</h3>
+      <p>The Department of Public Health's licensed and certified facility list (September 2026) certifies Beyond Healthcare Agency LLC as a home health agency, licence 6AQ2, at 40 Shattuck Rd Suite 309 under <b>978-930-9410</b>, and separately licenses it as a temporary nursing agency, TJKY, under <b>781-932-1166</b>. It certifies Greater Boston Home Health Care, LLC as a home health agency, 62J0, at 661 Centre St. No DPH licence exists for Beyond Zoe Hospice, Always Available Healthcare, Community Psych Healthcare, Healing Pathways or Beyond Independent Living.</p>
+    </div>
+  </div>
+</section>
+<div class="next"><a href="#covid">&larr; COVID money</a><a href="#register">Next: Register &amp; IRS &rarr;</a></div>
+</section>
+
+<section class="panel" role="tabpanel" id="register" aria-labelledby="t-register" tabindex="-1">
+<section>
+  <h2>The full register</h2>
+  <p class="lede">All 45 entities in which Naomi Osagiede or Naomi Egah holds a listed role, each summary pulled from the Corporations Division on 20 September 2026 and re-checked on 24 September. No new entity under either name appeared between the two pulls. Highlighted rows received state money. &ldquo;Converted&rdquo; and &ldquo;merged&rdquo; mean the entity ceased by conversion or merger rather than by administrative lapse.</p>
+
+<figure>
 <h3>Formed, then struck off</h3>
 <p class="sub">Entities registered under either name each year, against entities the Secretary of the Commonwealth involuntarily dissolved that year.</p>
 <div class="legend"><span><i class="k2"></i>Formed</span><span><i class="k1"></i>Involuntarily dissolved</span></div>
@@ -666,7 +1106,7 @@ figcaption{margin-top:12px; padding-top:11px; border-top:1px dashed var(--rule);
 <line x1="40" y1="264" x2="984" y2="264" class="grid"/>
 <text x="40" y="310" class="ax ax-note" text-anchor="start">Above the line: entities formed. Below: involuntarily dissolved. Two further entities were formed in 2007 and 2010.</text>
 </svg>
-<figcaption>Formation runs in waves &mdash; seven in 2013, seven again in 2020. Dissolutions arrive in the Corporations Division’s scheduled sweeps, which is why ten land in 2025 and five in 2019; the batching is the state’s calendar, not a coordinated event.</figcaption>
+<figcaption>Formation runs in waves: seven in 2013, seven again in 2020. Dissolutions arrive in batches, ten in 2025 and five in 2019. The filing data show the batching; no published schedule explains it, and it is not evidence of a coordinated event.</figcaption>
 </figure>
 
   <div class="scroll">
@@ -675,85 +1115,238 @@ figcaption{margin-top:12px; padding-top:11px; border-top:1px dashed var(--rule);
         <tr><th>Entity</th><th class="m">ID</th><th>Type</th><th class="m">Organised</th><th class="m">Dissolved</th><th class="m">Revived</th><th>Filed under</th></tr>
       </thead>
       <tbody>
-        <tr class="paid"><td>BEYOND HEALTHCARE AGENCY LLC <span class="tag">$73.5M</span></td><td class="m">271533104</td><td>LLC</td><td class="m">2010-05-20</td><td class="d">2023-12-29</td><td class="m">2024-09-20</td><td>Osagiede</td></tr>
-        <tr class="paid"><td>BEYOND INDEPENDENT LIVING LLC <span class="tag">$32.4M</span></td><td class="m">462941036</td><td>LLC</td><td class="m">2013-07-30</td><td class="m">converted 2017</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
-        <tr class="paid"><td>GREATER BOSTON HOME HEALTH CARE LLC <span class="tag">$47K</span></td><td class="m">001618231</td><td>LLC</td><td class="m">2022-11-11</td><td class="live">active</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr class="paid"><td>GREATER BOSTON HOME HEALTH CARE, LLC</td><td class="m">412251357</td><td>LLC</td><td class="m">2007-09-05</td><td class="live">active</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>BEYOND INDEPENDENT LIVING INC</td><td class="m">001309461</td><td>Nonprofit</td><td class="m">2018-01-10</td><td class="d">2025-06-30</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
-        <tr><td>BEYOND INDEPENDENT LIVING INC</td><td class="m">001261393</td><td>Profit corp</td><td class="m">2017-02-20</td><td class="m">converted 2018</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
-        <tr><td>BEYOND INDEPENDENT LIVING LLC &mdash; 661 Centre St</td><td class="m">001421873</td><td>LLC</td><td class="m">2020-01-22</td><td class="live">active</td><td class="m">&mdash;</td><td>Egah</td></tr>
+        <tr class="paid"><td>BEYOND HEALTHCARE AGENCY LLC <span class="tag">$73.5M</span> <span class="tag b">also 2019</span></td><td class="m">271533104</td><td>LLC</td><td class="m">2010-05-20</td><td class="d">2023-12-29</td><td class="m">2024-09-20</td><td>Osagiede</td></tr>
+        <tr class="paid"><td>BEYOND INDEPENDENT LIVING LLC <span class="tag">$32.4M</span></td><td class="m">462941036</td><td>LLC</td><td class="m">2013-07-30</td><td class="m">converted 2017</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
+        <tr class="paid"><td>GREATER BOSTON HOME HEALTH CARE LLC <span class="tag">$47K</span></td><td class="m">001618231</td><td>LLC</td><td class="m">2022-11-11</td><td class="live">active</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr class="paid"><td>GREATER BOSTON HOME HEALTH CARE, LLC <span class="tag b">bought 2015</span></td><td class="m">412251357</td><td>LLC</td><td class="m">2007-09-05</td><td class="m">merged 2016</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>BEYOND INDEPENDENT LIVING INC</td><td class="m">001309461</td><td>Nonprofit</td><td class="m">2018-01-10</td><td class="d">2025-06-30</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
+        <tr><td>BEYOND INDEPENDENT LIVING INC</td><td class="m">001261393</td><td>Profit corp</td><td class="m">2017-02-20</td><td class="m">converted 2018</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
+        <tr><td>BEYOND INDEPENDENT LIVING LLC &ndash; 661 Centre St</td><td class="m">001421873</td><td>LLC</td><td class="m">2020-01-22</td><td class="live">active</td><td class="m">&ndash;</td><td>Egah</td></tr>
         <tr><td>ALWAYS AVAILABLE HEALTHCARE LLC</td><td class="m">464359150</td><td>LLC</td><td class="m">2013-12-20</td><td class="d">2023-12-29</td><td class="m">2020-07-15</td><td>Egah</td></tr>
-        <tr><td>HEALING PATHWAYS HOME CARE, LLC</td><td class="m">001693243</td><td>LLC</td><td class="m">2023-08-29</td><td class="live">active</td><td class="m">&mdash;</td><td>Egah</td></tr>
+        <tr><td>HEALING PATHWAYS HOME CARE, LLC</td><td class="m">001693243</td><td>LLC</td><td class="m">2023-08-29</td><td class="live">active</td><td class="m">&ndash;</td><td>Egah</td></tr>
         <tr><td>BEYOND ZOE HOSPICE LLC</td><td class="m">463219778</td><td>LLC</td><td class="m">2013-07-30</td><td class="d">2022-12-30</td><td class="m">2020-07-15</td><td>Egah</td></tr>
         <tr><td>COMMUNITY PSYCH HEALTHCARE LLC</td><td class="m">001134312</td><td>LLC</td><td class="m">2014-04-23</td><td class="d">2022-12-30</td><td class="m">2020-09-01</td><td>Egah</td></tr>
-        <tr><td>COMMUNITY PSYCH HEALTHCARE LLC</td><td class="m">001844080</td><td>LLC</td><td class="m">2024-10-14</td><td class="live">active</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>CERTIFIED HEALTHCARE INC</td><td class="m">001169224</td><td>Nonprofit</td><td class="m">2015-05-04</td><td class="d">2025-06-30</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
-        <tr><td>GREATER HEALTHCARE SOLUTIONS LLC</td><td class="m">001192774</td><td>LLC</td><td class="m">2015-10-08</td><td class="d">2019-06-28</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
-        <tr><td>GREATER BOSTON HEALTHCARE SCHOOL LLC</td><td class="m">001663965</td><td>LLC</td><td class="m">2023-06-12</td><td class="live">active</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>BEYOND FAITH CLINIC LLC</td><td class="m">464164029</td><td>LLC</td><td class="m">2014-01-21</td><td class="d">2017-06-30</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
-        <tr><td>BEYOND MEDICAL EQUIPMENT LLC</td><td class="m">462612399</td><td>LLC</td><td class="m">2013-04-24</td><td class="d">2017-06-30</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
-        <tr><td>CERTIFIED BILLING CONSULTING LLC</td><td class="m">001222509</td><td>LLC</td><td class="m">2016-05-09</td><td class="d">2019-06-28</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
-        <tr><td>MEDICOACH TRANSPORTATION, INC.</td><td class="m">001145387</td><td>Profit corp</td><td class="m">2014-10-01</td><td class="live">active</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
+        <tr><td>COMMUNITY PSYCH HEALTHCARE LLC</td><td class="m">001844080</td><td>LLC</td><td class="m">2024-10-14</td><td class="live">active</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>CERTIFIED HEALTHCARE INC</td><td class="m">001169224</td><td>Nonprofit</td><td class="m">2015-05-04</td><td class="d">2025-06-30</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
+        <tr><td>GREATER HEALTHCARE SOLUTIONS LLC</td><td class="m">001192774</td><td>LLC</td><td class="m">2015-10-08</td><td class="d">2019-06-28</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
+        <tr><td>GREATER BOSTON HEALTHCARE SCHOOL LLC</td><td class="m">001663965</td><td>LLC</td><td class="m">2023-06-12</td><td class="live">active</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>BEYOND FAITH CLINIC LLC</td><td class="m">464164029</td><td>LLC</td><td class="m">2014-01-21</td><td class="d">2017-06-30</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
+        <tr><td>BEYOND MEDICAL EQUIPMENT LLC</td><td class="m">462612399</td><td>LLC</td><td class="m">2013-04-24</td><td class="d">2017-06-30</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
+        <tr><td>CERTIFIED BILLING CONSULTING LLC</td><td class="m">001222509</td><td>LLC</td><td class="m">2016-05-09</td><td class="d">2019-06-28</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
+        <tr><td>MEDICOACH TRANSPORTATION, INC.</td><td class="m">001145387</td><td>Profit corp</td><td class="m">2014-10-01</td><td class="m">voluntary 2015</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
         <tr><td>BEYOND FAITH CONSULTING, LLC <span class="tag">bridge</span></td><td class="m">463474045</td><td>LLC</td><td class="m">2013-09-03</td><td class="d">2025-12-31</td><td class="m">2022-12-15</td><td>both</td></tr>
-        <tr><td>BEYOND BUSINESS MANAGEMENT INC.</td><td class="m">001204620</td><td>Profit corp</td><td class="m">2016-01-08</td><td class="d">2019-06-28</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
-        <tr><td>BEYOND BUSINESS MANAGEMENT LLC</td><td class="m">001172383</td><td>LLC</td><td class="m">2015-05-07</td><td class="m">converted 2016</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
-        <tr><td>ALWAYS A STEP BEYOND MANAGEMENT LLC</td><td class="m">001118848</td><td>LLC</td><td class="m">2013-10-17</td><td class="d">2019-06-28</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
-        <tr><td>BEYOND GARDENS LLC</td><td class="m">462201943</td><td>LLC</td><td class="m">2013-03-06</td><td class="d">2021-06-30</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
+        <tr><td>BEYOND BUSINESS MANAGEMENT INC.</td><td class="m">001204620</td><td>Profit corp</td><td class="m">2016-01-08</td><td class="d">2019-06-28</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
+        <tr><td>BEYOND BUSINESS MANAGEMENT LLC</td><td class="m">001172383</td><td>LLC</td><td class="m">2015-05-07</td><td class="m">converted 2016</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
+        <tr><td>ALWAYS A STEP BEYOND MANAGEMENT LLC</td><td class="m">001118848</td><td>LLC</td><td class="m">2013-10-17</td><td class="d">2019-06-28</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
+        <tr><td>BEYOND GARDENS LLC</td><td class="m">462201943</td><td>LLC</td><td class="m">2013-03-06</td><td class="d">2021-06-30</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
         <tr><td>BEYOND AGENCY SOFTWARE SYSTEMS, LLC</td><td class="m">001127305</td><td>LLC</td><td class="m">2014-01-31</td><td class="d">2023-12-29</td><td class="m">2020-07-15</td><td>Egah</td></tr>
-        <tr><td>BEYOND TRUST INT LLC</td><td class="m">001446050</td><td>LLC</td><td class="m">2020-07-09</td><td class="d">2023-12-29</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>ASCEND BUSINESS CONCEPT LLC</td><td class="m">001941736</td><td>LLC</td><td class="m">2026-01-15</td><td class="live">active</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>ABOVE ALL BUSINESS CONCEPTS LLC</td><td class="m">001701907</td><td>LLC</td><td class="m">2023-09-20</td><td class="live">active</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>ABLE BUSINESS CONCEPT LLC</td><td class="m">001530586</td><td>LLC</td><td class="m">2021-09-07</td><td class="live">active</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>J&amp;N INTERNATIONAL VENTURES LLC</td><td class="m">001445429</td><td>LLC</td><td class="m">2020-07-01</td><td class="d">2022-12-30</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>BLUE HEART CLEANING SERVICES INC</td><td class="m">001603951</td><td>Profit corp</td><td class="m">2022-08-31</td><td class="d">2024-12-31</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>AFRICAN HIDDEN TALENTS INC.</td><td class="m">001191289</td><td>Profit corp</td><td class="m">2015-09-29</td><td class="d">2019-06-28</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
-        <tr><td>FLIM CHRISTIAN LEARNING CENTER INC.</td><td class="m">001803757</td><td>Profit corp</td><td class="m">2024-05-30</td><td class="live">active</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>NIGERIAN NURSE'S ASSOCIATION OF MA, INC</td><td class="m">001294139</td><td>Nonprofit</td><td class="m">2017-10-09</td><td class="d">2025-06-30</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
-        <tr><td>NIGERIAN NURSE'S ASSOCIATION OF MA, INC.</td><td class="m">001406743</td><td>Nonprofit</td><td class="m">2019-11-01</td><td class="d">2025-06-30</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>NIGERIAN NURSES ASSOCIATION MA INC.</td><td class="m">001181167</td><td>Profit corp</td><td class="m">2015-07-13</td><td class="d">2017-06-30</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
-        <tr><td>ZEIIND FAMILY FOUNDATION INC</td><td class="m">001253793</td><td>Nonprofit</td><td class="m">2017-12-11</td><td class="d">2025-06-30</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>MERCY TRUST OUTREACH INC.</td><td class="m">001467783</td><td>Nonprofit</td><td class="m">2020-10-29</td><td class="d">2025-06-30</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>EMBASSY OF GRACE, A PLACE OF FAVOR, INC.</td><td class="m">001283622</td><td>Nonprofit</td><td class="m">2017-07-24</td><td class="d">2025-06-30</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>NKUM'S WORLD OUTREACH, INC.</td><td class="m">001272034</td><td>Nonprofit</td><td class="m">2017-05-01</td><td class="d">2025-06-30</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
-        <tr><td>BEYOND ZOE MINISTRY INC</td><td class="m">001133448</td><td>Nonprofit</td><td class="m">2014-04-10</td><td class="d">2025-06-30</td><td class="m">&mdash;</td><td>Osagiede</td></tr>
-        <tr><td>BEYOND ZOE MINISTRIES INTERNATIONAL</td><td class="m">001447271</td><td>Religious</td><td class="m">2020-07-13</td><td class="live">active</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>FIRE OF LIFE. INC</td><td class="m">001150418</td><td>Religious</td><td class="m">2014-10-29</td><td class="live">active</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>JOHN EGAH MINISTRIES INC</td><td class="m">001446262</td><td>Religious</td><td class="m">2020-07-06</td><td class="live">active</td><td class="m">&mdash;</td><td>Egah</td></tr>
-        <tr><td>HOPE AND POWER MEGA CHURCH, INC.</td><td class="m">001436502</td><td>Nonprofit</td><td class="m">2020-05-04</td><td class="live">active</td><td class="m">&mdash;</td><td>Egah</td></tr>
+        <tr><td>BEYOND TRUST INT LLC</td><td class="m">001446050</td><td>LLC</td><td class="m">2020-07-09</td><td class="d">2023-12-29</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>ASCEND BUSINESS CONCEPT LLC</td><td class="m">001941736</td><td>LLC</td><td class="m">2026-01-15</td><td class="live">active</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>ABOVE ALL BUSINESS CONCEPTS LLC</td><td class="m">001701907</td><td>LLC</td><td class="m">2023-09-20</td><td class="live">active</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>ABLE BUSINESS CONCEPT LLC</td><td class="m">001530586</td><td>LLC</td><td class="m">2021-09-07</td><td class="live">active</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>J&amp;N INTERNATIONAL VENTURES LLC</td><td class="m">001445429</td><td>LLC</td><td class="m">2020-07-01</td><td class="d">2022-12-30</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>BLUE HEART CLEANING SERVICES INC</td><td class="m">001603951</td><td>Profit corp</td><td class="m">2022-08-31</td><td class="d">2024-12-31</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>AFRICAN HIDDEN TALENTS INC.</td><td class="m">001191289</td><td>Profit corp</td><td class="m">2015-09-29</td><td class="d">2019-06-28</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
+        <tr><td>FLIM CHRISTIAN LEARNING CENTER INC.</td><td class="m">001803757</td><td>Profit corp</td><td class="m">2024-05-30</td><td class="live">active</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>NIGERIAN NURSE'S ASSOCIATION OF MA, INC</td><td class="m">001294139</td><td>Nonprofit</td><td class="m">2017-10-09</td><td class="d">2025-06-30</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
+        <tr><td>NIGERIAN NURSE'S ASSOCIATION OF MA, INC.</td><td class="m">001406743</td><td>Nonprofit</td><td class="m">2019-11-01</td><td class="d">2025-06-30</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>NIGERIAN NURSES ASSOCIATION MA INC.</td><td class="m">001181167</td><td>Profit corp</td><td class="m">2015-07-13</td><td class="d">2017-06-30</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
+        <tr><td>ZEIIND FAMILY FOUNDATION INC</td><td class="m">001253793</td><td>Nonprofit</td><td class="m">2017-12-11</td><td class="d">2025-06-30</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>MERCY TRUST OUTREACH INC.</td><td class="m">001467783</td><td>Nonprofit</td><td class="m">2020-10-29</td><td class="d">2025-06-30</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>EMBASSY OF GRACE, A PLACE OF FAVOR, INC.</td><td class="m">001283622</td><td>Nonprofit</td><td class="m">2017-07-24</td><td class="d">2025-06-30</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>NKUM'S WORLD OUTREACH, INC.</td><td class="m">001272034</td><td>Nonprofit</td><td class="m">2017-05-01</td><td class="d">2025-06-30</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
+        <tr><td>BEYOND ZOE MINISTRY INC</td><td class="m">001133448</td><td>Nonprofit</td><td class="m">2014-04-10</td><td class="d">2025-06-30</td><td class="m">&ndash;</td><td>Osagiede</td></tr>
+        <tr><td>BEYOND ZOE MINISTRIES INTERNATIONAL</td><td class="m">001447271</td><td>Religious</td><td class="m">2020-07-13</td><td class="live">active</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>FIRE OF LIFE. INC</td><td class="m">001150418</td><td>Religious</td><td class="m">2014-10-29</td><td class="live">active</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>JOHN EGAH MINISTRIES INC</td><td class="m">001446262</td><td>Religious</td><td class="m">2020-07-06</td><td class="live">active</td><td class="m">&ndash;</td><td>Egah</td></tr>
+        <tr><td>HOPE AND POWER MEGA CHURCH, INC.</td><td class="m">001436502</td><td>Nonprofit</td><td class="m">2020-05-04</td><td class="live">active</td><td class="m">&ndash;</td><td>Egah</td></tr>
+      
       </tbody>
       <tfoot>
-        <tr><td colspan="7">45 entities &middot; 27 with at least one involuntary dissolution &middot; 3 ceased by conversion &middot; 3 businesses paid by the Commonwealth, across 6 vendor strings</td></tr>
+        <tr><td colspan="7">45 entities &middot; 27 with at least one involuntary dissolution &middot; 4 ceased by conversion or merger &middot; 1 dissolved voluntarily &middot; 3 businesses paid by the Commonwealth, across 6 vendor strings</td></tr>
       </tfoot>
     </table>
   </div>
+  <p class="note">The Dissolved column shows the date on each summary page, which records only the latest involuntary dissolution. Beyond Healthcare Agency's 2019 dissolution appears only in its filing history. Beyond Adult Day Health Center LLC, entity <code>001175773</code>, which Osagiede organised and managed from 2014 to 2017, is not among the 45 because she holds no role on it today.</p>
 </section>
 
 <section>
   <h2>The corporate chain</h2>
   <p class="lede">The restructuring the post describes is documented, and it runs in one direction.</p>
   <ul class="chain">
-    <li><time>20 May 2010</time><span><b>Beyond Healthcare Agency LLC</b> organised &middot; later renamed Aderonke Naomi Osagiede Beyond Healthcare Agency LLC, then back again in Oct 2015</span></li>
-    <li><time>30 Jul 2013</time><span><b>Beyond Independent Living LLC</b> organised &middot; ID 462941036 &middot; manager Aderonke Naomi Osagiede</span></li>
-    <li><time>21 Feb 2017</time><span>Converted into <b>Beyond Independent Living Inc</b>, a domestic profit corporation &middot; ID 001261393</span></li>
-    <li><time>10 Jan 2018</time><span>Converted again into <b>Beyond Independent Living Inc</b>, a nonprofit corporation &middot; ID 001309461</span></li>
-    <li><time>22 Jan 2020</time><span>A separate <b>Beyond Independent Living LLC</b> is organised in Brockton under <b>Naomi Egah</b> &middot; ID 001421873 &middot; 661 Centre St</span></li>
-    <li><time>29 Dec 2023</time><span><b>Beyond Healthcare Agency LLC is involuntarily dissolved.</b> Payments continue for nine months; it is revived 20 Sep 2024</span></li>
-    <li><time>20 Jun 2025</time><span><b>Greater Boston Home Health Care LLC</b> starts drawing state money for the first time</span></li>
+    <li><time>20 May 2010</time><span><b>Beyond Healthcare Agency LLC</b> organised. Renamed Aderonke Naomi Osagiede Beyond Healthcare Agency LLC, then back again in October 2015</span></li>
+    <li><time>30 Jul 2013</time><span><b>Beyond Independent Living LLC</b> organised, ID 462941036, manager Aderonke Naomi Osagiede</span></li>
+    <li><time>30 Jul 2015</time><span>Osagiede buys <b>Greater Boston Home Health Care, LLC</b>, a Medicare agency since 2008. <a href="#gbhhc">Timeline</a></span></li>
+    <li><time>21 Feb 2017</time><span>Beyond Independent Living LLC converts into <b>Beyond Independent Living Inc</b>, a profit corporation, ID 001261393</span></li>
+    <li><time>10 Jan 2018</time><span>Converted again into <b>Beyond Independent Living Inc</b>, a nonprofit, ID 001309461</span></li>
+    <li class="end"><time>Jun&ndash;Oct 2019</time><span><b>Beyond Healthcare Agency LLC is dissolved and reinstated</b> on 10 Oct 2019. Payments continue throughout</span></li>
+    <li><time>22 Jan 2020</time><span>A separate <b>Beyond Independent Living LLC</b> is organised in Brockton under <b>Naomi Egah</b>, ID 001421873, 661 Centre St</span></li>
+    <li><time>Jun&ndash;Aug 2020</time><span>Eleven cluster entities take <b>COVID disaster loans</b>, three of them weeks after being revived. <a href="#covid">Details</a></span></li>
+    <li class="end"><time>29 Dec 2023</time><span><b>Beyond Healthcare Agency LLC is involuntarily dissolved again.</b> Payments continue for nine months; revived 20 Sep 2024</span></li>
+    <li><time>20 Jun 2025</time><span>Greater Boston Home Health Care's state payments switch to a new vendor string, the exact name of the 2022 LLC</span></li>
     <li class="end"><time>30 Jun 2025</time><span><b>The nonprofit is involuntarily dissolved</b> by the Secretary of the Commonwealth</span></li>
-    <li><time>17 Sep 2026</time><span>A vendor named &ldquo;Beyond Independent Living LLC&rdquo; is paid again, at the Osagiede address</span></li>
+    <li><time>21 Sep 2026</time><span>A vendor named &ldquo;Beyond Independent Living LLC&rdquo; is paid again, booked to West Roxbury 02132</span></li>
   </ul>
+</section>
+
+<section>
+  <h2>Every tax-exempt entity lost its exemption</h2>
+  <p class="lede">The IRS publishes an Automatic Revocation of Exemption list: organisations whose tax-exempt status was revoked under IRC&nbsp;6033(j) for failing to file a return three years running. Searching all 1,247,140 records returns eleven rows for this web, covering ten EINs. Nine of the ten stand revoked today.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th class="m">EIN</th><th>Organisation</th><th class="m">Revoked</th><th class="m">Posted</th><th class="m">Reinstated</th></tr></thead>
+      <tbody>
+        <tr class="paid"><td class="m">462941036</td><td><b>BEYOND INDEPENDENT LIVING LLC</b> <span class="tag">$32.4M payee</span></td><td class="d">15 May 2021</td><td class="m">9 Aug 2021</td><td class="d">no</td></tr>
+        <tr><td class="m">851507631</td><td>John Egah Ministries <span class="tag b">new</span></td><td class="d">15 Apr 2023</td><td class="m">10 Jul 2023</td><td class="d">no</td></tr>
+        <tr><td class="m">472476331</td><td>Fire of Life Inc</td><td class="d">15 May 2022</td><td class="m">17 Jan 2026</td><td class="d">no</td></tr>
+        <tr><td class="m">850730708</td><td>Hope and Power Mega Church</td><td class="d">15 May 2023</td><td class="m">14 Aug 2023</td><td class="d">no</td></tr>
+        <tr><td class="m">821341006</td><td>Nkums World Outreach</td><td class="d">15 May 2020</td><td class="m">11 Aug 2020</td><td class="d">no</td></tr>
+        <tr><td class="m">822091333</td><td>Nigerian Nurses Association of Massachusetts</td><td class="d">15 May 2020</td><td class="m">11 Aug 2020</td><td class="d">no</td></tr>
+        <tr><td class="m">822326336</td><td>Embassy of Grace, A Place of Favor</td><td class="d">15 May 2020</td><td class="m">11 Aug 2020</td><td class="d">no</td></tr>
+        <tr><td class="m">814176136</td><td>ZEIIND Family Foundation <span class="tag b">new</span></td><td class="d">15 May 2019</td><td class="m">12 Aug 2019</td><td class="d">no</td></tr>
+        <tr><td class="m">464731086</td><td>Beyond Zoe Ministries International <span class="tag b">new</span></td><td class="d">15 May 2017</td><td class="m">16 Aug 2017</td><td class="d">no</td></tr>
+        <tr><td class="m">465109128</td><td>Beyond Zoe Ministry</td><td class="d">15 May 2017</td><td class="m">16 Aug 2017</td><td class="live">15 May 2017</td></tr>
+        <tr><td class="m">472476331</td><td>Fire of Life <i>(first revocation)</i></td><td class="d">15 May 2017</td><td class="m">16 Aug 2017</td><td class="live">15 May 2017</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Source: IRS Automatic Revocation of Exemption list, file dated 12 September 2026, 1,247,140 lines. The three rows marked new were missed in the first version. Beyond Zoe Ministries International's EIN predates the register entity of that name (organised 2020), so its tie rests on name and town.</p>
+
+  <div class="finds">
+    <div class="find key">
+      <h3>The revoked charity and the paid vendor share a number</h3>
+      <p><b>EIN 462941036 is the same number the Secretary of the Commonwealth uses as the identification number for Beyond Independent Living LLC</b>, the vendor the Comptroller has paid <b>$32,404,181</b>. Its exemption was revoked on 15 May 2021 for three consecutive years of not filing. The Commonwealth has paid it every year since: $3.48M in FY2021, climbing to $4.78M in FY2026.</p>
+      <span class="cav">Only one entity in this web ever filed a return: Fire of Life, five paper 990-EZs for tax years 2014&ndash;2018. No other cluster EIN appears in any IRS 990, 990-EZ, 990-PF or 990-N file, and none of the eighteen cluster EINs appears in the IRS's current Massachusetts exempt-organization master file or in Publication 78. Fire of Life's second revocation was posted on <b>17 January 2026</b>, four days before the post that started this.</span>
+    </div>
+  </div>
+</section>
+<div class="next"><a href="#identity">&larr; Identity</a><a href="#enforcement">Next: Enforcement &rarr;</a></div>
+</section>
+
+<section class="panel" role="tabpanel" id="enforcement" aria-labelledby="t-enforcement" tabindex="-1">
+<section>
+  <h2>What the oversight record holds</h2>
+  <div class="finds">
+    <div class="find key">
+      <h3>One audit, no public resolution</h3>
+      <p>The Office of the State Auditor's review of claims paid to Beyond Healthcare Agency, published 21 September 2020, found MassHealth paid as much as <b>$887,225</b> across 1,348 group adult foster care claims that appear to be unallowable, for 2016&ndash;2018. In its written response EOHHS said it &ldquo;plans to conduct an audit&rdquo;. The Auditor's press release that day said MassHealth &ldquo;will conduct its own reviews&rdquo;.</p>
+      <p>The Auditor's 2021 Medicaid Audit Unit annual report lists the Beyond audit with <b>&ldquo;MassHealth Recouping Payments: Yes&rdquo;</b>, gives no amount, and says the Bureau of Special Investigations triggered the review. None of the five later annual reports, through February 2026, mentions it again. No public record says how much, if anything, came back.</p>
+      <span class="cav">The 2021 report repeats audit figures inconsistently across its tables, so take every dollar figure from the audit itself and quote the annual report only for the recoupment flag and the referral.</span>
+    </div>
+    <div class="find">
+      <h3>One federal civil case, and it is not an enforcement action</h3>
+      <p><i>Vinokur v. Osagiede</i>, US District Court for Massachusetts, 1:18-cv-10335, a contract suit filed 21 February 2018 against &ldquo;Aderonke Naomi Osagiede&rdquo; and voluntarily dismissed on 23 April 2018. The plaintiff's name matches the man who sold her Greater Boston Home Health Care in 2015. The complaint is on PACER, not on the free RECAP archive, and has not been read. The match rests on the full three-part name in a Massachusetts court, so it is probable.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Searched completely, nothing found</h2>
+  <p class="lede">Absence from a register is a finding when the search is complete. Each row below names the register, its size and its date.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Register</th><th>Edition searched</th><th class="m r">Records</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td class="vend">HHS-OIG List of Excluded Individuals and Entities</td><td>August 2026 release plus 2026 monthly supplements</td><td class="num">84,001</td><td>No person, entity, NPI or cluster address</td></tr>
+        <tr><td class="vend">SAM.gov exclusions, public extract</td><td>24 September 2026, active records</td><td class="num">168,671</td><td>None</td></tr>
+        <tr><td class="vend">MassHealth suspended and excluded providers</td><td>Eight editions, Dec 2021 to 31 Aug 2026</td><td class="num">297 in latest</td><td>None; the list names 11 other adult foster care and 15 other home health providers</td></tr>
+        <tr><td class="vend">CMS Medicare revocations</td><td>July 2026 extract</td><td class="num">8,136</td><td>None</td></tr>
+        <tr><td class="vend">HHS-OIG enforcement actions and audit reports</td><td>Full archive</td><td class="num">11,227</td><td>None</td></tr>
+        <tr><td class="vend">DOJ and US Attorney press releases</td><td>All titles; full text since Jan 2026</td><td class="num">272,978</td><td>None</td></tr>
+        <tr><td class="vend">Massachusetts AG releases</td><td>Through HHS-OIG's mirror and search</td><td class="num">&ndash;</td><td>None</td></tr>
+        <tr><td class="vend">State Library of Massachusetts repository</td><td>Full text, incl. 140 BSI reports</td><td class="num">790,975</td><td>Only the 2020 audit and the 2021 annual report</td></tr>
+        <tr><td class="vend">Comptroller Settlements and Judgments</td><td>Dataset gpqz-7ppn, payments to 27 Jun 2026</td><td class="num">8,297</td><td>None</td></tr>
+        <tr><td class="vend">Federal court dockets, CourtListener</td><td>Party-name search</td><td class="num">&ndash;</td><td>One case, above</td></tr>
+        <tr><td class="vend">News coverage of the January 2026 post</td><td>Web search</td><td class="num">&ndash;</td><td>None found, and no official response</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note"><b>There is no enforcement action against anyone in this web anywhere on the public record.</b> That is a fact about the files, and it belongs in any honest account of them. Nobody here is barred from federal health programs, and every NPI above can still bill. mass.gov blocks scripted access, so the AG newsroom was searched through HHS-OIG's mirror and the State Library, and older MassHealth lists through the Internet Archive.</p>
+</section>
+<div class="next"><a href="#register">&larr; Register &amp; IRS</a><a href="#followups">Next: Follow-ups &rarr;</a></div>
+</section>
+
+<section class="panel" role="tabpanel" id="followups" aria-labelledby="t-followups" tabindex="-1">
+<section>
+  <h2>Records requests that would close the gaps</h2>
+  <p class="lede">Each request names the record, the holder, and the question it answers. None of these records is public today.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Ask</th><th>Holder</th><th>Answers</th></tr></thead>
+      <tbody>
+        <tr><td class="vend">The overpayment determination and recovery record for State Auditor audit 2020-1374-3M2A, and EOHHS's own follow-up audit of Beyond Healthcare Agency</td><td>EOHHS / MassHealth, public records request</td><td>Whether any of the $887,225 came back, and how. The Auditor's 2021 report says &ldquo;recouping&rdquo; without an amount.</td></tr>
+        <tr><td class="vend">Provider enrolment status of Beyond Healthcare Agency, June&ndash;October 2019 and December 2023&ndash;September 2024</td><td>MassHealth</td><td>Whether enrolment lapsed while the company stood dissolved</td></tr>
+        <tr><td class="vend">Managed-care plan payments to NPIs 1003226630 and 1063691905, 2018&ndash;2024, by plan</td><td>MassHealth, or each MCO and ACO</td><td>What fills the gap between HHS billing and the state ledger, especially Greater Boston Home Health Care's 4.5&times;</td></tr>
+        <tr><td class="vend">Applications and certifications for every PPP loan, EIDL loan and EIDL advance on the COVID money tab, and EIDL repayment status</td><td>SBA, FOIA</td><td>What the borrowers certified about corporate standing, and whether the EIDL loans were repaid</td></tr>
+        <tr><td class="vend">CMS-855A ownership disclosures for CCNs 227507, 227541, 398334 and 677975</td><td>CMS, FOIA</td><td>When each owner was reported, and why no change of ownership was ever recorded for the 2015 sale</td></tr>
+        <tr><td class="vend">Complaint in <i>Vinokur v. Osagiede</i>, 1:18-cv-10335</td><td>PACER or the D. Mass. clerk (paid)</td><td>What the 2018 contract dispute was about</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>Leads not yet run to ground</h2>
+  <div class="finds">
+    <div class="find">
+      <h3>Pennsylvania and Texas</h3>
+      <p>Pennsylvania Department of State filings for Guaranteed Home Health Services Inc and Zoe Healthcare, LLC; whether PA licence 33953601 is current; any Pennsylvania Medicaid payments. Texas Secretary of State filings for Eden Healthcare LLC and Trinity Home Healthcare LLC, and why the agency left CMS's files after 2023.</p>
+    </div>
+    <div class="find">
+      <h3>Beyond Adult Day Health Center, 2014 to 2017</h3>
+      <p>How control passed from Osagiede to the seller of Greater Boston Home Health Care in February 2017, and whether the two transactions were linked. The 2017 amendment is signed by the new manager as &ldquo;member&rdquo;; membership records are not filed with the Commonwealth.</p>
+    </div>
+    <div class="find">
+      <h3>The authorized-official history of the NPIs</h3>
+      <p>The NPI registry shows only today's officials. CMS's monthly full registry files, about 1 GB each, would date every change, including who was named on Greater Boston Home Health Care's number from 2018 to 2022 and on Eden's number today.</p>
+    </div>
+    <div class="find">
+      <h3>Three adjacent registrations</h3>
+      <p>Cool Care LLC and Certified Billing Consulting LLC, both entered into the NPI registry on 12 July 2016 at the cluster suite; and Ascend Transportation Services LLC, a taxi and medical-transport number issued on 23 September 2026 at 661 Centre St, Brockton, on the cluster phone line. None has a state payment yet.</p>
+    </div>
+    <div class="find">
+      <h3>Homemaker billing, 2021&ndash;2023</h3>
+      <p>Beyond Healthcare Agency's S5130 billing paid close to nothing per line for eighteen months, then ran at the 97th percentile per patient for one quarter and stopped. The claims behind those cells would show why.</p>
+    </div>
+  </div>
+</section>
+<div class="next"><a href="#enforcement">&larr; Enforcement</a><a href="#method">Next: Corrections &amp; method &rarr;</a></div>
+</section>
+
+<section class="panel" role="tabpanel" id="method" aria-labelledby="t-method" tabindex="-1">
+<section>
+  <h2>Corrections to the first version</h2>
+  <p class="lede">The page published on 20 September 2026 got these things wrong or incomplete. Each is fixed above.</p>
+  <div class="caveats">
+    <ol>
+      <li><b>Greater Boston Home Health Care was not a new payee in June 2025.</b> Only the vendor string changed. The Comptroller paid the agency as <code>GR. BOSTON HOME HLTH LLC</code> from 2009, and the register records its sale to Osagiede in July 2015.</li>
+      <li><b>Beyond Adult Day Health Center was hers from 2014 to February 2017.</b> The first version called it a different company on the strength of its current managers. The 2014 certificate of organization and the 2015 and 2016 annual reports name Osagiede as manager. Its current managers are Victoria Vinokur and Paul Rayev; Gennady Vinokur is listed for real property, not as manager as the first version said.</li>
+      <li><b>The audited company was dissolved twice, not once.</b> The 2019 window adds $730,589.08 paid while dissolved.</li>
+      <li><b>The IRS list holds eleven rows for ten EINs, not eight for seven.</b> John Egah Ministries, ZEIIND Family Foundation and Beyond Zoe Ministries International were missed.</li>
+      <li><b>&ldquo;7,380 payments&rdquo; are 7,380 payment lines,</b> which make up 1,868 distinct payments.</li>
+      <li><b>The latest-payment date moved from 17 to 21 September 2026</b> after the Comptroller reloaded its FY2026&ndash;27 rows. No money was added. Nine undated lines ($59,939.61) sit outside every date-bounded figure.</li>
+      <li><b>The NPI table grew from seven to sixteen.</b> Beyond Healthcare Agency's record changed on 24 September 2026; its practice location is now 40 Shattuck Rd Suite 309.</li>
+      <li><b>Healing Pathways:</b> Naomi Aderonke Egah is the SOC signatory on the register, not a manager.</li>
+      <li><b>Register statuses:</b> entity 412251357 merged away in January 2016, and Medicoach Transportation dissolved voluntarily in July 2015. The first version showed both as active.</li>
+      <li><b>The 978-930-9410 phone link is weaker than presented.</b> Three NPIs with other officials also carry it.</li>
+      <li><b>The chart caption on formations said &ldquo;scheduled sweeps&rdquo;.</b> No published schedule exists; the batching is an observed pattern.</li>
+      <li><b>The machine check for settlements and judgments was malformed</b> and could never return a hit. Run correctly against the current 8,297 rows, it still finds none.</li>
+      <li><b>Attribution between same-named LLCs is open for Beyond Independent Living as well as Greater Boston Home Health Care.</b> Every candidate is filed under Osagiede or Egah, so the money stays in the web; which legal entity holds it is not established.</li>
+    </ol>
+  </div>
 </section>
 
 <section>
   <h2>Read this before publishing anything</h2>
   <div class="caveats">
     <ul>
-      <li><b>None of this establishes fraud.</b> An involuntary dissolution is a failure to file an annual report, not a finding of wrongdoing. The auditor's phrase is &ldquo;appear to be unallowable&rdquo;. Every sentence that goes out should survive being read by a lawyer for the other side.</li>
-      <li><b>Do not read the clustered dissolution dates as a single event.</b> MGL c.156D &sect;14.21 and c.156C &sect;70 each prescribe written notice and a 90-day cure period, and neither names a date. The clustering is an observed pattern in the filing data, not a published schedule. Report the count, not the coincidence of dates.</li>
-      <li><b>$105.9M is a floor, not a ceiling.</b> CTHRU records disbursements made by the Comptroller. I have not established which payment routes do and do not land in that file, so treat the total as everything the Comptroller's own ledger shows, not as everything these companies were paid.</li>
+      <li><b>None of this establishes fraud.</b> An involuntary dissolution is a failure to file an annual report, not a finding of wrongdoing. The auditor's phrase is &ldquo;appear to be unallowable&rdquo;. A high peer percentile is a pattern, not a finding. Every sentence that goes out should survive being read by a lawyer for the other side.</li>
+      <li><b>Do not add figures across sources.</b> HHS Medicaid billing and the Comptroller's ledger overlap; Medicare, the SBA and the Provider Relief Fund are separate programs. Each tab keeps them apart for that reason.</li>
+      <li><b>Do not read the clustered dissolution dates as a single event.</b> MGL c.156D &sect;14.21 and c.156C &sect;70 each prescribe written notice and a 90-day cure period, and neither names a date. The clustering is an observed batch pattern in the filing data, not a published schedule. Report the count, not the coincidence of dates.</li>
+      <li><b>$105.9M is a floor, not a ceiling.</b> The Comptroller's ledger records its own disbursements. HHS data show Medicaid money reaching these providers through managed-care plans, which never passes through that ledger, and Medicare pays through CMS.</li>
       <li><b>The appropriation labels are accounting buckets.</b> &ldquo;Managed Care Plan&rdquo;, &ldquo;MassHealth Senior Care&rdquo; and &ldquo;Indemnity / Third Party Liability Plan&rdquo; describe which account the money left, not which service was billed.</li>
-      <li><b>Forty-one of the 45 entities show no state payment at all.</b> That is what the Comptroller's file says, and no more than that &mdash; money reaching a provider by a route other than a Comptroller disbursement would not appear there.</li>
-      <li><b>Other people share these surnames.</b> The Osagiede search returns filings by at least a dozen other individuals, including an attorney, a shipping company and several churches. Only the 45 entities listed above carry Naomi Osagiede or Naomi Egah as an officer, manager, agent or signatory.</li>
+      <li><b>Other people share these surnames.</b> The Osagiede search returns filings by at least a dozen other individuals, including an attorney, a shipping company and several churches. Only the 45 entities on the Register tab carry Naomi Osagiede or Naomi Egah as an officer, manager, agent or signatory. Other people are named on this page only where a public filing ties them to a cluster transaction.</li>
     </ul>
   </div>
 </section>
@@ -763,20 +1356,75 @@ figcaption{margin-top:12px; padding-top:11px; border-top:1px dashed var(--rule);
   <p class="lede">Stated plainly so a reader can see where the work stops.</p>
   <div class="caveats">
     <ul>
-      <li><b>Retrieved.</b> All figures 20 September 2026; payment data current to 17 September 2026. The audit script re-derives every one of them from the live sources and fails on any disagreement.</li>
-      <li><b>Read in full.</b> All 45 entity summaries at the Corporations Division, pulled individually. The State Auditor report of 21 September 2020. Every row these EINs return from the IRS Automatic Revocation list. Every NPPES record for the seven billing numbers.</li>
-      <li><b>Searched completely, returning the counts stated.</b> CTHRU <code>pegc-naaa</code> (49,009,712 rows), the IRS revocation list (1,247,140), the IRS Massachusetts exempt-organization master file (44,035), the HHS-OIG exclusion list (84,001), the Comptroller&rsquo;s Settlements and Judgments file (7,999).</li>
-      <li><b>Read in part, and this is the limit that matters.</b> Of 130 CMR 450 I read only <b>450.212, 450.231, 450.235 and 450.237</b>. Statements on this page about what MassHealth&rsquo;s rules do and do not require are bounded to those four sections and are not a survey of the regulation. Of the dissolution statutes I read MGL c.156D &sect;14.21 and c.156C &sect;70.</li>
-      <li><b>Not done.</b> No one named here was contacted. No interviews. No review of MassHealth&rsquo;s provider enrolment file, no claims-level data, no court records, no property records. Whether services were delivered has not been examined and could not be from these sources.</li>
+      <li><b>Retrieved.</b> The register and ledger were first pulled on 20 September 2026. Everything on this page was re-derived on 24&ndash;25 September 2026, and the ledger figures come from the Comptroller's load of 25 September 2026. The repository's audit script re-derives the published figures from the live sources and fails on any disagreement.</li>
+      <li><b>Read in full.</b> All 45 entity summaries at the Corporations Division, and the filing histories of the Greater Boston Home Health Care, Greater Healthcare Solutions, Beyond Business Management and Beyond Adult Day Health Center entities. The State Auditor report of 21 September 2020 and its 2021 annual report. Every row these EINs return from the IRS revocation list. Every NPPES record in the NPI table. CMS owner and enrolment files for the four agencies.</li>
+      <li><b>Searched completely, returning the counts stated.</b> CTHRU <code>pegc-naaa</code> (49,022,699 rows) and every other CTHRU table with a name column; HHS T-MSIS provider spending (238,015,729 rows); CMS Medicare post-acute utilisation files 2014&ndash;2024; SBA PPP and EIDL files; HRSA Provider Relief Fund; the IRS revocation list (1,247,140), exempt-organization master file and 990 indexes; the HHS-OIG exclusion list (84,001); SAM exclusions; the Settlements and Judgments file (8,297); and the registers on the Enforcement tab.</li>
+      <li><b>Read in part, and this is the limit that matters.</b> Of 130 CMR 450 I read only <b>450.212, 450.231, 450.235 and 450.237</b>. Statements on this page about what MassHealth's rules do and do not require are bounded to those four sections and are not a survey of the regulation. Of the dissolution statutes I read MGL c.156D &sect;14.21 and c.156C &sect;70. Of the rate rules, 101 CMR 351 for the group adult foster care code.</li>
+      <li><b>Not done.</b> No one named here was contacted. No interviews. No review of MassHealth's provider enrolment file, no claims-level data, no court filings beyond the docket entry, no property records, no Pennsylvania or Texas state records. Whether services were delivered has not been examined and could not be from these sources.</li>
       <li><b>Not alleged.</b> No conclusion of wrongdoing by any named person or entity is drawn or intended. Every record cited is a public filing or a public disclosure by the Commonwealth or the federal government. Nothing here is legal advice.</li>
     </ul>
   </div>
 </section>
 
 <footer>
-  <p><b>Sources, all primary.</b> Comptroller of the Commonwealth Spending, CTHRU open data, Socrata dataset <code>pegc-naaa</code> &mdash; 49,009,712 rows, last updated 19 September 2026. Massachusetts Secretary of the Commonwealth, Corporations Division entity and individual searches, each of the 45 entity summaries pulled individually. Office of the State Auditor, <i>Audit of the Office of Medicaid (MassHealth) &mdash; Review of Claims Paid for Services by Beyond Healthcare Agency, LLC</i>, published 21 September 2020. IRS Automatic Revocation of Exemption list (1,247,140 records) and Exempt Organization Business Master File for Massachusetts (44,035 records). NPPES national provider registry, CMS. HHS-OIG List of Excluded Individuals and Entities (84,001 records). The Comptroller's Settlements and Judgments file (7,999 records). 130 CMR 450.212 and 450.231; MGL c.156D &sect;14.21 and c.156C &sect;70.</p>
-  <p><b>Every figure on this page is machine-checked.</b> <code>scripts/audit.py</code> in the repository re-queries the live Comptroller dataset, re-downloads the IRS revocation list and the HHS-OIG exclusion list, re-queries all seven billing numbers, and compares each result against the number as published here and in the README. It exits non-zero on any disagreement. Last run: <b>192 checks, 192 passed</b>. Source and data: <a href="https://github.com/duncanburns2013-dot/beyond-cluster">github.com/duncanburns2013-dot/beyond-cluster</a>.</p>
-  <p>Two stale mirrors of the spending dataset exist under the same schema and were not used. Every figure on this page was queried on 20 September 2026 against the live table and is reproducible from the vendor strings and entity ID numbers printed above.</p>
+  <p><b>Sources, all primary.</b> Comptroller of the Commonwealth, CTHRU Socrata dataset <code>pegc-naaa</code>, 49,022,699 rows, load of 25 September 2026, plus revenue dataset <code>kcy7-ivxi</code> and Settlements and Judgments <code>gpqz-7ppn</code>. Massachusetts Secretary of the Commonwealth, Corporations Division entity summaries, individual-name indexes and filing documents. Office of the State Auditor, <i>Audit of the Office of Medicaid (MassHealth), Review of Claims Paid for Services by Beyond Healthcare Agency, LLC</i>, 21 September 2020, and its Medicaid Audit Unit annual reports 2021&ndash;2026. HHS Open Data, <i>Medicaid Provider Spending by HCPCS</i>, release of 9 February 2026. CMS data.cms.gov: Home Health Agency Enrollments and All Owners (PECOS), Provider of Services files, Medicare Post-Acute Care Utilization by provider, Care Compare, Medicare revocations. CMS NPPES NPI Registry API. SBA PPP FOIA loan-level data and COVID EIDL loan and advance data. HRSA Provider Relief Fund and ARP Rural payments on data.cdc.gov. IRS Automatic Revocation of Exemption list, Exempt Organization Business Master File, Publication 78 and Form 990 indexes. HHS-OIG List of Excluded Individuals and Entities. SAM.gov exclusions extract. Massachusetts DPH licensed and certified health care facility list. MassHealth suspended and excluded provider lists. State Library of Massachusetts repository. CourtListener. 130 CMR 450.212, 450.231, 450.235 and 450.237; 101 CMR 351; MGL c.156D &sect;14.21 and c.156C &sect;70.</p>
+  <p><b>Figures on this page are machine-checked.</b> <code>scripts/audit.py</code> in the repository re-queries the live Comptroller dataset, re-downloads the IRS revocation list and the HHS-OIG exclusion list, re-queries every billing number in the NPI table, and compares each result against the number as published here and in the README. It exits non-zero on any disagreement. Source and data: <a href="https://github.com/duncanburns2013-dot/beyond-cluster">github.com/duncanburns2013-dot/beyond-cluster</a>.</p>
+  <p>Two stale mirrors of the spending dataset exist under the same schema (<code>f7y8-q6ex</code>, <code>2bxs-ytms</code>) and were not used for any figure.</p>
 </footer>
+<div class="next"><a href="#followups">&larr; Follow-ups</a><a href="#overview">Back to the overview &rarr;</a></div>
+</section>
 
 </div>
+<script>
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('[role="tabpanel"]'));
+  var bar = document.querySelector('.tabbar');
+  var ids = tabs.map(function(t){ return t.getAttribute('aria-controls'); });
+  function show(id, opts){
+    opts = opts || {};
+    if (ids.indexOf(id) < 0) id = ids[0];
+    tabs.forEach(function(t){
+      var on = t.getAttribute('aria-controls') === id;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      if (on) {
+        if (opts.focus) t.focus();
+        var l = t.parentNode;
+        if (t.offsetLeft < l.scrollLeft || t.offsetLeft + t.offsetWidth > l.scrollLeft + l.clientWidth) l.scrollLeft = t.offsetLeft - 24;
+      }
+    });
+    panels.forEach(function(p){ p.hidden = p.id !== id; });
+    if (opts.push && location.hash !== '#' + id) history.pushState(null, '', '#' + id);
+    if (opts.scroll) {
+      var top = bar.getBoundingClientRect().top + window.pageYOffset;
+      if (window.pageYOffset > top) window.scrollTo(0, top);
+    }
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ show(t.getAttribute('aria-controls'), {push:true, scroll:true}); });
+    t.addEventListener('keydown', function(e){
+      var j = i;
+      if (e.key === 'ArrowRight') j = (i + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft') j = (i - 1 + tabs.length) % tabs.length;
+      else if (e.key === 'Home') j = 0;
+      else if (e.key === 'End') j = tabs.length - 1;
+      else return;
+      e.preventDefault();
+      show(ids[j], {focus:true, push:true});
+    });
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if (ids.indexOf(id) < 0) return;
+    e.preventDefault();
+    show(id, {push:true, scroll:true});
+  });
+  window.addEventListener('popstate', function(){ show(location.hash.slice(1)); });
+  show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>

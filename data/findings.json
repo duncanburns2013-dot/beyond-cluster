@@ -1,129 +1,264 @@
 {
-  "meta": {
-    "checked": "2026-09-20",
-    "subject": "Claims in X post by @Ryan_Arthur_xyz, 2026-01-21, re: Naomi/Aderonke Naomi Osagiede MassHealth entities",
-    "primary_sources": [
-      "CTHRU Comptroller of the Commonwealth Spending, Socrata dataset pegc-naaa (49,009,712 rows; rowsUpdatedAt 2026-09-19T08:36:35Z)",
-      "MA Secretary of the Commonwealth Corporations Division entity + individual search (corp.sec.state.ma.us)",
-      "Office of the State Auditor, Audit of the Office of Medicaid (MassHealth) - Review of Claims Paid for Services by Beyond Healthcare Agency, LLC, published 2020-09-21"
-    ],
-    "currency_note": "pegc-naaa is the live dataset. Two stale mirrors carry the same schema: f7y8-q6ex (updated 2026-08-19) and 2bxs-ytms (updated 2026-09-09). All figures below are from pegc-naaa."
+ "meta": {
+  "first_checked": "2026-09-20",
+  "updated": "2026-09-25",
+  "subject": "Public-records check of the Osagiede/Egah 'Beyond' entities and the claims in the X post by @Ryan_Arthur_xyz of 2026-01-21",
+  "no_wrongdoing_alleged": "No wrongdoing by any named person or entity is alleged. Every record cited is a public filing or a public disclosure by the Commonwealth or the federal government.",
+  "do_not_sum": "CTHRU, HHS T-MSIS, Medicare, SBA and HRSA figures come from different payers and overlap in part. Never add them together.",
+  "sources": {
+   "cthru": "CTHRU pegc-naaa, 49,022,699 rows, rowsUpdatedAt 2026-09-25T09:21:19Z",
+   "tmsis": "HHS Medicaid Provider Spending by HCPCS, release 2026-02-09, sha256 f646d426126638dd0177cb14a86bfe7d7e9ed6b081a3e1c270bfe5070fb3fb94",
+   "cms": "data.cms.gov HHA Enrollments and All Owners (2026-07-17; Eden from 2023-07-17), Provider of Services, PAC PUF by provider CY2014-2024",
+   "nppes": "NPPES NPI Registry API v2.1, queried 2026-09-25",
+   "sba": "PPP FOIA public_150k_plus_240930.csv; EIDL loans (April 2021 delivery, through 2020-11-15); EIDL Advance through 2020-11-15",
+   "hrsa": "data.cdc.gov kh8y-3es6 (PRF, updated 2025-03-28); 8v6a-z6zq (ARP Rural)",
+   "irs": "Automatic Revocation of Exemption list, file of 2026-09-12, 1,247,140 lines",
+   "soc": "MA Corporations Division summaries, name indexes (2026-09-20 and 2026-09-24) and filing documents",
+   "osa": "Office of the State Auditor audit 2020-1374-3M2A (2020-09-21) and Medicaid Audit Unit annual reports 2021-2026"
+  }
+ },
+ "totals_cthru_six_strings": {
+  "all_time": {
+   "payment_lines": 7380,
+   "distinct_payment_ids": 1868,
+   "total": 105956006.17,
+   "range": "2011-05-25 to 2026-09-21",
+   "undated_lines": 9,
+   "undated_total": 59939.61
   },
-  "cthru_vendors_verified_osagiede": [
-    {
-      "vendor": "ADERONKE NAOMI OSAGIEDE BEYONE HEALTHCAR",
-      "city": "WOBURN", "zip": "01801", "n": 1432, "total": 63247375.74,
-      "first": "2012-07-09", "last": "2018-08-13",
-      "link_evidence": "SOC 271533104 name history: the entity was named ADERONKE NAOMI OSAGIEDE BEYOND HEALTHCARE AGENCY LLC until 10-14-2015. The CTHRU string is truncated at 40 characters and misspells BEYOND as BEYONE, which is why a plain search for 'Beyond' misses it."
-    },
-    {
-      "vendor": "BEYOND INDEPENDENT LIVING LLC",
-      "city": "WOBURN -> METHUEN -> WEST ROXBURY", "zip": "01801 / 01844 / 02132",
-      "n": 4038, "total": 32404181.08, "first": "2015-12-29", "last": "2026-09-17",
-      "link_evidence": "SOC 462941036, manager and resident agent ADERONKE NAOMI OSAGIEDE, 1208B VFW Pkwy Ste 301, Boston 02132 (West Roxbury)."
-    },
-    {
-      "vendor": "BEYOND HEALTHCARE AGENCY LLC",
-      "city": "ANDOVER", "zip": "01810", "n": 1391, "total": 5868134.35,
-      "first": "2019-12-20", "last": "2026-09-17",
-      "link_evidence": "SOC 271533104, manager and resident agent NAOMI A OSAGIEDE, 40 Shattuck Rd Ste 309, Andover 01810. This is the entity the State Auditor examined."
-    },
-    {
-      "vendor": "ADERONKE NAOMI OSAGIEDE BEYOND HLTH CARE",
-      "city": "ANDOVER", "zip": "01810", "n": 424, "total": 4385632.99,
-      "first": "2018-08-20", "last": "2019-12-09"
-    },
-    {
-      "vendor": "BEYOND HEATHCARE AGENCY",
-      "city": "WOBURN", "zip": "01801", "n": 12, "total": 3479.00,
-      "first": "2011-05-25", "last": "2012-04-30"
-    }
-  ],
-  "totals": {
-    "all_time": { "n": 7297, "total": 105908803.16, "range": "2011-05-25 to 2026-09-17" },
-    "as_of_post_date_2026_01_21": { "n": 6752, "total": 102270125.83 },
-    "since_2016_01_01": { "n": 6600, "total": 62849835.87 },
-    "since_audit_published_2020_09_21": { "n": 4257, "total": 30024287.14 },
-    "since_the_post": { "n": 536, "total": 3578737.72, "note": "dated after 2026-01-21, through 2026-09-17" }
+  "as_of_post_date_2026_01_21": {
+   "total": 102287219.14
   },
-  "claim_verdicts": [
-    {
-      "claim": "$103,000,000 from MassHealth since 2016",
-      "verdict": "FIGURE SUBSTANTIALLY CORRECT, FRAMING WRONG",
-      "detail": "All-time through the post date is $102,270,125.83, within 0.7% of $103M. But it is not 'since 2016'. Payments dated 2016-01-01 onward total $62,849,835.87. Roughly 41% of the money predates 2016."
-    },
-    {
-      "claim": "Beyond Independent Living LLC received more than $29M FY2017 through early 2026",
-      "verdict": "SLIGHTLY OVERSTATED THEN, TRUE NOW",
-      "detail": "FY2017 onward through 2026-01-21 was $28,730,378.83. All-time now stands at $32,404,181.08."
-    },
-    {
-      "claim": "$121,728.16 paid on a single day, January 16, 2025",
-      "verdict": "FAILS",
-      "detail": "No payment to any of these vendors on 2025-01-16. No row anywhere in the 49-million-row dataset carries amount = 121728.16. No vendor-day in the group sums to between 121,727 and 121,730. The nearest candidate is 2026-01-16: Beyond Independent Living LLC, 13 payments, $172,708.26; group day total $190,165.88."
-    },
-    {
-      "claim": "2020 State Auditor flagged up to $887,225 in unallowable payments",
-      "verdict": "EXACT",
-      "detail": "OSA report published 2020-09-21, audit period 2016-01-01 to 2018-12-31. MassHealth paid Beyond Healthcare Agency $1,392,917 for 1,945 GAFC claims covering 117 members. Finding 1 states the agency was paid as much as $887,225 for GAFC that appears to be unallowable, having been billed on the same day as Home Health Program services. The post calls these 'fraudulent claims'; the auditor's language is 'appear to be unallowable'."
-    },
-    {
-      "claim": "At least 12-15 LLCs and corporations tied to her name",
-      "verdict": "UNDERSTATED",
-      "detail": "The SOC individual search for last name OSAGIEDE returns 101 role records. Naomi / Aderonke Naomi / Naomi A / Naomi Aderonke Osagiede appears as officer, manager, resident agent or SOC signatory on approximately 20 distinct entities."
-    },
-    {
-      "claim": "The vast majority were involuntarily dissolved by the SOC",
-      "verdict": "PATTERN HOLDS ON THE SAMPLE CHECKED, 3 OF 3",
-      "detail": "BEYOND MEDICAL EQUIPMENT LLC dissolved 06-30-2017. BEYOND HEALTHCARE AGENCY LLC dissolved 12-29-2023 and revived 09-20-2024. BEYOND INDEPENDENT LIVING INC, the nonprofit, 001309461, dissolved 06-30-2025. The other ~17 entities were not individually checked."
-    },
-    {
-      "claim": "Nonprofit charter revoked February 2025 after no annual report 2018-2024",
-      "verdict": "PARTIALLY CONFIRMED",
-      "detail": "SOC records the Date of Involuntary Dissolution for BEYOND INDEPENDENT LIVING INC (001309461) as 06-30-2025, not February 2025. A February 2025 notice is consistent with what the post reproduces, but the charter date is 6/30/2025. The nonprofit was organized 01-10-2018."
-    },
-    {
-      "claim": "On January 22, 2020 Beyond Independent Living LLC was registered to 661 Centre St",
-      "verdict": "EXACT",
-      "detail": "SOC 001421873, BEYOND INDEPENDENT LIVING LLC, Date of Organization 01-22-2020, records address 661 CENTRE ST, BROCKTON MA 02302, resident agent and manager NAOMI EGAH. Confirms both the date and the Egah alias. Note this is a second LLC bearing a name identical to the payee LLC (462941036), which sits in Boston under Osagiede."
-    }
-  ],
-  "new_findings_not_in_the_post": [
-    {
-      "finding": "The state paid the audited entity while it was legally dissolved",
-      "detail": "Beyond Healthcare Agency LLC was involuntarily dissolved by the SOC on 12-29-2023 and not revived until 09-20-2024. CTHRU shows 153 payments totalling $643,388.39 between 2024-01-08 and 2024-09-16, entirely inside that window."
-    },
-    {
-      "finding": "Payments continue after the surviving corporate entity was dissolved",
-      "detail": "The Beyond Independent Living chain ran LLC 2013 -> profit INC 02-21-2017 -> nonprofit INC 01-10-2018, and ended in involuntary dissolution on 06-30-2025. CTHRU has since paid 'BEYOND INDEPENDENT LIVING LLC' 778 payments totalling $5,908,174.45 from 2025-07-07 through 2026-09-17, all at West Roxbury 02132, the Osagiede address, not the Brockton address held by the separate Egah LLC."
-    },
-    {
-      "finding": "No recoupment is visible anywhere",
-      "detail": "Across all 7,297 payments there is not one negative amount; the minimum amount in the group is $0.21. CAVEAT: MassHealth ordinarily nets recoveries against future claims rather than posting a negative line to the Comptroller's ledger, so this is not proof that nothing was repaid. What it does establish is that no clawback of the $887,225 is visible in the state's own checkbook. The post's public records request is the right next step."
-    },
-    {
-      "finding": "A second-generation cluster with the same business triad",
-      "detail": "SOC lists ERHAUYI OSARUME OSAGIEDE and OMORUYI OSAHON OSAGIEDE as managers of ASCEND ADULT DAY HEALTH LLC (001925121), ASCEND HOME HEALTH AND THERAPY SERVICES LLC (001909915) and ASCEND TRANSPORTATION SERVICES LLC (001979097) — the same adult day health, home health and transport combination. Zero CTHRU payments to date."
-    },
-    {
-      "finding": "Eighteen other Osagiede entities have never received state money",
-      "detail": "A CTHRU sweep of the other ~18 entity names (Beyond Faith Clinic, Beyond Gardens, Beyond Business Management, Greater Healthcare Solutions, Certified Healthcare, Certified Billing Consulting, Medicoach Transportation, Beyond Medical Equipment, Nigerian Nurses Association and the rest) returned no matching vendors. Absence here is not zero: money delivered through a managed care organisation would not appear as a Comptroller disbursement."
-    }
-  ],
-  "corrections_to_the_post": [
-    {
-      "item": "BEYOND ADULT DAY HEALTH CENTER, LLC",
-      "detail": "CTHRU paid this vendor $2,048,436.95 across 616 payments from 2016-09-19 to 2020-06-29 at Boston 02132. It is NOT an Osagiede entity. SOC 001175773 was renamed VILAJ LAJWA, LLC on 07-06-2017; its managers are VICTORIA VINOKUR, PAUL RAYEV and GENNADY VINOKUR of Waltham. Do not fold this $2.05M into any Osagiede total."
-    },
-    {
-      "item": "BEYOND TRANSPORTATION LLC",
-      "detail": "$124,799.78 at Methuen and Tewksbury. No Osagiede officer link appears in SOC. Excluded from the verified total."
-    }
-  ],
-  "standing_caveats": [
-    "CTHRU records Comptroller disbursements. MassHealth fee-for-service claims appear; care paid through managed care organisations and ACOs generally does not. $105.9M is a floor, not a ceiling.",
-    "CTHRU appropriation labels such as MANAGED CARE PLAN, MASSHEALTH SENIOR CARE and INDEMNITY/THIRD PARTY LIABILITY PLAN are accounting buckets, not descriptions of the service billed.",
-    "Nothing here establishes fraud. An involuntary dissolution is a filing failure. The auditor's phrase 'appear to be unallowable' is an upper-bound estimate, not an adjudicated finding.",
-    "Duncan's own repositories (HHS-MA-DOGE, Massachusetts-Data-Hub) contain no reference to any of these entities or to Osagiede. The cluster is absent from data/fraud-detection/elder-homecare-targets.csv even though it would meet that file's own P1 criteria: one person, multiple entities, shared addresses, over $100M billed."
+  "since_2016_01_01": {
+   "total": 62897038.88
+  },
+  "since_the_post": {
+   "total": 3608847.42
+  },
+  "entity_271533104_lifetime": 73504622.08,
+  "vendors": [
+   {
+    "vendor": "ADERONKE NAOMI OSAGIEDE BEYONE HEALTHCAR",
+    "lines": 1432,
+    "total": 63247375.74
+   },
+   {
+    "vendor": "BEYOND INDEPENDENT LIVING LLC",
+    "lines": 4038,
+    "total": 32404181.08
+   },
+   {
+    "vendor": "BEYOND HEALTHCARE AGENCY LLC",
+    "lines": 1391,
+    "total": 5868134.35
+   },
+   {
+    "vendor": "ADERONKE NAOMI OSAGIEDE BEYOND HLTH CARE",
+    "lines": 424,
+    "total": 4385632.99
+   },
+   {
+    "vendor": "GREATER BOSTON HOME HEALTH CARE LLC",
+    "lines": 83,
+    "total": 47203.01
+   },
+   {
+    "vendor": "BEYOND HEATHCARE AGENCY",
+    "lines": 12,
+    "total": 3479.0,
+    "link": "probable"
+   }
   ]
+ },
+ "claim_verdicts": [
+  {
+   "claim": "$103,000,000 since 2016",
+   "verdict": "right size, wrong frame",
+   "evidence": "$102,287,219.14 through 2026-01-21; $62,897,038.88 since 2016-01-01"
+  },
+  {
+   "claim": "$121,728.16 on 16 Jan 2025",
+   "verdict": "fails",
+   "evidence": "no payment that day; no row in pegc-naaa carries 121728.16; nearest 16 Jan 2026 BIL $172,708.26"
+  },
+  {
+   "claim": "state audit flagged $887,225",
+   "verdict": "exact",
+   "evidence": "OSA 2020-09-21, period 2016-01-01 to 2018-12-31, 'appear to be unallowable'"
+  },
+  {
+   "claim": "12-15 entities",
+   "verdict": "understated",
+   "evidence": "45 entities; a 46th (001175773) organised and managed by Osagiede 2014-2017"
+  },
+  {
+   "claim": "vast majority involuntarily dissolved",
+   "verdict": "confirmed",
+   "evidence": "27 of 45"
+  },
+  {
+   "claim": "charter revoked Feb 2025",
+   "verdict": "date differs",
+   "evidence": "001309461 involuntarily dissolved 2025-06-30"
+  },
+  {
+   "claim": "registered to 661 Centre St on 22 Jan 2020",
+   "verdict": "exact",
+   "evidence": "001421873, Brockton, Naomi Egah"
+  },
+  {
+   "claim": "the money keeps flowing",
+   "verdict": "confirmed",
+   "evidence": "$3,608,847.42 since the post; latest dated lines 2026-09-21 in the 2026-09-25 load"
+  }
+ ],
+ "findings": [
+  {
+   "id": "GBHHC-SALE",
+   "class": "confirmed",
+   "finding": "Greater Boston Home Health Care, LLC (412251357; NPI 1063691905; CCN 227507) was sold to Aderonke Naomi Osagiede in July 2015",
+   "evidence": [
+    "SoC amendment 201540575070 (2015-07-30)",
+    "SoC merger certificate 201661665430 (2016-01-26)",
+    "CMS HHA All Owners: NAOMI A EGAH 100% from 2016-09-12"
+   ]
+  },
+  {
+   "id": "GBHHC-CTHRU",
+   "class": "probable",
+   "finding": "CTHRU paid the agency as 'GR. BOSTON HOME HLTH LLC' 2009-09-25 to 2025-06-13",
+   "figures": {
+    "all_time": 2017617.52,
+    "lines": 1248,
+    "before_sale_to_2015_07_13": 1563932.85,
+    "after_sale_dated": 400709.69,
+    "after_sale_undated_fy2021_22": 52974.98,
+    "after_sale_total": 453684.67
+   }
+  },
+  {
+   "id": "GBHHC-MEDICARE",
+   "class": "confirmed",
+   "finding": "Medicare FFS home health payments to CCN 227507",
+   "figures": {
+    "cy2014_2024": 15333781,
+    "cy2016_2024": 13673342
+   }
+  },
+  {
+   "id": "BHA-2019-WINDOW",
+   "class": "confirmed",
+   "finding": "Beyond Healthcare Agency reinstated 2019-10-10 after an administrative dissolution; CTHRU paid 81 lines $730,589.08 dated 2019-07-01..2019-09-30",
+   "figures": {
+    "window_2019": 730589.08,
+    "window_2023_24": 643388.39,
+    "both": 1373977.47
+   },
+   "caveat": "2019 dissolution date not on the summary page; start assumed at the 2019-06-28 sweep (inference)"
+  },
+  {
+   "id": "PECOS-OWNER",
+   "class": "confirmed",
+   "finding": "CMS associate 1254592256 NAOMI A EGAH is 100% owner of BHA (CCN 227541, from 2010-05-20), GBHHC (227507, 2016-09-12), Guaranteed Home Health Services PA (398334, 2019-09-09) and was of Eden Healthcare TX (677975, 2014-08-22; 2023 file)"
+  },
+  {
+   "id": "TMSIS",
+   "class": "confirmed",
+   "finding": "HHS T-MSIS paid 2018-2024 by billing NPI",
+   "figures": {
+    "1003226630": 29101580.81,
+    "1003116021": 13234951.02,
+    "1063691905": 1143093.82
+   },
+   "comparison_cthru_2018_2024": {
+    "BIL": 22130538.18,
+    "BHA": 12711139.06,
+    "GBHHC_GR_BOSTON": 253725.31
+   }
+  },
+  {
+   "id": "TMSIS-WINDOWS",
+   "class": "confirmed",
+   "finding": "BHA T-MSIS billing inside dissolution windows",
+   "figures": {
+    "service_months_2024_01_08": 653850.92,
+    "service_months_2019_07_09": 744126.71
+   }
+  },
+  {
+   "id": "ADHC",
+   "class": "confirmed",
+   "finding": "Beyond Adult Day Health Center LLC (001175773) organised by Osagiede 2014-03-11 and managed by her until 2017-02-22; CTHRU paid it $101,510.19 in that period",
+   "evidence": [
+    "201474084390",
+    "201549738700",
+    "201682744020",
+    "201719738770"
+   ],
+   "note": "reverses the 2026-09-20 correction that called it a different company"
+  },
+  {
+   "id": "COVID",
+   "class": "probable (entities) / confirmed (Naomi Egah)",
+   "finding": "SBA and HHS pandemic money",
+   "figures": {
+    "ppp_gbhhc_two_loans": 2369200,
+    "ppp_gbhhc_forgiven": 2388640.42,
+    "ppp_beyond_business_consulting_probable": 155107,
+    "eidl_loans_11_entities": 1328200,
+    "eidl_loan_naomi_egah": 74500,
+    "eidl_advances": 56000,
+    "prf_four_payees": 169199,
+    "arp_rural": 500
+   }
+  },
+  {
+   "id": "IRS",
+   "class": "confirmed",
+   "finding": "11 revocation rows for 10 EINs; 9 EINs stand revoked",
+   "added": [
+    "464731086",
+    "814176136",
+    "851507631"
+   ]
+  },
+  {
+   "id": "NPI",
+   "class": "see data/npi-registry.csv",
+   "finding": "16 NPIs listed: 11 confirmed, 2 probable, 3 adjacent; all status A"
+  }
+ ],
+ "negative_searches": [
+  "HHS-OIG LEIE 84,001 (Aug 2026)",
+  "SAM exclusions 168,671 active (2026-09-24)",
+  "MassHealth suspended/excluded lists, 8 editions to 2026-08-31",
+  "CMS revocations 8,136",
+  "HHS-OIG enforcement 11,227",
+  "DOJ releases 272,978 titles",
+  "State Library 790,975 items",
+  "Comptroller Settlements and Judgments 8,297",
+  "no news coverage of the 2026-01-21 post"
+ ],
+ "corrections_2026_09_25": [
+  "GBHHC was not a new payee in June 2025; only the vendor string changed",
+  "Beyond Adult Day Health Center was hers 2014-2017; Gennady Vinokur is a real-property signatory, not a manager",
+  "BHA was dissolved twice",
+  "IRS list: 11 rows / 10 EINs, not 8 / 7",
+  "7,380 payments are payment lines (1,868 payments)",
+  "latest date now 2026-09-21 after a reload; 9 undated lines",
+  "NPI table 7 -> 16; BHA NPI changed 2026-09-24",
+  "Healing Pathways: Egah is SOC signatory, not manager",
+  "412251357 merged 2016; Medicoach dissolved voluntarily 2015",
+  "978-930-9410 is shared by three NPIs with other officials",
+  "chart caption no longer asserts a dissolution schedule",
+  "settlements check in audit.py fixed",
+  "this file previously carried five-vendor totals and claims the README had retracted; replaced"
+ ],
+ "standing_caveats": [
+  "None of this establishes fraud. The auditor's phrase is 'appear to be unallowable'.",
+  "Do not add figures across CTHRU, T-MSIS, Medicare, SBA and HRSA.",
+  "$105.9M is a floor: plan-paid Medicaid and Medicare never pass through the Comptroller's ledger.",
+  "Appropriation labels are accounting buckets.",
+  "Other people share these surnames."
+ ]
 }
